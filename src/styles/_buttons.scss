@@ -1,0 +1,67 @@
+@use "sass:color";
+@use "./colors";
+@use "./variables";
+
+.button__text {
+	padding: variables.$size-small variables.$size-large;
+	background: colors.$primary-color;
+	color: colors.$white;
+	border-radius: variables.$border-radius;
+	font-size: 1rem;
+	cursor: pointer;
+	transition: background 0.2s ease;
+	display: grid;
+	grid-template-columns: 1fr;
+	margin: 2rem auto;
+}
+
+.button__text:hover {
+	background: color.scale(colors.$primary-color, $lightness: -10%);
+}
+
+.button__icon {
+	background: transparent;
+	border: 1px solid colors.$primary-color;
+	border-radius: variables.$border-radius;
+	color: colors.$text-gray;
+	width: 1.5rem;
+	height: 1.5rem;
+	display: grid;
+	place-items: center;
+	cursor: pointer;
+	transition: background 0.2s, transform 0.1s;
+}
+
+.button__icon:disabled {
+	opacity: 0.4;
+	cursor: not-allowed;
+}
+
+.button__icon:hover:not(:disabled) {
+	background: colors.$primary-color;
+	color: colors.$white;
+}
+
+
+.list-controls__button {
+	display: inline-grid;
+	place-items: center;
+	width: 2.75rem;
+	height: 2.5rem;
+	border: 1px solid colors.$primary-color;
+	border-radius: variables.$border-radius;
+	background: transparent;
+	color: colors.$text-gray;
+	cursor: pointer;
+	transition: background 0.2s, color 0.2s;
+
+	&:hover {
+		background: colors.$primary-color;
+		color: colors.$white;
+	}
+
+	&:disabled {
+		opacity: 0.4;
+		cursor: not-allowed;
+	}
+}

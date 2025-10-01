@@ -1,0 +1,83 @@
+@use "sass:color";
+@use "./colors";
+@use "./variables";
+
+.help-overlay {
+	position: fixed;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.8);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 2;
+	cursor: not-allowed;
+}
+
+.help-modal {
+	background: colors.$white;
+	padding: variables.$size-large;
+	border-radius: variables.$border-radius;
+	box-shadow: variables.$shadow-light;
+	max-width: 90%;
+	width: 50%;
+	min-width: 20rem;
+	position: relative;
+	border: 1px solid colors.$primary-color;
+	cursor: pointer;
+}
+
+.help-modal__title {
+	margin: 0 0 variables.$size-small;
+	font-size: 1.25rem;
+	font-weight: 600;
+	color: colors.$text-gray;
+}
+
+.help-modal__message {
+	margin: 0 0 variables.$size-medium;
+	font-size: 1rem;
+	color: colors.$text-gray;
+}
+
+.help-modal__close-button {
+	position: absolute;
+	top: variables.$size-small;
+	right: variables.$size-small;
+	background: transparent;
+	border: none;
+	font-size: 1.25rem;
+	line-height: 1;
+	cursor: pointer;
+}
+
+.help-modal__textarea {
+	width: 100%;
+	max-width: 30rem;
+	min-height: 8rem;
+	padding: 0.75rem 1rem;
+	font-size: 1rem;
+	line-height: 1.4;
+	white-space: pre-wrap;
+	word-break: break-all;
+	resize: none;
+	overflow-y: auto;
+	border: 1px solid color.scale(colors.$primary-color, $alpha: -80%);
+	border-radius: variables.$border-radius;
+	background-color: colors.$white;
+	color: colors.$text-gray;
+
+
+	&:focus {
+		outline: 2px solid colors.$primary-color;
+		outline-offset: 2px;
+	}
+}
+
+.web-options__info {
+	background: transparent;
+	border: none;
+	font-size: 0.75rem;
+	cursor: pointer;
+	margin-left: variables.$size-small;
+
+}

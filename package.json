@@ -1,0 +1,48 @@
+{
+    "name": "2025-template-react",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc -p tsconfig.json && vite build",
+        "type-w": "tsc -w --noEmit --preserveWatchOutput",
+        "lint": "eslint .",
+        "preview": "vite preview",
+        "sass": "sass ./src/styles/main.scss ./public/style.css --style=expanded --no-source-map",
+        "sass-w": "sass --watch ./src/styles/main.scss ./public/style.css --style=expanded --no-source-map",
+        "test": "jest",
+        "test-w": "jest --watchAll",
+        "test-c": "jest --coverage",
+        "test-cw": "jest --coverage --watchAll"
+    },
+    "dependencies": {
+        "@reduxjs/toolkit": "^2.2.7",
+        "axios": "^0.27.2",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-redux": "^8.1.3",
+        "react-router-dom": "^6.14.1"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.0.0",
+        "@testing-library/jest-dom": "^5.16.5",
+        "@testing-library/react": "^14.0.0",
+        "@testing-library/user-event": "^14.4.3",
+        "@types/jest": "^30.0.0",
+        "@types/react": "18.0.15",
+        "@types/react-dom": "18.0.6",
+        "@vitejs/plugin-react": "^5.0.0",
+        "eslint": "^9.0.0",
+        "eslint-plugin-react-hooks": "^5.2.0",
+        "eslint-plugin-react-refresh": "^0.4.20",
+        "globals": "^16.2.0",
+        "jest": "^30.1.3",
+        "jest-environment-jsdom": "^30.1.2",
+        "sass": "^1.89.2",
+        "ts-jest": "^29.4.1",
+        "typescript": "^5.4.0",
+        "typescript-eslint": "^8.0.0",
+        "vite": "^6.3.5"
+    }
+}

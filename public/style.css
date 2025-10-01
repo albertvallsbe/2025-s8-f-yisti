@@ -1,0 +1,153 @@
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    line-height: 1.5;
+    font-family: inherit;
+    background-color: #f5f5f5;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    font-size: 1rem;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-weight: 600;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+body {
+    height: 100vh;
+    overflow: hidden;
+}
+
+.joke {
+    display: grid;
+    place-items: start center;
+    padding: 2rem;
+    background: #f5f5f5;
+    min-height: calc(100vh - 50px);
+    overflow-y: auto;
+}
+
+.joke__card {
+    display: grid;
+    grid-template-rows: auto auto auto;
+    gap: 1rem;
+    border: 0.5px solid #0038b8;
+    background: #ffffff;
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    text-align: center;
+    max-width: 28rem;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 40rem;
+    max-height: 40rem;
+}
+@media screen and (min-width: 300px) {
+    .joke__card {
+        min-height: 30rem;
+        max-height: 30rem;
+    }
+}
+
+.joke__text {
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    hyphens: auto;
+    text-align: center;
+    margin: auto 0;
+    word-break: break-word;
+    display: grid;
+    place-items: center;
+    min-height: 12rem;
+    max-height: 12rem;
+}
+@media screen and (min-width: 400px) {
+    .joke__text {
+        min-height: 8rem;
+        max-height: 8rem;
+    }
+}
+
+.joke__rating {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: center;
+    place-items: center;
+}
+@media screen and (min-width: 300px) {
+    .joke__rating {
+        grid-template-columns: repeat(3, auto);
+        gap: 1rem;
+    }
+}
+
+.joke__emoji {
+    width: 3rem;
+    height: 3rem;
+    background: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    user-select: none;
+    display: grid;
+    place-items: center;
+}
+.joke__emoji:hover {
+    transform: translateY(-4px) scale(1.1);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+}
+
+.joke__emoji-icon {
+    font-size: 2rem;
+    line-height: 1;
+    display: block;
+    position: relative;
+    top: -0.1rem;
+}
+
+.joke__next-button {
+    background-color: #0038b8;
+    color: #ffffff;
+    font-size: 1rem;
+    padding: 0.75rem 1.5rem;
+    height: 3rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s ease-in-out;
+    justify-self: center;
+    width: auto;
+    white-space: nowrap;
+    max-width: 100%;
+}
+.joke__next-button:hover {
+    background-color: rgb(0, 71.5217391304, 235);
+}
+
+/*# sourceMappingURL=style.css.map */
