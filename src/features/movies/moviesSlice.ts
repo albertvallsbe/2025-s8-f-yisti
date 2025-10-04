@@ -5,8 +5,8 @@ import type {
 	TmdbMovie,
 	TmdbListResponse,
 	TmdbMovieCreditsResponse,
-	RequestStatus,
 } from "../../types/movies";
+import type { RequestStatus } from "../../types/types";
 
 type MoviesState = {
 	items: TmdbMovie[];

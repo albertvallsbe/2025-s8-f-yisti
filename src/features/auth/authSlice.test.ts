@@ -6,16 +6,18 @@ import {
 	// type InternalAxiosRequestConfig,
 } from "axios";
 import reducer, {
-	type AuthState,
-	type AuthUser,
-	type LoginPayload,
-	type LoginCredentials,
 	authenticateUser,
 	hydrateFromLocalStorage,
 	clearAuthError,
 	signOut,
 	performLogout,
 } from "./authSlice";
+import {
+	type AuthState,
+	type AuthUser,
+	type LoginPayload,
+	type LoginCredentials,
+} from "../../types/userTypes";
 import backend from "../../services/backend";
 
 // Mock del client HTTP

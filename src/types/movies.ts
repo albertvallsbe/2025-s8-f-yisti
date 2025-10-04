@@ -1,5 +1,3 @@
-export type RequestStatus = "idle" | "loading" | "succeeded" | "failed";
-
 export interface TmdbMovie {
 	id: number;
 	title?: string;

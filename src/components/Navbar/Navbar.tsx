@@ -28,17 +28,27 @@ export const Navbar = () => {
 		<nav className="navbar">
 			<div className="navbar__left">
 				<h3>
-					<NavLink to="/">Movieis</NavLink>
+					<NavLink to="/">Yisti</NavLink>
 				</h3>
 				<ul>
 					<li>
-						<NavLink to="/home" className={linkClass}>
-							All
+						<NavLink to="/admin/users" className={linkClass}>
+							Users
 						</NavLink>
 					</li>
 					<li>
 						<NavLink to="/" className={linkClass}>
-							Others
+							Graph
+						</NavLink>
+					</li>
+					<li>
+						<NavLink to="/" className={linkClass}>
+							Map
+						</NavLink>
+					</li>
+					<li>
+						<NavLink to="/" className={linkClass}>
+							Graph
 						</NavLink>
 					</li>
 				</ul>
