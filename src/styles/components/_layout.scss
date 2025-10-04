@@ -1,0 +1,9 @@
+@use "../base/variables";
+
+.layout {
+	width: min(variables.$viewport-max-width, 100% - 2rem);
+	min-height: calc(100svh - variables.$nav-height);
+	margin-top: variables.$nav-height;
+	margin-inline: auto;
+	padding-inline: variables.$size-small;
+}

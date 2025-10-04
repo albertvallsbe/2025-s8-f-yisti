@@ -1,0 +1,57 @@
+@use "sass:color";
+@use "../base/colors";
+@use "../base/variables";
+@use "../base/typography";
+
+.button {
+	display: grid;
+	place-items: center;
+
+	min-height: 2.5rem;
+	padding: 0.5rem 1.25rem;
+
+	border: variables.$border solid transparent;
+	border-radius: variables.$border-radius;
+
+	background-color: colors.$neutral-light;
+	color: colors.$neutral-darker;
+
+	cursor: pointer;
+	transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+
+	@extend %text-medium;
+
+	&:disabled {
+		opacity: 0.6;
+		cursor: not-allowed;
+	}
+
+	&--primary {
+		background-color: colors.$primary-main;
+		color: colors.$neutral-lightest;
+		border-color: colors.$primary-main;
+
+		&:hover,
+		&:focus {
+			background-color: colors.$primary-dark;
+			border-color: colors.$primary-dark;
+		}
+	}
+
+	&--secondary {
+		background-color: colors.$neutral-main;
+		color: colors.$neutral-lightest;
+		border-color: colors.$neutral-main;
+
+		&:hover,
+		&:focus {
+			background-color: colors.$neutral-dark;
+			border-color: colors.$neutral-dark;
+		}
+	}
+
+	/* opcional: botó a 100% d’amplada si el vols ‘block’ */
+	&--block {
+		width: 100%;
+	}
+}

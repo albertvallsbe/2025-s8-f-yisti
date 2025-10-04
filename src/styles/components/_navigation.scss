@@ -1,0 +1,122 @@
+@use "sass:color";
+@use "../base/colors";
+@use "../base/variables";
+@use "../base/typography";
+
+.navbar {
+	position: fixed;
+	inset: 0 0 auto;
+
+	display: grid;
+	grid-template-columns: 1fr;
+	align-items: center;
+
+	padding: variables.$size-small variables.$size-extra-large;
+	min-height: 50px;
+
+	background-color: colors.$neutral-lightest;
+	border-bottom: variables.$border solid colors.$primary-main;
+	box-shadow: 0 0.5rem 1.5rem rgba(colors.$neutral-darker, 0.15);
+	backdrop-filter: saturate(180%) blur(8px);
+
+	padding-block: 0;
+
+	@media screen and (min-width: variables.$breakpoint-medium) {
+		grid-template-columns: auto 1fr;
+	}
+
+	&__left,
+	&__right,
+	ul {
+		display: grid;
+		grid-auto-flow: column;
+		grid-auto-columns: max-content;
+		align-items: center;
+		gap: 0.75rem;
+		list-style: none;
+		justify-content: start;
+		margin: 0;
+		padding: 0;
+
+		@media (min-width: variables.$breakpoint-medium) {
+			gap: 1.25rem;
+		}
+	}
+
+	&__left {
+		justify-content: start;
+	}
+
+	&__right {
+		justify-content: end;
+		min-height: 2rem;
+	}
+
+	h3 {
+		@extend %heading-extra-large;
+
+		margin-right: 0.5rem;
+		color: colors.$primary-main;
+		text-decoration: none;
+
+		&:hover,
+		&:focus {
+			text-decoration: underline;
+			text-underline-offset: 4px;
+		}
+	}
+
+	ul,
+	button {
+		.navbar__link {
+			@extend %text-small;
+
+			text-decoration: none;
+			list-style: none;
+			padding: variables.$size-extra-small 0;
+			transition: color 0.15s ease;
+
+			color: colors.$neutral-dark;
+			background-color: colors.$neutral-lightest;
+
+			&:hover,
+			&:focus {
+				text-decoration: underline;
+				text-underline-offset: 4px;
+			}
+
+			&.is-active {
+				text-decoration: underline;
+				text-underline-offset: 4px;
+				color: colors.$primary-main;
+				font-weight: 600;
+			}
+		}
+	}
+
+	&__user {
+		@extend %text-small;
+
+		color: colors.$neutral-dark;
+	}
+
+	&__checkout {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		place-items: center;
+		min-height: 2rem;
+		user-select: none;
+		background-color: colors.$neutral-lightest;
+
+		@extend %text-small;
+		color: colors.$neutral-dark;
+
+		&:hover {
+			background-color: colors.$neutral-lighter;
+			border: variables.$border solid colors.$primary-lighter;
+			font-weight: 600;
+			padding: 0 variables.$size-extra-small;
+			border-radius: variables.$border-radius;
+		}
+	}
+}
