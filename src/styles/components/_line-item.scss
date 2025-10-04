@@ -1,0 +1,83 @@
+@use "sass:color";
+@use "../base/colors";
+@use "../base/variables";
+@use "../base/typography";
+@use "../elements/icons";
+
+.line-item {
+	display: grid;
+	grid-template-columns: 5rem 1fr auto;
+	cursor: pointer;
+
+	align-items: center;
+	gap: variables.$size-small;
+	// margin-bottom: variables.$size-small;
+
+	padding: variables.$size-small;
+	background-color: colors.$neutral-lightest;
+	/* contrasta amb el fons de la llista */
+	border: variables.$border solid colors.$primary-lighter;
+	border-radius: variables.$border-radius;
+	box-shadow: variables.$shadow-light;
+
+	/* coherència d’alçada amb la imatge */
+	min-height: 5rem;
+
+	/* separació vertical entre ítems */
+	margin-bottom: variables.$size-small;
+
+	&:hover {
+		border-color: colors.$primary-dark;
+		transform: translateY(-2px);
+	}
+
+	&__circle-icon {
+		@extend %circle-icon;
+	}
+
+	&__figure {
+		width: 5rem;
+		height: 5rem;
+		border-radius: variables.$border-radius;
+		overflow: hidden;
+	}
+
+	.line-item__img {
+		width: 100%;
+		height: 100%;
+		display: block;
+		object-fit: cover;
+	}
+
+	&__info {
+		display: grid;
+		// row-gap: .25rem;
+		grid-template-rows: 1fr auto;
+		align-content: start;
+		justify-items: start;
+		min-width: 0;
+		max-height: 80px;
+		height: 100%;
+	}
+
+	h3 {
+		@extend %text-small;
+
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 2;
+
+		overflow: hidden;
+		text-overflow: ellipsis;
+		line-height: 1.2;
+		/* ajuda a calcular l’alçada */
+		max-height: calc(1.2em * 2);
+
+		justify-self: start;
+		text-align: left;
+		margin-bottom: variables.$size-extra-small;
+
+		color: colors.$neutral-darker;
+		// color: aquamarine;
+	}
+}

@@ -1,0 +1,15 @@
+@use "sass:color";
+@use "../base/colors";
+@use "../base/variables";
+
+.main-items-grid {
+	display: grid;
+
+	grid-template-columns: repeat(auto-fill, minmax(variables.$main-item-width, 1fr));
+	gap: variables.$size-large;
+	align-items: start;
+
+	width: min(variables.$viewport-max-width, 100% - 2rem);
+	margin: variables.$size-medium auto;
+	padding: variables.$size-small;
+}

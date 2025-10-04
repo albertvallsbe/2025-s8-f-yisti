@@ -1,0 +1,85 @@
+@use "sass:color";
+@use "../base/colors";
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.5;
+  color: colors.$neutral-dark;
+  background-color: colors.$neutral-lighter;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizelegibility;
+  overflow-y: auto;
+}
+
+#root {
+  min-height: 100svh;
+  isolation: isolate;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background-color: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover,
+a:focus,
+a:active {
+  text-decoration: none;
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 600;
+  margin: 0;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.web-options__control input[type="number"]::-webkit-outer-spin-button,
+.web-options__control input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.web-options__control input[type="number"] {
+  -moz-appearance: textfield;
+}

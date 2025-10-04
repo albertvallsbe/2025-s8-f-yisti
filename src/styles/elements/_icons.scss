@@ -1,0 +1,29 @@
+@use "sass:color";
+@use "../base/colors";
+@use "../base/variables";
+
+%circle-icon {
+	display: grid;
+	place-items: center;
+
+	width: 1.5rem;
+	height: 1.5rem;
+	border-radius: 100%;
+
+	background-color: colors.$neutral-lighter;
+	border: variables.$border solid colors.$primary-lighter;
+
+	font-weight: 800;
+	line-height: 1;
+	user-select: none;
+
+	&:hover {
+		background-color: colors.$neutral-main;
+		border: variables.$border solid colors.$neutral-darker;
+	}
+
+	&>svg {
+		display: block;
+		color: colors.$neutral-darker
+	}
+}
