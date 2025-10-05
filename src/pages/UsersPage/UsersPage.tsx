@@ -3,17 +3,23 @@ import { Layout } from "../../components/Layout/Layout";
 // import { MainItem } from "../../components/MainItem/MainItem";
 import { selectAuthState } from "../../features/auth/authSelectors";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { fetchTrendingMovies } from "../../features/movies/moviesSlice";
 import backend from "../../services/backend";
 import type { User } from "../../types/userTypes";
 import type { AxiosError } from "axios";
+import { RowsList } from "../../components/RowsList/RowsList";
+import { fetchUsers } from "../../features/users/usersSlice";
+import {
+	selectUsers,
+	selectUsersError,
+	selectUsersStatus,
+} from "../../features/users/usersSelectors";
 
 export const UsersPage = (): JSX.Element => {
 	const dispatch = useAppDispatch();
 
-	// const items = useAppSelector((state) => state.movies.items);
-	const status = useAppSelector((state) => state.movies.status);
-	// const error = useAppSelector((state) => state.movies.error);
+	const items = useAppSelector(selectUsers);
+	const status = useAppSelector(selectUsersStatus);
+	const error = useAppSelector(selectUsersError);
 
 	const {
 		authenticatedUser,
@@ -26,7 +32,7 @@ export const UsersPage = (): JSX.Element => {
 
 	useEffect(() => {
 		if (status === "idle") {
-			dispatch(fetchTrendingMovies());
+			dispatch(fetchUsers());
 		}
 	}, [dispatch, status]);
 
@@ -43,10 +49,34 @@ export const UsersPage = (): JSX.Element => {
 		}
 	}, []);
 
+	// Placeholders per a la següent etapa (modal/CRUD)
+	const handleEdit = useCallback((_user: User) => {
+		// Obrirem modal d’edició en el pas de CRUD
+		console.log(_user);
+	}, []);
+
+	const handleDelete = useCallback((_id: number) => {
+		// Dispararem deleteUser(id) en el pas de CRUD
+		console.log(_id);
+	}, []);
+
 	return (
 		<Layout>
 			<h1>Pel·lícules</h1>
 			<h2>Acció</h2>
+			<section className="users">
+				<header className="users__header">
+					<h1 className="users__title">Administració · Usuaris</h1>
+				</header>
+
+				<RowsList
+					items={items}
+					status={status}
+					error={error}
+					onEdit={handleEdit}
+					onDelete={handleDelete}
+				/>
+			</section>
 			<div>
 				{!isAdmin && (
 					<button
