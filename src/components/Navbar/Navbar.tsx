@@ -28,7 +28,7 @@ export const Navbar = () => {
 		<nav className="navbar">
 			<div className="navbar__left">
 				<h3>
-					<NavLink to="/">Movieis</NavLink>
+					<NavLink to="/">Main</NavLink>
 				</h3>
 				<ul>
 					<li>
