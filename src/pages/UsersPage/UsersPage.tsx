@@ -1,18 +1,20 @@
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useState } from "react";
 import { Layout } from "../../components/Layout/Layout";
-// import { MainItem } from "../../components/MainItem/MainItem";
-import { selectAuthState } from "../../features/auth/authSelectors";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import backend from "../../services/backend";
 import type { User } from "../../types/userTypes";
-import type { AxiosError } from "axios";
 import { RowsList } from "../../components/RowsList/RowsList";
-import { fetchUsers } from "../../features/users/usersSlice";
+import {
+	fetchUsers,
+	deleteUser,
+	createUser,
+	updateUser,
+} from "../../features/users/usersSlice";
 import {
 	selectUsers,
 	selectUsersError,
 	selectUsersStatus,
 } from "../../features/users/usersSelectors";
+import { UserFormModal } from "../../components/Modals/UserFormModal";
 
 export const UsersPage = (): JSX.Element => {
 	const dispatch = useAppDispatch();
@@ -21,14 +23,8 @@ export const UsersPage = (): JSX.Element => {
 	const status = useAppSelector(selectUsersStatus);
 	const error = useAppSelector(selectUsersError);
 
-	const {
-		authenticatedUser,
-		// accessToken,
-		// authenticationStatus,
-		// errorMessage
-	} = useAppSelector(selectAuthState);
-
-	const isAdmin = (authenticatedUser?.role ?? "") === "admin";
+	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+	const [editingUser, setEditingUser] = useState<User | null>(null);
 
 	useEffect(() => {
 		if (status === "idle") {
@@ -36,37 +32,85 @@ export const UsersPage = (): JSX.Element => {
 		}
 	}, [dispatch, status]);
 
-	const debugFetchUsers = useCallback(async (): Promise<void> => {
-		try {
-			const res = await backend.get<User[]>("/users");
-			// Debug a consola (sol·licitat explícitament per aquest pas)
-			console.table(res.data);
-		} catch (unknownError: unknown) {
-			const err = unknownError as AxiosError<{ message?: string }>;
-			const message =
-				err.response?.data?.message ?? err.message ?? "Error desconegut";
-			console.error("[users/debugFetchUsers] " + message);
-		}
+	const handleCreate = useCallback(() => {
+		setEditingUser(null);
+		setIsModalOpen(true);
 	}, []);
 
-	// Placeholders per a la següent etapa (modal/CRUD)
-	const handleEdit = useCallback((_user: User) => {
-		// Obrirem modal d’edició en el pas de CRUD
-		console.log(_user);
+	const handleEdit = useCallback((user: User) => {
+		setEditingUser(user);
+		setIsModalOpen(true);
 	}, []);
 
-	const handleDelete = useCallback((_id: number) => {
-		// Dispararem deleteUser(id) en el pas de CRUD
-		console.log(_id);
+	const handleDelete = useCallback(
+		(id: number) => {
+			// Dispararem deleteUser(id) en el pas de CRUD
+			const confirmed = window.confirm(
+				"Segur que vols esborrar aquest usuari?"
+			);
+			if (!confirmed) return;
+			void dispatch(deleteUser(id));
+		},
+		[dispatch]
+	);
+
+	const handleCloseModal = useCallback(() => {
+		setIsModalOpen(false);
 	}, []);
+
+	const handleSubmitModal = useCallback(
+		(data: {
+			name: string;
+			email: string;
+			role: User["role"];
+			password?: string;
+		}) => {
+			if (editingUser) {
+				void dispatch(
+					updateUser({
+						id: editingUser.id,
+						changes: {
+							email: data.email,
+							role: data.role,
+							// password i name no s'envien en update de moment
+						},
+					})
+				);
+				console.log("UPDATE user ->", editingUser.id, data);
+			} else {
+				if (!data.password) {
+					// mínima seguretat; el formulari ja el marca required en creació
+					alert("La contrasenya és obligatòria per crear un usuari.");
+					return;
+				}
+				void dispatch(
+					createUser({
+						email: data.email,
+						password: data.password,
+						role: data.role,
+						// name no forma part del contracte del back encara
+					})
+				);
+				console.log("CREATE user ->", data);
+			}
+			setIsModalOpen(false);
+		},
+		[dispatch, editingUser]
+	);
 
 	return (
 		<Layout>
-			<h1>Pel·lícules</h1>
-			<h2>Acció</h2>
+			<h1>Usuaris</h1>
 			<section className="users">
 				<header className="users__header">
 					<h1 className="users__title">Administració · Usuaris</h1>
+					<button
+						type="button"
+						className="btn btn--primary"
+						onClick={handleCreate}
+					>
+						+ Afegir usuari
+					</button>
 				</header>
 
 				<RowsList
@@ -76,27 +120,14 @@ export const UsersPage = (): JSX.Element => {
 					onEdit={handleEdit}
 					onDelete={handleDelete}
 				/>
+
+				<UserFormModal
+					isOpen={isModalOpen}
+					onClose={handleCloseModal}
+					user={editingUser}
+					onSubmit={handleSubmitModal}
+				/>
 			</section>
-			<div>
-				{!isAdmin && (
-					<button
-						type="button"
-						className="btn btn--secondary users__debug-button"
-						onClick={debugFetchUsers}
-					>
-						Debug: carregar usuaris (console)
-					</button>
-				)}
-			</div>
-			{/* {status === "loading" && <p>Loading…</p>}
-			{status === "failed" && <p>Error: {error}</p>}
-			{status === "succeeded" && (
-				<div className="main-items-grid">
-					{items?.map((item) => (
-						<MainItem key={item.id} data={item} />
-					))}
-				</div>
-			)} */}
 		</Layout>
 	);
 };
