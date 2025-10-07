@@ -6,46 +6,15 @@ import {
 } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 import backend from "../../services/backend";
+import {
+	AuthUser,
+	AuthState,
+	LoginPayload,
+	LoginCredentials,
+	ApiErrorResponse,
+} from "../../types/userTypes";
 
-export type UserRole = "admin" | "customer" | string;
 export type AuthErrorPayload = { message: string; status?: number };
-
-export interface AuthUser {
-	id: number;
-	email: string;
-	role: UserRole;
-}
-
-export interface AuthState {
-	authenticatedUser: AuthUser | null;
-	accessToken: string | null;
-	authenticationStatus: "idle" | "loading" | "succeeded" | "failed";
-	errorMessage: string | null;
-	errorStatusCode: number | null;
-}
-
-export type ApiErrorResponse = {
-	message?: string;
-	code?: string | number;
-	errors?: Record<string, string[]>;
-};
-export interface LoginCredentials {
-	email: string;
-	password: string;
-}
-
-export interface LoginPayload {
-	user: AuthUser;
-	token: string;
-}
-
-const initialState: AuthState = {
-	authenticatedUser: null,
-	accessToken: null,
-	authenticationStatus: "idle",
-	errorMessage: null,
-	errorStatusCode: null,
-};
 
 export const authenticateUser = createAsyncThunk<
 	LoginPayload,
@@ -73,6 +42,18 @@ export const authenticateUser = createAsyncThunk<
 		return rejectWithValue({ message: humanReadableMessage, status });
 	}
 });
+
+/* ────────────────────────────────────────────────────────────────────────────
+ * Slice
+ * ──────────────────────────────────────────────────────────────────────────── */
+
+const initialState: AuthState = {
+	authenticatedUser: null,
+	accessToken: null,
+	authenticationStatus: "idle",
+	errorMessage: null,
+	errorStatusCode: null,
+};
 
 const authSlice = createSlice({
 	name: "auth",

@@ -28,3 +28,5 @@ coverage/
 test-results.html
 reports/
 jest-html-reporters-*.html
+
+.env

@@ -1,9 +1,6 @@
 import type { RootState } from "../../app/store";
-import type {
-	TmdbMovie,
-	TmdbMovieCreditsResponse,
-	RequestStatus,
-} from "../../types/movies";
+import type { TmdbMovie, TmdbMovieCreditsResponse } from "../../types/movies";
+import type { RequestStatus } from "../../types/types";
 
 export const selectAllMovies = (state: RootState): TmdbMovie[] =>
 	state.movies.items;

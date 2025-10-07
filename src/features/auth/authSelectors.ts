@@ -1,6 +1,6 @@
 // src/features/auth/authSelectors.ts
 import type { RootState } from "../../app/store";
-import type { AuthState } from "./authSlice";
+import type { AuthState } from "../../types/userTypes";
 
 export const selectAuthState = (state: RootState): AuthState => state.auth;
 export const selectIsAuthenticated = (state: RootState): boolean =>
