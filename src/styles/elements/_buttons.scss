@@ -3,6 +3,7 @@
 @use "../base/variables";
 @use "../base/typography";
 
+
 .button {
 	display: grid;
 	place-items: center;
@@ -38,15 +39,16 @@
 		}
 	}
 
-	&--secondary {
-		background-color: colors.$neutral-main;
-		color: colors.$neutral-lightest;
-		border-color: colors.$neutral-main;
+	&--back {
+		background-color: colors.$neutral-lightest;
+		color: colors.$neutral-darker;
+		border-color: colors.$neutral-darker;
 
 		&:hover,
 		&:focus {
-			background-color: colors.$neutral-dark;
-			border-color: colors.$neutral-dark;
+			background-color: colors.$neutral-main;
+			border-color: colors.$neutral-darkest;
+			color: colors.$neutral-darkest;
 		}
 	}
 

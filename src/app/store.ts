@@ -3,6 +3,7 @@ import uiReducer from "../features/ui/uiSlice";
 import moviesReducer from "../features/movies/moviesSlice";
 import authReducer from "../features/auth/authSlice";
 import usersReducer from "../features/users/usersSlice";
+import { toastListeners } from "../elements/Toast/toastListeners";
 
 export const store = configureStore({
 	reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
 		auth: authReducer,
 		users: usersReducer,
 	},
+	middleware: (getDefault) => getDefault().prepend(toastListeners.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

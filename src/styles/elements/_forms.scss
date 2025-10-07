@@ -2,6 +2,7 @@
 @use "../base/variables";
 @use "../base/colors";
 @use "../base/typography";
+@use "../elements/icons";
 
 .form {
 	display: grid;
@@ -21,6 +22,8 @@
 	}
 
 	&__header {
+		display: grid;
+		grid-template-columns: 1fr auto;
 		align-items: center;
 		gap: variables.$size-small;
 		padding: variables.$size-medium;
@@ -61,7 +64,7 @@
 		@extend %text-medium;
 
 		&--visually-hidden {
-			position: absolute !important;
+			position: absolute;
 			width: 1px;
 			height: 1px;
 			padding: 0;
@@ -73,10 +76,20 @@
 		}
 	}
 
+	&__buttons {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		overflow: auto;
+
+		gap: variables.$size-small;
+
+		// padding: variables.$size-medium;
+	}
+
 	&__control {
 		display: block;
 		width: 100%;
-		padding: 0.75rem 1rem;
+		padding: 0.5rem 1rem;
 
 		font: inherit;
 		color: colors.$neutral-darker;
@@ -94,9 +107,7 @@
 		}
 
 		&:focus {
-			outline: 1px solid colors.$primary-main;
-			outline-offset: 1px;
-			box-shadow: 0 0 0 2px rgba(colors.$primary-main, 0.20);
+			outline: 2px solid colors.$primary-dark;
 		}
 
 		&:disabled {
@@ -142,7 +153,9 @@
 	/* Select */
 	select.form__control {
 		padding-right: 2rem;
+		min-height: 2.5rem;
 		background-image: none;
+		background-color: colors.$neutral-lighter;
 	}
 
 	/* Textarea */
@@ -227,42 +240,6 @@
 			color: colors.$neutral-darker;
 			user-select: none;
 			cursor: pointer;
-		}
-	}
-
-	&__alert {
-		display: grid;
-		grid-template-columns: 1fr auto;
-		/* text + (opcional) botó tancar */
-		align-items: start;
-		gap: variables.$size-small;
-
-		padding: variables.$size-medium;
-		border-radius: variables.$border-radius;
-		border: variables.$border solid colors.$primary-main;
-		/* default, sobreescrit per variants */
-		background-color: colors.$neutral-lightest;
-
-		font-size: 0.95rem;
-		line-height: 1.35;
-
-		&--error {
-			border-color: colors.$danger-main;
-			background-color: colors.$danger-lighter;
-			/* suau */
-			color: colors.$danger-dark;
-		}
-
-		&__text {
-			margin: 0;
-		}
-
-		&__close {
-			border: variables.$border solid transparent;
-			background-color: transparent;
-			border-radius: variables.$border-radius;
-			padding: variables.$size-extra-small variables.$size-small;
-			line-height: 1;
 		}
 	}
 
