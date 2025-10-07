@@ -32,108 +32,84 @@ export const ModalShell: React.FC<ModalShellProps> = ({
 	size = "md",
 	containerId = "modal-root",
 }) => {
-	const overlayRef = useRef<HTMLDivElement>(null);
-	const dialogRef = useRef<HTMLDivElement>(null);
-	const previouslyFocused = useRef<HTMLElement | null>(null);
+	const dialogRef = useRef<HTMLDialogElement>(null);
 
-	// Bloqueig de scroll del body quan el modal és obert
+	// Obrir/tancar modal nadiu
 	useEffect(() => {
-		if (!isOpen) return;
-		const body = document.body;
-		const prevOverflow = body.style.overflow;
-		body.style.overflow = "hidden";
-		return () => {
-			body.style.overflow = prevOverflow;
-		};
+		const dialog = dialogRef.current;
+		if (!dialog) return;
+
+		if (isOpen && !dialog.open) {
+			dialog.showModal();
+		} else if (!isOpen && dialog.open) {
+			dialog.close();
+		}
 	}, [isOpen]);
 
-	// Focus trap + Escape + restaurar focus en tancar
+	// Gestiona Escape (esdeveniment native "cancel")
 	useEffect(() => {
-		if (!isOpen) return;
+		const dialog = dialogRef.current;
+		if (!dialog) return;
 
-		previouslyFocused.current = document.activeElement as HTMLElement;
-
-		const focusSelector = [
-			"a[href]",
-			"button:not([disabled])",
-			"textarea:not([disabled])",
-			"input:not([disabled])",
-			"select:not([disabled])",
-			"[tabindex]:not([tabindex='-1'])",
-		].join(",");
-
-		const focusFirstElement = () => {
-			let target: HTMLElement | null = null;
-
-			if (initialFocusSelector && dialogRef.current) {
-				target =
-					dialogRef.current.querySelector<HTMLElement>(initialFocusSelector);
-			}
-
-			if (!target && dialogRef.current) {
-				const focusables =
-					dialogRef.current.querySelectorAll<HTMLElement>(focusSelector);
-				target = focusables.length > 0 ? focusables[0] : dialogRef.current;
-			}
-
-			target?.focus();
+		const handleCancel = (ev: Event) => {
+			ev.preventDefault(); // evita el tancament automàtic
+			onClose();
 		};
+		dialog.addEventListener("cancel", handleCancel);
+		return () => dialog.removeEventListener("cancel", handleCancel);
+	}, [onClose]);
 
-		const handleKeyDown = (event: KeyboardEvent) => {
-			if (event.key === "Escape") {
-				event.preventDefault();
-				onClose();
-				return;
-			}
+	// Focus inicial quan s’obre
+	useEffect(() => {
+		const dialog = dialogRef.current;
+		if (!dialog || !isOpen) return;
 
-			if (event.key === "Tab" && dialogRef.current) {
-				const focusables = Array.from(
-					dialogRef.current.querySelectorAll<HTMLElement>(focusSelector)
-				).filter((el) => !el.hasAttribute("disabled") && el.tabIndex !== -1);
-
-				if (focusables.length === 0) {
-					event.preventDefault();
-					dialogRef.current.focus();
+		const focusInitial = () => {
+			if (initialFocusSelector) {
+				const el = dialog.querySelector<HTMLElement>(initialFocusSelector);
+				if (el) {
+					el.focus();
 					return;
 				}
-
-				const first = focusables[0];
-				const last = focusables[focusables.length - 1];
-
-				if (event.shiftKey && document.activeElement === first) {
-					event.preventDefault();
-					last.focus();
-				} else if (!event.shiftKey && document.activeElement === last) {
-					event.preventDefault();
-					first.focus();
-				}
 			}
+			// fallback: primer focusable
+			const first = dialog.querySelector<HTMLElement>(
+				"button,[href],input,select,textarea,[tabindex]:not([tabindex='-1'])"
+			);
+			(first ?? dialog).focus();
 		};
 
-		document.addEventListener("keydown", handleKeyDown);
-		// focus inicial
-		setTimeout(focusFirstElement, 0);
+		// deixa que el browser mostri el dialog abans de focusejar
+		const t = setTimeout(focusInitial, 0);
+		return () => clearTimeout(t);
+	}, [isOpen, initialFocusSelector]);
 
-		return () => {
-			document.removeEventListener("keydown", handleKeyDown);
-			previouslyFocused.current?.focus();
-		};
-	}, [isOpen, onClose, initialFocusSelector]);
-
-	// Tancament per clic a l’overlay
-	const handleOverlayClick = (event: React.MouseEvent) => {
+	// Tancament per clic al backdrop (clic fora del rect del dialog)
+	const handleBackdropMouseDown = (e: React.MouseEvent<HTMLDialogElement>) => {
 		if (!closeOnOverlayClick) return;
-		if (event.target === overlayRef.current) {
+		const dialog = dialogRef.current;
+		if (!dialog) return;
+
+		const rect = dialog.getBoundingClientRect();
+		const inDialog =
+			e.clientX >= rect.left &&
+			e.clientX <= rect.right &&
+			e.clientY >= rect.top &&
+			e.clientY <= rect.bottom;
+
+		if (!inDialog) {
+			// clic al backdrop
 			onClose();
 		}
 	};
 
-	if (!isOpen) return null;
+	if (!isOpen && !dialogRef.current) {
+		// encara no hi ha DOM; però crearem el portal igualment
+	}
 
 	const container = document.getElementById(containerId);
 	if (!container) return null;
 
-	// Classes per mida del dialog (delega en CSS)
 	const sizeClass =
 		size === "sm"
 			? "modal-shell--sm"
@@ -142,24 +118,17 @@ export const ModalShell: React.FC<ModalShellProps> = ({
 			: "modal-shell--md";
 
 	const node = (
-		<div
-			ref={overlayRef}
-			className="modal-overlay"
-			onClick={handleOverlayClick}
-			role="presentation"
+		<dialog
+			ref={dialogRef}
+			className={`modal-shell ${sizeClass}`}
+			role="dialog"
+			aria-modal="true"
+			aria-labelledby={ariaLabelledBy}
+			aria-label={ariaLabel}
+			onMouseDown={handleBackdropMouseDown}
 		>
-			<div
-				ref={dialogRef}
-				className={`modal-shell ${sizeClass}`}
-				role="dialog"
-				aria-modal="true"
-				aria-labelledby={ariaLabelledBy}
-				aria-label={ariaLabel}
-				tabIndex={-1}
-			>
-				{children}
-			</div>
-		</div>
+			{children}
+		</dialog>
 	);
 
 	return createPortal(node, container);

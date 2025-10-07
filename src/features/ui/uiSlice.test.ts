@@ -6,6 +6,7 @@ import type { UiState } from "../../types/uiTypes";
 const createUiState = (overrides?: Partial<UiState>): UiState => ({
 	isDetailOpen: false,
 	selectedId: null,
+	toasts: [],
 	...overrides,
 });
 
@@ -22,6 +23,7 @@ describe("uiSlice", () => {
 			const expected: UiState = {
 				isDetailOpen: false,
 				selectedId: null,
+				toasts: [],
 			};
 
 			expect(newState).toStrictEqual(expected);

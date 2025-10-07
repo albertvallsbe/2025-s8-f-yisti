@@ -1,6 +1,12 @@
 import React, { useState, useEffect, FormEvent } from "react";
+import { XMarkIcon } from "@heroicons/react/24/solid";
+
 import { ModalShell } from "./ModalShell";
+import { InputForm } from "../../elements/Form/InputForm";
 import type { UserRole, User } from "../../types/userTypes";
+
+import { useAppDispatch } from "../../app/hooks";
+import { pushToast } from "../../features/ui/uiSlice";
 
 interface UserFormModalProps {
 	isOpen: boolean;
@@ -21,6 +27,8 @@ export const UserFormModal: React.FC<UserFormModalProps> = ({
 	onSubmit,
 }) => {
 	const isEdit = Boolean(user);
+
+	const dispatch = useAppDispatch();
 
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
@@ -45,9 +53,61 @@ export const UserFormModal: React.FC<UserFormModalProps> = ({
 	const handleSubmit = (event: FormEvent) => {
 		event.preventDefault();
 
+		const nameTrim = name.trim();
+		const emailTrim = email.trim();
+		const pwdTrim = password.trim();
+
+		if (!nameTrim) {
+			dispatch(
+				pushToast({ kind: "warning", text: "El camp nom és obligatori" })
+			);
+			return;
+		}
+
+		if (!emailTrim) {
+			dispatch(
+				pushToast({
+					kind: "warning",
+					text: "El camp correu electrònic és obligatori",
+				})
+			);
+			return;
+		}
+
+		// format bàsic d'email (sense dependències)
+		const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailTrim);
+		if (!emailOk) {
+			dispatch(
+				pushToast({ kind: "warning", text: "Introdueix un email vàlid" })
+			);
+			return;
+		}
+
+		if (!isEdit) {
+			if (!pwdTrim) {
+				dispatch(
+					pushToast({
+						kind: "warning",
+						text: "La contrasenya és obligatòria",
+					})
+				);
+				return;
+			}
+			// exemple: mínima robustesa sense opinions fortes
+			if (pwdTrim.length < 6) {
+				dispatch(
+					pushToast({
+						kind: "warning",
+						text: "La contrasenya ha de tenir mínim 6 caràcters",
+					})
+				);
+				return;
+			}
+		}
+
 		const payload = isEdit
-			? { name, email, role }
-			: { name, email, role, password };
+			? { name: nameTrim, email: emailTrim, role }
+			: { name: nameTrim, email: emailTrim, role, password: pwdTrim };
 
 		onSubmit(payload);
 	};
@@ -58,70 +118,71 @@ export const UserFormModal: React.FC<UserFormModalProps> = ({
 			onClose={onClose}
 			ariaLabelledBy="user-form-title"
 			initialFocusSelector="input[name='name']"
-			size="md"
+			size="sm"
 		>
-			<div className="user-form-modal">
-				<header className="user-form-modal__header">
-					<h2 id="user-form-title">
-						{isEdit ? "Edita usuari" : "Crea usuari"}
-					</h2>
-					<button
-						type="button"
-						className="user-form-modal__close"
-						aria-label="Tanca modal"
-						onClick={onClose}
-					>
-						✕
-					</button>
-				</header>
-
-				<form className="user-form-modal__form" onSubmit={handleSubmit}>
-					<div className="form-group">
-						<label htmlFor="name">Nom</label>
-						<input
-							id="name"
-							name="name"
-							type="text"
-							value={name}
-							onChange={(event) => setName(event.target.value)}
-							required
-						/>
+			<article className="user-form-modal">
+				<form className="form" onSubmit={handleSubmit}>
+					<div className="form__header">
+						<h2 id="user-form-title">
+							{isEdit ? "Edita usuari" : "Crea usuari"}
+						</h2>
+						<button
+							type="button"
+							className="circle-icon"
+							aria-label="Tanca modal"
+							onClick={onClose}
+						>
+							<XMarkIcon />
+						</button>
 					</div>
+					<InputForm
+						id="name"
+						name="name"
+						label="Nom:"
+						type="text"
+						value={name}
+						onChange={(event) => setName(event.target.value)}
+						required
+						autoComplete="username"
+						placeholder="your name"
+					/>
 
-					<div className="form-group">
-						<label htmlFor="email">Correu electrònic</label>
-						<input
-							id="email"
-							name="email"
-							type="email"
-							value={email}
-							onChange={(event) => setEmail(event.target.value)}
-							required
-						/>
-					</div>
+					<InputForm
+						id="email"
+						name="email"
+						label="Email:"
+						type="email"
+						value={email}
+						onChange={(event) => setEmail(event.target.value)}
+						required
+						autoComplete="email"
+						placeholder="your@email.com"
+					/>
 
 					{!isEdit && (
-						<div className="form-group">
-							<label htmlFor="password">Contrasenya</label>
-							<input
-								id="password"
-								name="password"
-								type="password"
-								value={password}
-								onChange={(event) => setPassword(event.target.value)}
-								required
-								autoComplete="new-password"
-							/>
-						</div>
+						<InputForm
+							id="password"
+							name="password"
+							label="Password:"
+							type="password"
+							value={password}
+							onChange={(event) => setPassword(event.target.value)}
+							required
+							autoComplete="new-password"
+							placeholder="your new password"
+						/>
 					)}
-
-					<div className="form-group">
-						<label htmlFor="role">Rol</label>
+					<div className="form__group">
+						<label htmlFor="role" className="form__label">
+							Rol:
+						</label>
 						<select
 							id="role"
 							name="role"
+							// label="Rol:"
 							value={role}
 							onChange={(event) => setRole(event.target.value as UserRole)}
+							className="form__control"
 						>
 							<option value="admin">Admin</option>
 							<option value="customer">Customer</option>
@@ -129,14 +190,20 @@ export const UserFormModal: React.FC<UserFormModalProps> = ({
 						</select>
 					</div>
 
-					<footer className="user-form-modal__footer">
-						<button type="button" onClick={onClose}>
+					<footer className="form__buttons">
+						<button
+							type="button"
+							className="button button--back"
+							onClick={onClose}
+						>
 							Cancel·lar
 						</button>
-						<button type="submit"> {isEdit ? "Actualitza" : "Crea"}</button>
+						<button type="submit" className="button button--primary">
+							{isEdit ? "Actualitza" : "Crea"}
+						</button>
 					</footer>
 				</form>
-			</div>
+			</article>
 		</ModalShell>
 	);
 };

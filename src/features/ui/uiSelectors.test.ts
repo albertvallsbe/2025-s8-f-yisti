@@ -18,33 +18,43 @@ describe("ui selectors", () => {
 		/** Selectors bàsics */
 
 		test("return the detail open flag", () => {
-			const stateOpen = createState({ isDetailOpen: true, selectedId: 7 });
+			const stateOpen = createState({
+				isDetailOpen: true,
+				selectedId: 7,
+				toasts: [],
+			});
 			expect(selectIsDetailOpen(stateOpen)).toBe(true);
 
 			const stateClosed = createState({
 				isDetailOpen: false,
 				selectedId: null,
+				toasts: [],
 			});
 			expect(selectIsDetailOpen(stateClosed)).toBe(false);
 		});
 
 		test("return the selected movie id or null", () => {
-			const stateWithId = createState({ isDetailOpen: true, selectedId: 99 });
+			const stateWithId = createState({
+				isDetailOpen: true,
+				selectedId: 99,
+				toasts: [],
+			});
 			expect(selectSelectedMovieId(stateWithId)).toBe(99);
 
 			const stateWithoutId = createState({
 				isDetailOpen: false,
 				selectedId: null,
+				toasts: [],
 			});
 			expect(selectSelectedMovieId(stateWithoutId)).toBeNull();
 		});
 
 		test("return the full ui slice", () => {
-			const uiOpen = { isDetailOpen: true, selectedId: 42 };
+			const uiOpen = { isDetailOpen: true, selectedId: 42, toasts: [] };
 			const stateOpen = createState(uiOpen);
 			expect(selectUiState(stateOpen)).toBe(uiOpen);
 
-			const uiClosed = { isDetailOpen: false, selectedId: null };
+			const uiClosed = { isDetailOpen: false, selectedId: null, toasts: [] };
 			const stateClosed = createState(uiClosed);
 			expect(selectUiState(stateClosed)).toBe(uiClosed);
 		});
