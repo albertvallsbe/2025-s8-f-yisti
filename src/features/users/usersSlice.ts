@@ -58,14 +58,14 @@ export const createUser = createAsyncThunk<
 	}
 });
 
-// PUT /users/:id
+// PATCH /users/:id
 export const updateUser = createAsyncThunk<
 	User,
 	{ id: number; changes: UpdateUserDto },
 	{ rejectValue: string }
 >("users/update", async ({ id, changes }, { rejectWithValue }) => {
 	try {
-		const res = await backend.put<User>(`${USERS_ENDPOINT}/${id}`, changes);
+		const res = await backend.patch<User>(`${USERS_ENDPOINT}/${id}`, changes);
 		return res.data;
 	} catch (err: unknown) {
 		return rejectWithValue(getAxiosMessage(err));
