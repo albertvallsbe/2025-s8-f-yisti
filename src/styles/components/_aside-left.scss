@@ -1,0 +1,152 @@
+@use "sass:color";
+@use "../base/colors";
+@use "../base/variables";
+@use "../base/typography";
+@use "../elements/icons";
+
+.aside-left {
+	position: fixed;
+	left: 0;
+	// top: variables.$nav-height;
+	top: 0;
+
+	display: grid;
+	overflow: hidden;
+
+	grid-template-rows: auto 1fr auto;
+
+	width: 240px;
+	// height: calc(100vh - variables.$nav-height);
+	height: calc(100vh);
+
+
+	background-color: colors.$neutral-lighter;
+	border: variables.$border solid colors.$primary-light;
+
+	// border-top-left-radius: variables.$border-radius;
+	box-shadow: variables.$shadow-light;
+
+	&.is-hidden {
+		display: none;
+	}
+
+	.circle-icon {
+		@extend %circle-icon;
+	}
+
+	&__header {
+		display: grid;
+
+		margin-top: variables.$nav-height;
+
+		grid-template-columns: 1fr auto;
+		align-items: center;
+		gap: variables.$size-small;
+
+		padding: variables.$size-medium;
+
+		border-bottom: variables.$border solid colors.$primary-lighter;
+		background-color: colors.$neutral-lighter;
+
+		z-index: 0;
+
+		h2,
+		h3 {
+			@extend %heading-extra-large;
+
+			justify-self: center;
+			text-align: center;
+		}
+	}
+
+	&__figure {
+		display: grid;
+		overflow: hidden;
+
+		align-items: center;
+		justify-items: center;
+
+		padding: variables.$size-medium;
+		min-height: 0;
+
+		background-color: colors.$neutral-light;
+
+		img {
+			display: block;
+
+			width: 100%;
+			height: 100%;
+
+			border-radius: variables.$border-radius;
+			object-fit: cover;
+		}
+	}
+
+	&__body {
+		display: grid;
+		overflow: auto;
+
+		gap: variables.$size-small;
+
+		padding: variables.$size-medium;
+		min-height: 0;
+
+		background-color: colors.$neutral-lighter;
+
+		h3 {
+			@extend %text-large;
+
+			justify-self: center;
+			text-align: center;
+
+			color: colors.$primary-main;
+		}
+
+		label {
+			@extend %text-medium;
+
+			color: colors.$neutral-dark;
+		}
+
+		p {
+			@extend %text-extra-small;
+
+			color: colors.$neutral-darker;
+		}
+	}
+
+	&__list {
+		display: grid;
+		overflow: auto;
+
+		grid-auto-rows: min-content;
+		gap: variables.$size-small;
+		align-content: start;
+		justify-items: stretch;
+
+		padding: variables.$size-medium;
+		min-height: 0;
+
+		border-bottom: variables.$border solid colors.$primary-lighter;
+	}
+
+	&__footer {
+		display: grid;
+		gap: variables.$size-small;
+		padding: variables.$size-medium;
+		background-color: colors.$neutral-lighter;
+	}
+
+	&__total {
+		display: grid;
+		grid-template-columns: 1fr auto;
+
+		align-items: baseline;
+		column-gap: variables.$size-small;
+	}
+
+	// h3,
+	// h2 {
+	// 	color: inherit;
+	// }
+}
