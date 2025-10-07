@@ -37,18 +37,18 @@ export const Navbar = () => {
 						</NavLink>
 					</li>
 					<li>
-						<NavLink to="/" className={linkClass}>
-							Graph
+						<NavLink to="/calendar" className={linkClass}>
+							Calendar
 						</NavLink>
 					</li>
 					<li>
-						<NavLink to="/" className={linkClass}>
+						<NavLink to="/map" className={linkClass}>
 							Map
 						</NavLink>
 					</li>
 					<li>
-						<NavLink to="/" className={linkClass}>
-							Graph
+						<NavLink to="/graphs" className={linkClass}>
+							Graphs
 						</NavLink>
 					</li>
 				</ul>
