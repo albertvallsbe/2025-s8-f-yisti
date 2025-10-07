@@ -106,10 +106,10 @@ export const UsersPage = (): JSX.Element => {
 					<h1 className="users__title">Administració · Usuaris</h1>
 					<button
 						type="button"
-						className="btn btn--primary"
+						className="button button--primary"
 						onClick={handleCreate}
 					>
-						+ Afegir usuari
+						Afegir usuari
 					</button>
 				</header>
 

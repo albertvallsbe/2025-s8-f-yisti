@@ -37,7 +37,7 @@ export const AsideLeftMenu = () => {
 					aria-label="Close detail"
 					onClick={() => dispatch(closeDetail())}
 				>
-					<XMarkIcon></XMarkIcon>
+					<XMarkIcon />
 				</button>
 			</div>
 

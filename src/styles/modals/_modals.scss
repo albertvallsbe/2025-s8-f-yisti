@@ -1,83 +1,69 @@
 @use "sass:color";
 @use "../base/colors";
 @use "../base/variables";
+@use "../elements/icons";
 
-.help-overlay {
-  position: fixed;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-  cursor: not-allowed;
+.modal-shell {
+
+	width: min(48rem, 92vw);
+	max-height: 90vh;
+
+	inset: 0;
+	margin: auto;
+
+	overflow: auto;
+	background-color: colors.$neutral-lighter;
+	border: variables.$border solid colors.$primary-lighter;
+	border-radius: variables.$border-radius;
+	box-shadow: 0 24px 48px rgba(colors.$neutral-darker, .25);
+
+	// background-color: olivedrab;
+
+	.form {
+		border: none;
+		box-shadow: none;
+	}
+
+	/* treu les decoracions natives (Chrome) */
+	&::-webkit-details-marker {
+		display: none;
+	}
+
+	&::backdrop {
+		background-color: rgba(colors.$neutral-darker, .75);
+		/* enfosquit nadiu */
+	}
 }
 
-.help-modal {
-  background-color: colors.$neutral-lightest;
-  padding: variables.$size-large;
-  border-radius: variables.$border-radius;
-  box-shadow: variables.$shadow-light;
-  max-width: 90%;
-  width: 50%;
-  min-width: 20rem;
-  position: relative;
-  border: variables.$border solid colors.$primary-main;
-  cursor: pointer;
+.modal-shell--sm {
+	width: min(28rem, 92vw);
 }
 
-.help-modal__title {
-  margin: 0 0 variables.$size-small;
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: colors.$neutral-dark;
+.modal-shell--md {
+	width: min(40rem, 92vw);
 }
 
-.help-modal__message {
-  margin: 0 0 variables.$size-medium;
-  font-size: 1rem;
-  color: colors.$neutral-dark;
+.modal-shell--lg {
+	width: min(56rem, 92vw);
 }
 
-.help-modal__close-button {
-  position: absolute;
-  top: variables.$size-small;
-  right: variables.$size-small;
-  background-color: transparent;
-  border: none;
-  font-size: 1.25rem;
-  line-height: 1;
-  cursor: pointer;
+.circle-icon {
+	@extend %circle-icon;
 }
 
-.help-modal__textarea {
-  width: 100%;
-  max-width: 30rem;
-  min-height: 8rem;
-  padding: 0.75rem 1rem;
-  font-size: 1rem;
-  line-height: 1.4;
-  white-space: pre-wrap;
-  word-break: break-all;
-  resize: none;
-  overflow-y: auto;
-  border: variables.$border solid color.scale(colors.$primary-main, $alpha: -80%);
-  border-radius: variables.$border-radius;
-  background-color: colors.$neutral-lightest;
-  color: colors.$neutral-dark;
-
-
-  &:focus {
-    outline: 1px solid colors.$primary-main;
-    outline-offset: 2px;
-  }
+/* Animació d’entrada */
+.modal-shell[open] {
+	animation: modal-enter .16s ease-out;
 }
 
-.web-options__info {
-  background-color: transparent;
-  border: none;
-  font-size: 0.75rem;
-  cursor: pointer;
-  margin-left: variables.$size-small;
+@keyframes modal-enter {
+	from {
+		transform: translateY(-6px);
+		opacity: 0;
+	}
 
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
 }

@@ -9,7 +9,7 @@ import {
 	selectAuthState,
 	selectIsAuthenticated,
 } from "../../features/auth/authSelectors";
-import { InputForm } from "../../elements/forms/InputForm";
+import { InputForm } from "../../elements/Form/InputForm";
 
 type LoginFormState = {
 	email: string;
@@ -64,21 +64,21 @@ export const LoginForm = (): JSX.Element => {
 		<section className="auth auth--center">
 			<div className="auth__card">
 				<form onSubmit={handleSubmit} className="form">
-					<div className="form__header">
+					<header className="form__header">
 						<h1>Sign in</h1>
-					</div>
+					</header>
 					<figure className="form__figure">
 						<img src="/logo.jpg" alt="logo" />
 					</figure>
 					{authenticationStatus === "failed" && (
-						<div className="form__alert form__alert--error" role="alert">
-							<p className="form__alert__text" aria-live="polite">
+						<div className="alert alert--error" role="alert">
+							<p className="alert__text" aria-live="polite">
 								{errorStatusCode ? `${errorStatusCode} · ` : null}
 								{errorMessage ?? "No s'ha pogut iniciar sessió."}
 							</p>
 							<button
 								type="button"
-								className="form__alert__close"
+								className="alert__close"
 								aria-label="Close"
 								onClick={() => dispatch(clearAuthError())}
 							>
