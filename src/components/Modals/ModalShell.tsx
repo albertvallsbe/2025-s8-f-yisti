@@ -84,21 +84,21 @@ export const ModalShell: React.FC<ModalShellProps> = ({
 		return () => clearTimeout(t);
 	}, [isOpen, initialFocusSelector]);
 
-	// Tancament per clic al backdrop (clic fora del rect del dialog)
-	const handleBackdropMouseDown = (e: React.MouseEvent<HTMLDialogElement>) => {
-		if (!closeOnOverlayClick) return;
+	// Guard opcional per drags des de dins
+	const pointerStartedInside = useRef(false);
+
+	const handlePointerDown = (e: React.PointerEvent<HTMLDialogElement>) => {
 		const dialog = dialogRef.current;
 		if (!dialog) return;
+		// si el down comença en un fill → considerem “dins”
+		pointerStartedInside.current = e.target !== dialog;
+	};
 
-		const rect = dialog.getBoundingClientRect();
-		const inDialog =
-			e.clientX >= rect.left &&
-			e.clientX <= rect.right &&
-			e.clientY >= rect.top &&
-			e.clientY <= rect.bottom;
-
-		if (!inDialog) {
-			// clic al backdrop
+	// Click de backdrop robust amb <dialog>
+	// només tanquem si el target ÉS el <dialog> i el pointer no ha començat dins
+	const handleDialogClick = (e: React.MouseEvent<HTMLDialogElement>) => {
+		if (!closeOnOverlayClick) return;
+		if (e.target === dialogRef.current && !pointerStartedInside.current) {
 			onClose();
 		}
 	};
@@ -125,7 +125,8 @@ export const ModalShell: React.FC<ModalShellProps> = ({
 			aria-modal="true"
 			aria-labelledby={ariaLabelledBy}
 			aria-label={ariaLabel}
-			onMouseDown={handleBackdropMouseDown}
+			onPointerDown={handlePointerDown}
+			onClick={handleDialogClick}
 		>
 			{children}
 		</dialog>
