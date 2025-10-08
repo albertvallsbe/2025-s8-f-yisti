@@ -1,6 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
 import uiReducer from "../features/ui/uiSlice";
-import moviesReducer from "../features/movies/moviesSlice";
 import authReducer from "../features/auth/authSlice";
 import usersReducer from "../features/users/usersSlice";
 import { toastListeners } from "../elements/Toast/toastListeners";
@@ -8,7 +7,6 @@ import { toastListeners } from "../elements/Toast/toastListeners";
 export const store = configureStore({
 	reducer: {
 		ui: uiReducer,
-		movies: moviesReducer,
 		auth: authReducer,
 		users: usersReducer,
 	},
