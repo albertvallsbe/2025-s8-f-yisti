@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import mapboxgl from 'mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 export const Map = () => {
 
 	const mapContainerRef = useRef<HTMLDivElement | null>(null);
+	const markerRef = useRef<mapboxgl.Marker | null>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
 
 	const INITIAL_CENTER: [number, number] = [2.1734, 41.3851]
@@ -15,6 +17,7 @@ export const Map = () => {
   useEffect(() => {
 
     if (mapContainerRef.current) {
+
       mapboxgl.accessToken = import.meta.env.VITE_MAPBOXGL_ACCESS_TOKEN;
 
       mapRef.current = new mapboxgl.Map({
@@ -29,7 +32,16 @@ export const Map = () => {
 
     if (!map) return;
 
-    map.on('moveend', () => {
+		map.on('click', async (e) => {
+      const { lng, lat } = e.lngLat;
+
+      if (markerRef.current) markerRef.current.remove();
+
+			markerRef.current = new mapboxgl.Marker().setLngLat([lng, lat]).addTo(map!);
+
+    });
+
+    map.on('move', () => {
 
       const mapCenter: mapboxgl.LngLat = map.getCenter()
       const mapZoom: number = map.getZoom()
