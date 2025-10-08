@@ -2,6 +2,18 @@
 @use "../base/colors";
 @use "../base/variables";
 
+.page {
+
+	&__header {
+		display: grid;
+
+		grid-template-columns: 1fr auto;
+		align-items: center;
+		gap: variables.$size-small;
+	}
+}
+
+// Grid de main cards
 .main-items-grid {
 	display: grid;
 

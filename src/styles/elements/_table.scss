@@ -1,0 +1,102 @@
+@use "sass:color";
+@use "../base/variables";
+@use "../base/colors";
+@use "../base/typography";
+@use "../elements/icons";
+
+.rows-list {
+	display: flex;
+	flex-direction: column;
+	background: #fff;
+	border-radius: 12px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+	overflow: hidden;
+	width: 100%;
+
+	h2 {
+		@extend %heading-triple-extra-large;
+
+		line-height: 4rem;
+		justify-self: center;
+		text-align: center;
+		color: colors.$primary-main;
+	}
+
+	&__header {
+		display: grid;
+		grid-template-columns: 1fr 2fr 3fr 2fr 2fr;
+		padding: 0.5rem;
+		background-color: #f9fafb;
+		border-bottom: 1px solid #e5e7eb;
+		color: #374151;
+
+	}
+
+	&__body {
+		display: flex;
+		flex-direction: column;
+	}
+
+	&__empty,
+	&__error {
+		padding: 1.5rem;
+		text-align: center;
+		color: #6b7280;
+		font-size: 0.9rem;
+	}
+}
+
+/* RowItem.module.scss */
+.row-item {
+	display: grid;
+	grid-template-columns: 1fr 2fr 3fr 2fr 2fr;
+	align-items: center;
+	padding: 1rem;
+	font-size: 0.9rem;
+	border-bottom: 1px solid #e5e7eb;
+	transition: background 0.2s ease;
+
+	&:nth-child(even) {
+		background: #fafafa;
+	}
+
+	&:hover {
+		background: #f3f4f6;
+	}
+
+	&__cell {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+
+		&--actions {
+			display: grid;
+
+			grid-template-columns: 1fr 1fr;
+			gap: 0.5rem;
+			justify-content: flex-end;
+		}
+	}
+
+	&__role {
+		display: inline-block;
+		padding: 0.25rem 0.5rem;
+		border-radius: 9999px;
+		font-size: 0.75rem;
+		font-weight: 500;
+		background: #e0f2fe;
+		color: #0369a1;
+
+		&--admin {
+			background: #fee2e2;
+			color: #b91c1c;
+		}
+
+		&--editor {
+			background: #fef3c7;
+			color: #92400e;
+		}
+	}
+
+
+}
