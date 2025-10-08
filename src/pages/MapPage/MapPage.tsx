@@ -1,8 +1,10 @@
+import { Layout } from "../../components/Layout/Layout";
+import { Map } from "../../components/Map/Map"
 
 export const MapPage = () => {
 	return (
-		<div>
-
-		</div>
+		<Layout>
+			<Map />
+		</Layout>
 	)
 }
