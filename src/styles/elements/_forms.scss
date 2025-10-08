@@ -81,9 +81,9 @@
 		grid-template-columns: 1fr 1fr;
 		overflow: auto;
 
-		gap: variables.$size-small;
+		gap: variables.$size-medium;
 
-		// padding: variables.$size-medium;
+		padding-top: variables.$size-medium;
 	}
 
 	&__control {

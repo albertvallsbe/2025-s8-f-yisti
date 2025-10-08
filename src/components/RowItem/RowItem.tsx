@@ -32,13 +32,7 @@ export const RowItem: React.FC<UserRowProps> = React.memo(
 					{user.email ?? "—"}
 				</div>
 				<div className="row-item__cell row-item__cell--role" role="cell">
-					<span
-						className={
-							user.role === "admin" ? "badge badge--admin" : "badge badge--user"
-						}
-					>
-						{user.role}
-					</span>
+					{user.role}
 				</div>
 				<div className="row-item__cell row-item__cell--actions" role="cell">
 					<button

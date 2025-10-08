@@ -3,14 +3,17 @@
 @use "../base/variables";
 
 .page {
-
 	&__header {
 		display: grid;
 
 		grid-template-columns: 1fr auto;
 		align-items: center;
 		gap: variables.$size-small;
+
+		margin-bottom: 1rem;
 	}
+
+	padding-bottom: 1rem;
 }
 
 // Grid de main cards

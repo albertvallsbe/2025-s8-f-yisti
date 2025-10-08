@@ -5,18 +5,17 @@
 @use "../elements/icons";
 
 .rows-list {
-	display: flex;
-	flex-direction: column;
-	background: #fff;
-	border-radius: 12px;
-	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+	display: grid;
+
+	border-radius: variables.$border-radius;
+	box-shadow: variables.$shadow-light;
+	border: variables.$border solid colors.$primary-main;
 	overflow: hidden;
-	width: 100%;
+	margin-bottom: 1rem;
 
 	h2 {
-		@extend %heading-triple-extra-large;
+		@extend %heading-extra-large;
 
-		line-height: 4rem;
 		justify-self: center;
 		text-align: center;
 		color: colors.$primary-main;
@@ -24,24 +23,31 @@
 
 	&__header {
 		display: grid;
-		grid-template-columns: 1fr 2fr 3fr 2fr 2fr;
 		padding: 0.5rem;
-		background-color: #f9fafb;
-		border-bottom: 1px solid #e5e7eb;
-		color: #374151;
-
+		background-color: colors.$neutral-lighter;
 	}
 
 	&__body {
-		display: flex;
-		flex-direction: column;
+		display: grid;
+		grid-template-columns: 80px 1.2fr 2fr 1.1fr 200px;
+		padding: 1rem;
+
+		@extend %text-medium;
+
+		background-color: colors.$neutral-lighter;
+		border-bottom: variables.$border solid colors.$primary-lighter;
+		color: colors.$neutral-darker;
+	}
+
+	&__list {
+		color: colors.$neutral-darker;
 	}
 
 	&__empty,
 	&__error {
 		padding: 1.5rem;
 		text-align: center;
-		color: #6b7280;
+		color: colors.$neutral-main;
 		font-size: 0.9rem;
 	}
 }
@@ -49,19 +55,19 @@
 /* RowItem.module.scss */
 .row-item {
 	display: grid;
-	grid-template-columns: 1fr 2fr 3fr 2fr 2fr;
+	grid-template-columns: 80px 1.2fr 2fr 1.1fr 200px;
 	align-items: center;
-	padding: 1rem;
-	font-size: 0.9rem;
-	border-bottom: 1px solid #e5e7eb;
+	padding: variables.$size-medium;
+
+	border-bottom: 1px solid colors.$neutral-main;
 	transition: background 0.2s ease;
 
 	&:nth-child(even) {
-		background: #fafafa;
+		background-color: colors.$neutral-lighter;
 	}
 
 	&:hover {
-		background: #f3f4f6;
+		background-color: colors.$neutral-light;
 	}
 
 	&__cell {
@@ -71,32 +77,28 @@
 
 		&--actions {
 			display: grid;
-
 			grid-template-columns: 1fr 1fr;
 			gap: 0.5rem;
 			justify-content: flex-end;
 		}
 	}
+}
 
-	&__role {
-		display: inline-block;
-		padding: 0.25rem 0.5rem;
-		border-radius: 9999px;
-		font-size: 0.75rem;
-		font-weight: 500;
-		background: #e0f2fe;
-		color: #0369a1;
+@media (max-width: 768px) {
 
-		&--admin {
-			background: #fee2e2;
-			color: #b91c1c;
-		}
-
-		&--editor {
-			background: #fef3c7;
-			color: #92400e;
-		}
+	/* amaguem capçalera i cel·les de la columna "name" */
+	.rows-list__body .rows-item__cell--name,
+	.row-item__cell--name {
+		display: none;
 	}
 
+	/* re-definim el grid sense la columna "name" */
+	.rows-list__body {
+		grid-template-columns: 80px 2fr 1.1fr 200px;
+		/* ID | Email | Rol | Accions */
+	}
 
+	.row-item {
+		grid-template-columns: 80px 2fr 1.1fr 200px;
+	}
 }

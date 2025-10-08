@@ -22,11 +22,11 @@ $danger-main: #ee0000;
 $danger-light: #ff6666;
 $danger-lighter: #ffeded;
 
-$warning-darker: "#786207";
-$warning-dark: "#d9b00d";
-$warning-main: "#f4cf3e";
-$warning-light: "#f9e79f";
-$warning-lighter: "#fcf3cf";
+$warning-darker: #786207;
+$warning-dark: #d9b00d;
+$warning-main: #f4cf3e;
+$warning-light: #f9e79f;
+$warning-lighter: #fcf3cf;
 
 $success-darker: #1a4d1a;
 $success-dark: #008000;
@@ -35,5 +35,5 @@ $success-light: #99dd99;
 $success-lighter: #eaffea;
 
 // developer-mode
+// $primary-darker: $danger-dark;
 // $primary-dark: $danger-dark;
-// $primary-main: $danger-main;
