@@ -6,7 +6,6 @@ import { GraphsPage } from "./pages/GraphsPage/GraphsPage";
 import { MapPage } from "./pages/MapPage/MapPage";
 import { Navbar } from "./components/Navbar/Navbar";
 import { LoginPage } from "./pages/LoginPage/LoginPage";
-import { AsideLeftMenu } from "./components/AsideLeftMenu/AsideLeftMenu";
 import { RequireAuth } from "./components/ReqireAuth/RequireAuth";
 
 export const App = (): JSX.Element => (
@@ -26,7 +25,6 @@ export const App = (): JSX.Element => (
 
 			<Route path="*" element={<Navigate to="/" replace />} />
 		</Routes>
-		<AsideLeftMenu />
 		<Navbar />
 	</>
 );
