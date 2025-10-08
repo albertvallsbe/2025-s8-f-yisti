@@ -1,3 +1,25 @@
+@use "../base/colors";
+@use "../base/variables";
+
 .map {
 	min-height: 70vh;
+}
+
+.sidebar {
+	display: flex;
+}
+
+.data {
+  background-color: colors.$neutral-dark;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 4px;
+	width: 90%;
+}
+
+.save-button {
+  padding: 4px 10px;
+  border-radius: 10px;
+	width: 10%;
+  cursor: pointer;
 }

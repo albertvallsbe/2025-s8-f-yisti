@@ -45,6 +45,16 @@ export const Map = () => {
   }, []);
 
 	return (
-		<div className="map" ref={mapContainerRef} />
+		<>
+			<nav className="sidebar">
+				<div className="data">
+				Longitude: {center[0].toFixed(4)} | Latitude: {center[1].toFixed(4)} | Zoom: {zoom.toFixed(2)}
+				</div>
+				<button className='save-button' >
+					Save location
+				</button>
+			</nav>
+			<div className="map" ref={mapContainerRef} />
+		</>
 	)
 }
