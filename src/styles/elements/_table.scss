@@ -8,13 +8,13 @@
 	display: grid;
 
 	border-radius: variables.$border-radius;
-	box-shadow: variables.$shadow-light;
+	box-shadow: variables.$shadow-dark;
 	border: variables.$border solid colors.$primary-main;
 	overflow: hidden;
 	margin-bottom: 1rem;
 
 	h2 {
-		@extend %heading-extra-large;
+		@extend %heading-doble-extra-large;
 
 		justify-self: center;
 		text-align: center;
@@ -24,7 +24,7 @@
 	&__header {
 		display: grid;
 		padding: 0.5rem;
-		background-color: colors.$neutral-lighter;
+		background-color: colors.$neutral-dark;
 	}
 
 	&__body {
@@ -32,15 +32,16 @@
 		grid-template-columns: 80px 1.2fr 2fr 1.1fr 200px;
 		padding: 1rem;
 
-		@extend %text-medium;
+		@extend %text-large;
 
-		background-color: colors.$neutral-lighter;
+		background-color: colors.$neutral-dark;
 		border-bottom: variables.$border solid colors.$primary-lighter;
 		color: colors.$neutral-darker;
 	}
 
 	&__list {
 		color: colors.$neutral-darker;
+		background-color: colors.$neutral-light;
 	}
 
 	&__empty,
@@ -63,11 +64,13 @@
 	transition: background 0.2s ease;
 
 	&:nth-child(even) {
-		background-color: colors.$neutral-lighter;
+		background-color: colors.$neutral-lightest;
+
 	}
 
 	&:hover {
-		background-color: colors.$neutral-light;
+		// background-color: colors.$neutral-light;
+		border: variables.$border solid colors.$primary-main;
 	}
 
 	&__cell {
