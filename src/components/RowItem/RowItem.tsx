@@ -11,7 +11,6 @@ export interface UserRowProps {
  * UserRow: una línia de llistat d’usuaris.
  * - Presentacional: no fa crides, ni accedeix a Redux.
  * - Sense estils inline. Només classes CSS/SCSS.
- * - Sense `any`. Tipatge estricte.
  */
 export const RowItem: React.FC<UserRowProps> = React.memo(
 	({ user, onEdit, onDelete }) => {

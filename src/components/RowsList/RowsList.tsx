@@ -15,7 +15,6 @@ export interface UsersListProps {
  * UsersList: renderitza capçalera + files amb UserRow.
  * - Presentacional (sense crides ni Redux).
  * - Mostra estats: loading, error, buit.
- * - Sense `any`, sense estils inline.
  */
 export const RowsList: React.FC<UsersListProps> = ({
 	items,
