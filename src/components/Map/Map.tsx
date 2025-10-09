@@ -1,72 +1,76 @@
 import { useState, useEffect, useRef } from "react";
+import { SearchBox } from "../SearchBox/SearchBox";
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 export const Map = () => {
-
-	const mapContainerRef = useRef<HTMLDivElement | null>(null);
-	const markerRef = useRef<mapboxgl.Marker | null>(null);
+  const mapContainerRef = useRef<HTMLDivElement | null>(null);
+  const markerRef = useRef<mapboxgl.Marker | null>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
 
-	const INITIAL_CENTER: [number, number] = [2.1734, 41.3851]
-  const INITIAL_ZOOM: number = 12
+  const INITIAL_CENTER: [number, number] = [2.1734, 41.3851];
+  const INITIAL_ZOOM: number = 12;
 
-  const [center, setCenter] = useState<[number, number]>(INITIAL_CENTER)
-  const [zoom, setZoom] = useState<number>(INITIAL_ZOOM)
+  const [center, setCenter] = useState<[number, number]>(INITIAL_CENTER);
+  const [zoom, setZoom] = useState<number>(INITIAL_ZOOM);
+  const [isMapLoaded, setIsMapLoaded] = useState(false);
 
   useEffect(() => {
+    if (mapRef.current || !mapContainerRef.current) return;
 
-    if (mapContainerRef.current) {
+    mapboxgl.accessToken = import.meta.env.VITE_MAPBOXGL_ACCESS_TOKEN;
 
-      mapboxgl.accessToken = import.meta.env.VITE_MAPBOXGL_ACCESS_TOKEN;
-
-      mapRef.current = new mapboxgl.Map({
-        container: mapContainerRef.current,
-        style: 'mapbox://styles/mapbox/streets-v12',
-        center: center,
-        zoom: zoom
-      });
-    }
-
-    const map = mapRef.current;
-
-    if (!map) return;
-
-		map.on('click', async (e) => {
-      const { lng, lat } = e.lngLat;
-
-      if (markerRef.current) markerRef.current.remove();
-
-			markerRef.current = new mapboxgl.Marker().setLngLat([lng, lat]).addTo(map!);
-
+    const map = new mapboxgl.Map({
+      container: mapContainerRef.current,
+      style: 'mapbox://styles/mapbox/streets-v12',
+      center: INITIAL_CENTER,
+      zoom: INITIAL_ZOOM,
     });
 
-    map.on('move', () => {
+    mapRef.current = map;
 
-      const mapCenter: mapboxgl.LngLat = map.getCenter()
-      const mapZoom: number = map.getZoom()
+    map.on('load', () => {
+      setIsMapLoaded(true);
+      map.resize();
+    });
 
-      setCenter([ mapCenter.lng, mapCenter.lat ])
-      setZoom(mapZoom)
-    })
+    map.on('click', (e) => {
+      const { lng, lat } = e.lngLat;
+      setCenter([lng, lat]);
+    });
 
     return () => {
-      mapRef.current?.remove();
+      map.remove();
+      mapRef.current = null;
     };
 
   }, []);
 
-	return (
-		<>
-			<nav className="sidebar">
-				<div className="data">
-				Longitude: {center[0].toFixed(4)} | Latitude: {center[1].toFixed(4)} | Zoom: {zoom.toFixed(2)}
-				</div>
-				<button className='save-button' >
-					Save location
-				</button>
-			</nav>
-			<div className="map" ref={mapContainerRef} />
-		</>
-	)
-}
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !isMapLoaded) return;
+
+    const currentCenter = map.getCenter();
+    if (currentCenter.lng !== center[0] || currentCenter.lat !== center[1]) {
+        map.flyTo({ center });
+    }
+
+    if (markerRef.current) {
+      markerRef.current.remove();
+    }
+    markerRef.current = new mapboxgl.Marker().setLngLat(center).addTo(map);
+
+  }, [center, zoom, isMapLoaded]);
+
+  return (
+    <>
+      <nav className="sidebar">
+				<SearchBox setCenter={setCenter} setZoom={setZoom} />
+        <button className='save-button'>
+          Save location
+        </button>
+      </nav>
+      <div className="map-container" ref={mapContainerRef} />
+    </>
+  );
+};
