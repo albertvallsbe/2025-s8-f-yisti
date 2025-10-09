@@ -3,7 +3,7 @@
 @use "../base/colors";
 @use "../base/typography";
 
-.alert {
+.toast-alert {
 	display: grid;
 	grid-template-columns: 1fr auto;
 	/* text + (opcional) botó tancar */
@@ -12,52 +12,41 @@
 
 	padding: variables.$size-medium;
 	border-radius: variables.$border-radius;
-	border: variables.$border solid colors.$primary-main;
+	border: variables.$border solid transparent;
 	/* default, sobreescrit per variants */
 	background-color: colors.$neutral-lightest;
 
-	font-size: 0.95rem;
-	line-height: 1.35;
+	@extend %text-small;
 
 	// Toast
 	animation: toast-enter .15s ease-out;
 
+	&--info {
+		border: variables.$border solid colors.$primary-main;
+		background-color: colors.$primary-lighter;
+		color: colors.$primary-dark;
+	}
+
 	&--success {
-		border-color: colors.$success-main;
+		border: variables.$border solid colors.$success-main;
 		background-color: colors.$success-lighter;
 		color: colors.$success-dark;
 	}
 
 	&--warning {
-		border-color: colors.$warning-main;
+		border: variables.$border solid colors.$warning-main;
 		background-color: colors.$warning-lighter;
 		color: colors.$warning-dark;
 	}
 
 	&--error {
-		border-color: colors.$danger-main;
+		border: variables.$border solid colors.$danger-main;
 		background-color: colors.$danger-lighter;
-		/* suau */
 		color: colors.$danger-dark;
 	}
 
-	&--info {
-		border-color: colors.$primary-main;
-		background-color: color.scale(colors.$primary-main, $lightness: 75%);
-		color: colors.$primary-dark;
-	}
-
-
 	&__text {
 		margin: 0;
-	}
-
-	&__close {
-		border: variables.$border solid transparent;
-		background-color: transparent;
-		border-radius: variables.$border-radius;
-		padding: variables.$size-extra-small variables.$size-small;
-		line-height: 1;
 	}
 }
 

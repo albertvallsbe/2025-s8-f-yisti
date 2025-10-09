@@ -25,74 +25,75 @@ export const RowsList: React.FC<UsersListProps> = ({
 	onDelete,
 }) => {
 	return (
-		<section className="users-list" aria-labelledby="users-list-title">
-			<h2 id="users-list-title" className="users-list__title">
-				Llista d’usuaris
-			</h2>
-
-			{/* Estat: loading */}
-			{status === "loading" && (
-				<div
-					className="users-list__state users-list__state--loading"
-					role="status"
-					aria-live="polite"
-				>
-					Carregant usuaris…
-				</div>
-			)}
-
-			{/* Estat: error */}
-			{status === "failed" && (
-				<div
-					className="users-list__state users-list__state--error"
-					role="alert"
-				>
-					{error ?? "No s’han pogut carregar els usuaris."}
-				</div>
-			)}
-
+		<section
+			className="rows-list"
+			aria-labelledby="rows-list-title"
+			aria-label="Taula d'usuaris"
+		>
 			{/* Taula accessible amb rols ARIA (capçalera + cos) */}
-			<ul className="users-table" role="table" aria-label="Taula d’usuaris">
-				<li className="users-table__head" role="row">
-					<div
-						className="users-table__cell users-table__cell--id"
-						role="columnheader"
-					>
-						ID
-					</div>
-					<div
-						className="users-table__cell users-table__cell--name"
-						role="columnheader"
-					>
-						Nom
-					</div>
-					<div
-						className="users-table__cell users-table__cell--email"
-						role="columnheader"
-					>
-						Email
-					</div>
-					<div
-						className="users-table__cell users-table__cell--role"
-						role="columnheader"
-					>
-						Rol
-					</div>
-					<div
-						className="users-table__cell users-table__cell--actions"
-						role="columnheader"
-					>
-						Accions
-					</div>
-				</li>
+			<div className="rows-list__header" role="row">
+				<h2 id="rows-list-title">Llista d'usuaris</h2>
+			</div>
+			{/* <div role="table" aria-label="Taula d'usuaris"> */}
+			<div className="rows-list__body" role="row">
+				<div
+					className="rows-item__cell rows-item__cell--id"
+					role="columnheader"
+				>
+					ID
+				</div>
+				<div
+					className="rows-item__cell rows-item__cell--name"
+					role="columnheader"
+				>
+					Nom
+				</div>
+				<div
+					className="rows-item__cell rows-item__cell--email"
+					role="columnheader"
+				>
+					Email
+				</div>
+				<div
+					className="rows-item__cell rows-item__cell--role"
+					role="columnheader"
+				>
+					Rol
+				</div>
+				<div
+					className="rows-item__cell rows-item__cell--actions"
+					role="columnheader"
+				>
+					Accions
+				</div>
+			</div>
 
-				{/* Estat: buit (només quan ha acabat bé i no hi ha dades) */}
+			{/* Estat: buit (només quan ha acabat bé i no hi ha dades) */}
+			<div className="rows-list__list" role="row">
+				{/* Estat: loading */}
+				{status === "loading" && (
+					<div
+						className="rows-list__state rows-list__state--loading"
+						role="status"
+						aria-live="polite"
+					>
+						Carregant usuaris…
+					</div>
+				)}
+
+				{/* Estat: error */}
+				{status === "failed" && (
+					<div
+						className="rows-list__state rows-list__state--error"
+						role="alert"
+					>
+						{error ?? "No s'han pogut carregar els usuaris."}
+					</div>
+				)}
 				{status === "succeeded" && items.length === 0 && (
-					<li className="users-table__row users-table__row--empty" role="row">
-						<div className="users-table__cell" role="cell" aria-colspan={5}>
-							No hi ha usuaris.
-						</div>
-					</li>
+					<div className="rows-list__empty" role="cell" aria-colspan={5}>
+						No hi ha usuaris.
+					</div>
 				)}
 
 				{/* Files */}
@@ -104,7 +105,7 @@ export const RowsList: React.FC<UsersListProps> = ({
 						onDelete={onDelete}
 					/>
 				))}
-			</ul>
+			</div>
 		</section>
 	);
 };

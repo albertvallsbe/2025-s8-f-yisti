@@ -4,7 +4,6 @@
 @use "../elements/icons";
 
 .modal-shell {
-
 	width: min(48rem, 92vw);
 	max-height: 90vh;
 
@@ -16,8 +15,6 @@
 	border: variables.$border solid colors.$primary-lighter;
 	border-radius: variables.$border-radius;
 	box-shadow: 0 24px 48px rgba(colors.$neutral-darker, .25);
-
-	// background-color: olivedrab;
 
 	.form {
 		border: none;

@@ -10,7 +10,7 @@ const initialState: UiState = {
 const timeToast = (text: string, override?: number) => {
 	if (override != null) return override; // permetre passar ttl manual
 	const perChar = 50;
-	const min = 10000;
+	const min = 20000;
 	const max = 25000;
 
 	const dynamic = text.length * perChar;

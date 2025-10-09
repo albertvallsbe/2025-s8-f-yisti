@@ -100,10 +100,9 @@ export const UsersPage = (): JSX.Element => {
 
 	return (
 		<Layout>
-			<h1>Usuaris</h1>
-			<section className="users">
-				<header className="users__header">
-					<h1 className="users__title">Administració · Usuaris</h1>
+			<section className="page">
+				<header className="page__header">
+					<h1 className="page">Administració · Usuaris</h1>
 					<button
 						type="button"
 						className="button button--primary"

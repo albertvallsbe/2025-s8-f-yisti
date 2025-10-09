@@ -9,9 +9,9 @@ type Props = {
 
 export const Toast = ({ kind, text, onClose }: Props) => {
 	return (
-		<div role="alert" className={`alert alert--${kind}`}>
-			<p className="alert__text">{text}</p>
-			<button className="alert__close" aria-label="Tancar" onClick={onClose}>
+		<div role="alert" className={`toast-alert toast-alert--${kind}`}>
+			<p className="toast-alert__text">{text}</p>
+			<button className="circle-icon" aria-label="Tancar" onClick={onClose}>
 				<XMarkIcon width={16} height={16} />
 			</button>
 		</div>
