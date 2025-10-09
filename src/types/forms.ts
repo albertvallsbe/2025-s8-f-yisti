@@ -22,3 +22,8 @@ export interface FormInputProps {
 	error?: string;
 	inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
 }
+
+export interface SaveModalProps {
+	open: boolean;
+	onClose: () => void;
+}

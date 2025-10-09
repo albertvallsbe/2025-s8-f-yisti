@@ -1,6 +1,14 @@
 @use "../base/colors";
 @use "../base/variables";
 
+%button-base {
+  border-radius: 4px;
+  margin-left: 12px;
+  font-size: medium;
+  font-weight: bold;
+  cursor: pointer;
+}
+
 .map-container {
   top: 0;
   left: 0;
@@ -22,13 +30,17 @@
 }
 
 .save-button {
+  @extend %button-base;
   padding: 6px 12px;
-  border-radius: 4px;
   border: none;
-  margin-left: 12px;
-	font-size: medium;
-	font-weight: bold;
-	color: colors.$neutral-lightest;
-	background-color: colors.$success-main;
-	cursor: pointer;
+  color: colors.$neutral-lightest;
+  background-color: colors.$success-main;
+}
+
+.saved-button {
+  @extend %button-base;
+  padding: 4px 9px;
+  border: 3px solid colors.$success-main;
+  color: colors.$neutral-darker;
+  background-color: white;
 }
