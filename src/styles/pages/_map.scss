@@ -1,13 +1,6 @@
 @use "../base/colors";
 @use "../base/variables";
-
-%button-base {
-  border-radius: 4px;
-  margin-left: 12px;
-  font-size: medium;
-  font-weight: bold;
-  cursor: pointer;
-}
+@use "../base/button";
 
 .map-container {
   top: 0;

@@ -17,7 +17,6 @@ export const MapPage = () => {
   const INITIAL_ZOOM: number = 1;
 
   const [center, setCenter] = useState<[number, number]>(INITIAL_CENTER);
-  const [zoom, setZoom] = useState<number>(INITIAL_ZOOM);
 	const [markerCoords, setMarkerCoords] = useState<[number, number] | null>(null);
   const [isMapLoaded, setIsMapLoaded] = useState<boolean>(false);
 
@@ -70,9 +69,9 @@ export const MapPage = () => {
 
     const currentCenter = map.getCenter();
     if (currentCenter.lng !== center[0] || currentCenter.lat !== center[1]) {
-      map.flyTo({ center, zoom });
+      map.flyTo({ center });
     }
-  }, [center, zoom, isMapLoaded]);
+  }, [center, isMapLoaded]);
 
   useEffect(() => {
     const map = mapRef.current;

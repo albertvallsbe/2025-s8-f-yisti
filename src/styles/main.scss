@@ -30,9 +30,11 @@
 @use "./components/aside-left";
 
 @use "./components/search-box";
+@use "./components/saved-location-box";
 
 // Modals
 @use "./modals/modals";
+@use "./modals/map-save-modals";
 
 // Pages
 @use "./pages/home";
