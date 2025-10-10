@@ -1,44 +1,29 @@
 import { useState, useEffect, useRef } from "react";
-import { NavLink, useSearchParams } from "react-router-dom";
-import { SearchBox } from "../../components/SearchBox/SearchBox";
-import { SaveLocationModal } from "../../components/Modals/SaveLocationModal";
-import { SaveConfirmationModal } from "../../components/Modals/SaveConfirmationModal";
-import { useAppDispatch } from "../../app/hooks";
-import { createLocation } from "../../features/locations/locationsSlice";
+import { SearchBox } from "../SearchBox/SearchBox";
+import { SaveLocationModal } from "../Modals/SaveLocationModal";
+import { SaveConfirmationModal } from "../Modals/SaveConfirmationModal";
 import { Location } from "../../classes/Location";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-export const MapPage = () => {
+export const Map = () => {
 	const mapContainerRef = useRef<HTMLDivElement | null>(null);
 	const markerRef = useRef<mapboxgl.Marker | null>(null);
 	const mapRef = useRef<mapboxgl.Map | null>(null);
 
-	const [searchParams] = useSearchParams();
-
-	const dispatch = useAppDispatch();
-
-	const getInitialCoords = (): [number, number] | null => {
-		const lng = searchParams.get("lng");
-		const lat = searchParams.get("lat");
-		if (lng && lat) {
-			return [parseFloat(lng), parseFloat(lat)];
-		}
-		return null;
-	};
-
-	const INITIAL_COORDS: [number, number] | null = getInitialCoords();
-	const INITIAL_CENTER: [number, number] = INITIAL_COORDS || [2.1734, 41.3851];
-	const INITIAL_ZOOM: number = INITIAL_COORDS ? 13 : 1;
+	const INITIAL_CENTER: [number, number] = [2.1734, 41.3851];
+	const INITIAL_ZOOM: number = 1;
 
 	const [center, setCenter] = useState<[number, number]>(INITIAL_CENTER);
+	const [zoom, setZoom] = useState<number>(INITIAL_ZOOM);
 	const [markerCoords, setMarkerCoords] = useState<[number, number] | null>(
-		INITIAL_COORDS
+		null
 	);
 	const [isMapLoaded, setIsMapLoaded] = useState<boolean>(false);
 
 	const [isSaveModalOpen, setIsSaveModalOpen] = useState<boolean>(false);
 	const [isConfirmationOpen, setIsConfirmationOpen] = useState<boolean>(false);
+
 	const [savedLocations, setSavedLocations] = useState<Location[]>([]);
 	const [locationsButton, setLocationsButton] = useState<boolean>(false);
 
@@ -84,9 +69,9 @@ export const MapPage = () => {
 
 		const currentCenter = map.getCenter();
 		if (currentCenter.lng !== center[0] || currentCenter.lat !== center[1]) {
-			map.flyTo({ center });
+			map.flyTo({ center, zoom });
 		}
-	}, [center, isMapLoaded]);
+	}, [center, zoom, isMapLoaded]);
 
 	useEffect(() => {
 		const map = mapRef.current;
@@ -104,25 +89,21 @@ export const MapPage = () => {
 		}
 	}, [markerCoords]);
 
+	// temporal fins que ho connectis:
+	const userId = 1;
+
 	const handleSaveLocation = (locationName: string) => {
 		if (!markerCoords) return;
 
-		const userId: number = 1;
+		const newLocation = new Location(locationName, markerCoords, userId);
 
-		const newLocationInstance = new Location(
-			locationName,
-			markerCoords,
-			userId
-		);
+		setSavedLocations((prevLocations) => [...prevLocations, newLocation]);
+		setLocationsButton(true);
 
-		const locationData = newLocationInstance.toJSON();
+		// Aquí anirà la teva lògica per desar les dades al backend
+		// Utilitzaràs 'locationName' i 'center'
 
-		dispatch(createLocation(locationData));
-
-		setSavedLocations((prevLocations) => [
-			...prevLocations,
-			newLocationInstance,
-		]);
+		console.log(savedLocations);
 
 		setIsSaveModalOpen(false);
 		setIsConfirmationOpen(true);
@@ -131,7 +112,7 @@ export const MapPage = () => {
 	return (
 		<>
 			<nav className="sidebar">
-				<SearchBox setCenter={setCenter} setMarkerCoords={setMarkerCoords} />
+				<SearchBox setCenter={setCenter} setZoom={setZoom} />
 				{markerCoords && (
 					<button
 						className="save-button"
@@ -141,9 +122,7 @@ export const MapPage = () => {
 					</button>
 				)}
 				{locationsButton && (
-					<button className="saved-button">
-						<NavLink to="/map/locations">Open saved</NavLink>
-					</button>
+					<button className="saved-button">Open saved</button>
 				)}
 			</nav>
 
@@ -155,10 +134,7 @@ export const MapPage = () => {
 
 			<SaveConfirmationModal
 				open={isConfirmationOpen}
-				onClose={() => {
-					setIsConfirmationOpen(false);
-					setLocationsButton(true);
-				}}
+				onClose={() => setIsConfirmationOpen(false)}
 			/>
 
 			<div className="map-container" ref={mapContainerRef} />

@@ -1,6 +1,5 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "./styles/main.scss";
 import { BrowserRouter } from "react-router-dom";
 import "./styles/main.scss";
 import { Provider } from "react-redux";
@@ -8,6 +7,11 @@ import { hydrateFromLocalStorage, signOut } from "./features/auth/authSlice";
 import { attachBackendInterceptors } from "./services/backend";
 import { store } from "./app/store";
 import { App } from "./App";
+
+// import { makeCalendarMockServer } from "./mocks/mirageCalendar";
+// if (import.meta.env.DEV) {
+// 	makeCalendarMockServer();
+// }
 
 store.dispatch(hydrateFromLocalStorage());
 
