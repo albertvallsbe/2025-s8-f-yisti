@@ -1,5 +1,6 @@
 @use "../base/colors";
 @use "../base/variables";
+@use "../base/button";
 
 .location-box {
 	background-color: white;
@@ -9,14 +10,33 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-}
-
-.location-info {
-
 	font-size: variables.$font-lg;
+
+		@media (max-width: variables.$breakpoint-medium) {
+			font-size: variables.$font-sm;
+		}
 
 	h2 {
 		color: black;
 	}
 
+	h3 {
+		@media (max-width: variables.$breakpoint-medium) {
+			font-size: variables.$font-xs;
+		}
+	}
+
+}
+
+.box-button {
+	@extend %button-base;
+	font-size: variables.$font-lg;
+	padding: 6px 12px;
+	border: none;
+	color: colors.$neutral-lightest;
+	background-color: colors.$success-main;
+
+	@media (max-width: variables.$breakpoint-medium) {
+		font-size: variables.$font-sm;
+	}
 }

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useSearchParams } from "react-router-dom";
 import { SearchBox } from "../../components/SearchBox/SearchBox";
 import { SaveLocationModal } from "../../components/Modals/SaveLocationModal";
 import { SaveConfirmationModal } from "../../components/Modals/SaveConfirmationModal";
@@ -13,11 +13,23 @@ export const MapPage = () => {
   const markerRef = useRef<mapboxgl.Marker | null>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
 
-  const INITIAL_CENTER: [number, number] = [2.1734, 41.3851];
-  const INITIAL_ZOOM: number = 1;
+	const [searchParams] = useSearchParams();
+
+	const getInitialCoords = (): [number, number] | null => {
+    const lng = searchParams.get('lng');
+    const lat = searchParams.get('lat');
+    if (lng && lat) {
+      return [parseFloat(lng), parseFloat(lat)];
+    }
+    return null;
+  };
+
+	const INITIAL_COORDS: [number, number] | null = getInitialCoords();
+  const INITIAL_CENTER: [number, number] = INITIAL_COORDS || [2.1734, 41.3851];
+  const INITIAL_ZOOM: number = INITIAL_COORDS ? 13 : 1;
 
   const [center, setCenter] = useState<[number, number]>(INITIAL_CENTER);
-	const [markerCoords, setMarkerCoords] = useState<[number, number] | null>(null);
+	const [markerCoords, setMarkerCoords] = useState<[number, number] | null>(INITIAL_COORDS);
   const [isMapLoaded, setIsMapLoaded] = useState<boolean>(false);
 
   const [isSaveModalOpen, setIsSaveModalOpen] = useState<boolean>(false);
@@ -96,7 +108,6 @@ export const MapPage = () => {
 		const newLocation = new Location(locationName, markerCoords, userId);
 
   	setSavedLocations(prevLocations => [...prevLocations, newLocation]);
-		setLocationsButton(true)
 
     // Aquí anirà la teva lògica per desar les dades al backend
     // Utilitzaràs 'locationName' i 'markerCoords'
@@ -131,7 +142,10 @@ export const MapPage = () => {
 
       <SaveConfirmationModal
         open={isConfirmationOpen}
-        onClose={() => setIsConfirmationOpen(false)}
+        onClose={() => {
+					setIsConfirmationOpen(false);
+					setLocationsButton(true);
+				}}
       />
 
       <div className="map-container" ref={mapContainerRef} />
