@@ -3,6 +3,8 @@ import { NavLink, useSearchParams } from "react-router-dom";
 import { SearchBox } from "../../components/SearchBox/SearchBox";
 import { SaveLocationModal } from "../../components/Modals/SaveLocationModal";
 import { SaveConfirmationModal } from "../../components/Modals/SaveConfirmationModal";
+import { useAppDispatch } from "../../app/hooks";
+import { createLocation } from "../../features/locations/locationsSlice";
 import { Location } from "../../classes/Location";
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -14,6 +16,8 @@ export const MapPage = () => {
   const mapRef = useRef<mapboxgl.Map | null>(null);
 
 	const [searchParams] = useSearchParams();
+
+	const dispatch = useAppDispatch();
 
 	const getInitialCoords = (): [number, number] | null => {
     const lng = searchParams.get('lng');
@@ -34,7 +38,6 @@ export const MapPage = () => {
 
   const [isSaveModalOpen, setIsSaveModalOpen] = useState<boolean>(false);
   const [isConfirmationOpen, setIsConfirmationOpen] = useState<boolean>(false);
-
   const [savedLocations, setSavedLocations] = useState<Location[]>([]);
 	const [locationsButton, setLocationsButton] = useState<boolean>(false);
 
@@ -101,21 +104,20 @@ export const MapPage = () => {
 
   const handleSaveLocation = (locationName: string) => {
 
-		if(!markerCoords) return;
+		if (!markerCoords) return;
 
 		const userId: number = 1;
 
-		const newLocation = new Location(locationName, markerCoords, userId);
+		const newLocationInstance = new Location(locationName, markerCoords, userId);
 
-  	setSavedLocations(prevLocations => [...prevLocations, newLocation]);
+		const locationData = newLocationInstance.toJSON();
 
-    // Aquí anirà la teva lògica per desar les dades al backend
-    // Utilitzaràs 'locationName' i 'markerCoords'
+		dispatch(createLocation(locationData));
 
-    console.log(savedLocations);
+		setSavedLocations(prevLocations => [...prevLocations, newLocationInstance]);
 
-    setIsSaveModalOpen(false);
-    setIsConfirmationOpen(true);
+		setIsSaveModalOpen(false);
+		setIsConfirmationOpen(true);
   };
 
   return (
