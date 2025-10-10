@@ -53,7 +53,7 @@ export const createCalendarEvent = createAsyncThunk<
 
 export const updateCalendarEvent = createAsyncThunk<
 	CalendarEvent,
-	{ id: string; changes: UpdateEventDto },
+	{ id: number; changes: UpdateEventDto },
 	{ rejectValue: string }
 >("calendar/update", async ({ id, changes }, { rejectWithValue }) => {
 	try {
@@ -64,8 +64,8 @@ export const updateCalendarEvent = createAsyncThunk<
 });
 
 export const deleteCalendarEvent = createAsyncThunk<
-	string,
-	string,
+	number,
+	number,
 	{ rejectValue: string }
 >("calendar/delete", async (id, { rejectWithValue }) => {
 	try {
@@ -156,7 +156,7 @@ const calendarSlice = createSlice({
 		});
 		builder.addCase(
 			deleteCalendarEvent.fulfilled,
-			(state, action: PayloadAction<string>) => {
+			(state, action: PayloadAction<number>) => {
 				state.status = "succeeded";
 				state.items = state.items.filter((e) => e.id !== action.payload);
 			}

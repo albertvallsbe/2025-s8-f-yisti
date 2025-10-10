@@ -5,6 +5,7 @@ import {
 	fetchCalendarEvents,
 	createCalendarEvent,
 	updateCalendarEvent,
+	deleteCalendarEvent,
 } from "../features/calendar/calendarSlice";
 import {
 	selectCalendarStatus,
@@ -63,7 +64,7 @@ export const useCalendar = () => {
 
 			void dispatch(
 				updateCalendarEvent({
-					id: payload.id,
+					id: Number(payload.id),
 					changes: {
 						start: startIso,
 						end: endIso,
@@ -74,11 +75,19 @@ export const useCalendar = () => {
 		[dispatch]
 	);
 
+	const handleDelete = useCallback(
+		(id: string | number) => {
+			void dispatch(deleteCalendarEvent(Number(id)));
+		},
+		[dispatch]
+	);
+
 	return {
 		status,
 		error,
 		fcEvents,
 		handleCreate,
 		handleUpdate,
+		handleDelete,
 	};
 };

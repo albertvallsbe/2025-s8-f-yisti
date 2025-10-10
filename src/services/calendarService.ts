@@ -19,7 +19,7 @@ export const calendarService = {
 		return res.data;
 	},
 
-	async update(id: string, changes: UpdateEventDto): Promise<CalendarEvent> {
+	async update(id: number, changes: UpdateEventDto): Promise<CalendarEvent> {
 		const res = await backend.patch<CalendarEvent>(
 			`${CALENDAR_ENDPOINT}/${id}`,
 			changes
@@ -27,7 +27,7 @@ export const calendarService = {
 		return res.data;
 	},
 
-	async remove(id: string): Promise<string> {
+	async remove(id: number): Promise<number> {
 		await backend.delete(`${CALENDAR_ENDPOINT}/${id}`);
 		return id;
 	},

@@ -1,6 +1,6 @@
 import { RequestStatus } from "./types";
 
-export type EventId = string;
+export type EventId = number;
 
 export interface CalendarEvent {
 	id: EventId;
@@ -14,7 +14,7 @@ export interface CalendarEvent {
 	// Recurrència (iCalendar RRULE)
 	rrule?: string | null; // ex. "FREQ=WEEKLY;BYDAY=MO,WE"
 	exdates?: string[] | null; // ISO (UTC) per excepcions
-	seriesId?: string | null; // id de sèrie si fas override d’una ocurrència
+	seriesId?: number | null; // id de sèrie si fas override d’una ocurrència
 }
 
 export interface CreateEventDto {

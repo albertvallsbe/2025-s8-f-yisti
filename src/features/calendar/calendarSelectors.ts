@@ -30,7 +30,7 @@ export const selectFullCalendarInputs = (state: RootState): EventInput[] => {
 	const toEventInput = (e: CalendarEvent): EventInput => {
 		if (e.rrule && e.rrule.trim().length > 0) {
 			const rruleEvent: RRuleEventInput = {
-				id: e.id,
+				id: String(e.id),
 				title: e.title,
 				rrule: e.rrule,
 			};
@@ -45,7 +45,7 @@ export const selectFullCalendarInputs = (state: RootState): EventInput[] => {
 
 		// Esdeveniment no recurrent
 		const singleEvent: EventInput = {
-			id: e.id,
+			id: String(e.id),
 			title: e.title,
 			start: e.start,
 			end: e.end ?? undefined,

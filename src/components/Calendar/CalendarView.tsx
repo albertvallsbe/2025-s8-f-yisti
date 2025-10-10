@@ -22,12 +22,14 @@ type CalendarViewProps = {
 	}) => void;
 	/** Actualitzar dates d'un esdeveniment existent (drag & drop / resize) */
 	onUpdate: (payload: { id: string; start: Date; end?: Date | null }) => void;
+	onDelete?: (id: string) => void;
 };
 
 export const CalendarView = ({
 	events,
 	onCreate,
 	onUpdate,
+	onDelete,
 }: CalendarViewProps) => {
 	return (
 		<FullCalendar
@@ -74,6 +76,14 @@ export const CalendarView = ({
 					start: info.event.start!,
 					end: info.event.end ?? null,
 				});
+			}}
+			eventClick={(info) => {
+				if (onDelete) {
+					const confirmed = window.confirm(
+						`Vols eliminar l'esdeveniment "${info.event.title}"?`
+					);
+					if (confirmed) onDelete(info.event.id);
+				}
 			}}
 		/>
 	);

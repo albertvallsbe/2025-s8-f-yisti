@@ -26,9 +26,9 @@ const getAxiosMessage = (err: unknown): string => {
 // Endpoints REST del back (ajusta si el teu backend usa un prefix diferent)
 const USERS_ENDPOINT = "/users";
 
-/* ────────────────────────────────────────────────────────────────────────────
+/* ───────────────────────
  * Thunks
- * ──────────────────────────────────────────────────────────────────────────── */
+ * ──────────────────── */
 
 // GET /users
 export const fetchUsers = createAsyncThunk<
@@ -86,9 +86,9 @@ export const deleteUser = createAsyncThunk<
 	}
 });
 
-/* ────────────────────────────────────────────────────────────────────────────
+/* ───────────────────────
  * Slice
- * ──────────────────────────────────────────────────────────────────────────── */
+ * ──────────────────── */
 
 const initialState: UsersState = {
 	items: [],
