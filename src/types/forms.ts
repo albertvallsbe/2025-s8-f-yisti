@@ -29,6 +29,7 @@ export interface SaveModalProps {
 }
 
 export interface SavedLocationBoxProps {
+	id: number;
 	name: string;
 	center: [number, number];
 }

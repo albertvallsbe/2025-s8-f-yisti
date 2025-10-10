@@ -9,7 +9,7 @@ import {
 export const Navbar = () => {
 	const linkClass = ({ isActive }: { isActive: boolean }) =>
 		`navbar__link${isActive ? " is-active" : ""}`;
-
+	
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 

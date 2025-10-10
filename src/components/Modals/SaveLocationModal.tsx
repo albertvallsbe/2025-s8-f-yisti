@@ -29,9 +29,6 @@ export const SaveLocationModal: React.FC<CustomSaveModalProps> = ({ open, onClos
 			setError("Please, introduce a name.");
     return;
 		};
-
-    // Aquí dins podries fer la crida a l'API si ho prefereixes
-    console.log('Desant des del modal:', locationName);
     onSave(locationName);
   };
 
