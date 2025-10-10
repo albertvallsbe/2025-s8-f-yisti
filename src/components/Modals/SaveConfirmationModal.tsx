@@ -20,11 +20,11 @@ export const SaveConfirmationModal: React.FC<SaveModalProps> = ({ open, onClose 
   }
 
   return (
-    <dialog ref={dialogRef} className="modal-shell" onClose={onClose}>
-      <div>
+    <dialog ref={dialogRef} className="modal-container" onClose={onClose}>
+      <div className="confirmation-content">
         <h2>Desat correctament!</h2>
         <p>La teva ubicació s'ha guardat al teu perfil.</p>
-        <button onClick={onClose} className="button-primary">
+        <button onClick={onClose} className="modal-button">
           Acceptar
         </button>
       </div>

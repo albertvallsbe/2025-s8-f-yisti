@@ -4,10 +4,10 @@ import { fetchSuggestions, retrieveLocation } from '../../services/mapboxApiServ
 
 interface SearchBoxProps {
   setCenter: React.Dispatch<React.SetStateAction<[number, number]>>;
-  setZoom: React.Dispatch<React.SetStateAction<number>>;
+  setMarkerCoords: React.Dispatch<React.SetStateAction<[number, number] | null>>;
 }
 
-export const SearchBox: React.FC<SearchBoxProps> = ({ setCenter, setZoom }) => {
+export const SearchBox: React.FC<SearchBoxProps> = ({ setCenter, setMarkerCoords }) => {
 
   const [query, setQuery] = useState('');
   const [suggestions, setSuggestions] = useState<any[]>([]);
@@ -47,7 +47,7 @@ export const SearchBox: React.FC<SearchBoxProps> = ({ setCenter, setZoom }) => {
     if (feature && feature.geometry.coordinates) {
       const [longitude, latitude] = feature.geometry.coordinates;
       setCenter([longitude, latitude]);
-      setZoom(14);
+			setMarkerCoords([longitude, latitude]);
     }
   };
 

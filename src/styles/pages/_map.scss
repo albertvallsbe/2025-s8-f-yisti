@@ -1,13 +1,6 @@
 @use "../base/colors";
 @use "../base/variables";
-
-%button-base {
-  border-radius: 4px;
-  margin-left: 12px;
-  font-size: medium;
-  font-weight: bold;
-  cursor: pointer;
-}
+@use "../base/button";
 
 .map-container {
   top: 0;
@@ -27,6 +20,14 @@
   top: 70px;
   left: 0;
   right: 0;
+
+	@media (max-width: variables.$breakpoint-medium) {
+		flex-direction: column;
+    align-items: baseline;
+    padding: 0 1rem;
+    gap: 1rem;
+	}
+
 }
 
 .save-button {

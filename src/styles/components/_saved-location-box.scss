@@ -1,0 +1,63 @@
+@use "../base/colors";
+@use "../base/variables";
+@use "../base/button";
+
+%location-button {
+	font-size: variables.$font-lg;
+	padding: 6px 12px;
+	border: none;
+	color: colors.$neutral-lightest;
+}
+
+.location-box {
+	background-color: white;
+	border: 2px solid colors.$success-main;
+	border-radius: 4px;
+	padding: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: variables.$font-lg;
+
+		@media (max-width: variables.$breakpoint-medium) {
+			font-size: variables.$font-sm;
+		}
+
+	h2 {
+		color: black;
+	}
+
+	h3 {
+		@media (max-width: variables.$breakpoint-medium) {
+			font-size: variables.$font-xs;
+		}
+	}
+
+}
+
+.location-buttons {
+	display: flex;
+	column-gap: variables.$size-medium;
+}
+
+.save-location-button {
+	@extend %button-base;
+	@extend %location-button;
+
+	background-color: colors.$success-main;
+
+	@media (max-width: variables.$breakpoint-medium) {
+		font-size: variables.$font-sm;
+	}
+}
+
+.delete-location-button {
+	@extend %button-base;
+	@extend %location-button;
+
+	background-color: colors.$danger-main;
+
+	@media (max-width: variables.$breakpoint-medium) {
+		font-size: variables.$font-sm;
+	}
+}

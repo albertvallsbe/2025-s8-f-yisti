@@ -89,10 +89,13 @@ export const Map = () => {
 		}
 	}, [markerCoords]);
 
+	// temporal fins que ho connectis:
+	const userId = 1;
+
 	const handleSaveLocation = (locationName: string) => {
 		if (!markerCoords) return;
 
-		const newLocation = new Location(locationName, markerCoords);
+		const newLocation = new Location(locationName, markerCoords, userId);
 
 		setSavedLocations((prevLocations) => [...prevLocations, newLocation]);
 		setLocationsButton(true);

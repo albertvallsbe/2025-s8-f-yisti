@@ -27,3 +27,9 @@ export interface SaveModalProps {
 	open: boolean;
 	onClose: () => void;
 }
+
+export interface SavedLocationBoxProps {
+	id: number;
+	name: string;
+	center: [number, number];
+}
