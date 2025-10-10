@@ -36,10 +36,10 @@ export const SaveLocationModal: React.FC<CustomSaveModalProps> = ({ open, onClos
   };
 
   return (
-    <dialog ref={dialogRef} className="modal-shell" onClose={onClose}>
-      <form onSubmit={handleSave} className="form">
+    <dialog ref={dialogRef} className="modal-container" onClose={onClose}>
+      <form onSubmit={handleSave} className="modal-form">
         <h2>Save location</h2>
-        <div className="form-group">
+        <div className="modal-form-info">
           <label htmlFor="locationName">Enter location's name:</label>
           <input
             type="text"
@@ -48,12 +48,12 @@ export const SaveLocationModal: React.FC<CustomSaveModalProps> = ({ open, onClos
             onChange={(e) => setLocationName(e.target.value)}
           />
         </div>
-				{error && <div>{error}</div>}
-        <div className="modal-actions">
-          <button type="submit" className="button-primary">
+				{error && <div className="error-message">{error}</div>}
+        <div className="modal-buttons-div">
+          <button type="submit" className="modal-button">
             Save
           </button>
-          <button type="button" onClick={onClose} className="button-secondary">
+          <button type="button" onClick={onClose} className="modal-button">
             Close
           </button>
         </div>
