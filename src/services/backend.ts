@@ -1,4 +1,3 @@
-// src/services/backendHttp.ts
 import axios from "axios";
 
 export const backend = axios.create({
