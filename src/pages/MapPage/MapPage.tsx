@@ -3,9 +3,11 @@ import { NavLink, useSearchParams } from "react-router-dom";
 import { SearchBox } from "../../components/SearchBox/SearchBox";
 import { SaveLocationModal } from "../../components/Modals/SaveLocationModal";
 import { SaveConfirmationModal } from "../../components/Modals/SaveConfirmationModal";
-import { useAppDispatch } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { createLocation } from "../../features/locations/locationsSlice";
+import { selectLocations } from "../../features/locations/locationsSelectors";
 import { Location } from "../../classes/Location";
+import type { CreateLocationDto } from "../../types/locationTypes";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
@@ -15,8 +17,11 @@ export const MapPage = () => {
 	const mapRef = useRef<mapboxgl.Map | null>(null);
 
 	const [searchParams] = useSearchParams();
-
 	const dispatch = useAppDispatch();
+
+	// Llistat real del store
+	const items = useAppSelector(selectLocations);
+	const showSavedBtn = items.length > 0;
 
 	const getInitialCoords = (): [number, number] | null => {
 		const lng = searchParams.get("lng");
@@ -39,17 +44,11 @@ export const MapPage = () => {
 
 	const [isSaveModalOpen, setIsSaveModalOpen] = useState<boolean>(false);
 	const [isConfirmationOpen, setIsConfirmationOpen] = useState<boolean>(false);
-	const [savedLocations, setSavedLocations] = useState<Location[]>([]);
-	const [locationsButton, setLocationsButton] = useState<boolean>(false);
 
 	useEffect(() => {
 		if (mapRef.current || !mapContainerRef.current) return;
 
 		mapboxgl.accessToken = import.meta.env.VITE_MAPBOXGL_ACCESS_TOKEN;
-
-		if (savedLocations.length === -1) {
-			setLocationsButton(true);
-		}
 
 		const map = new mapboxgl.Map({
 			container: mapContainerRef.current,
@@ -115,14 +114,13 @@ export const MapPage = () => {
 			userId
 		);
 
-		const locationData = newLocationInstance.toJSON();
+		const payload: CreateLocationDto = {
+			name: newLocationInstance.name,
+			center: newLocationInstance.center,
+			userId: newLocationInstance.userId,
+		};
 
-		dispatch(createLocation(locationData));
-
-		setSavedLocations((prevLocations) => [
-			...prevLocations,
-			newLocationInstance,
-		]);
+		dispatch(createLocation(payload));
 
 		setIsSaveModalOpen(false);
 		setIsConfirmationOpen(true);
@@ -140,7 +138,7 @@ export const MapPage = () => {
 						Save location
 					</button>
 				)}
-				{locationsButton && (
+				{showSavedBtn && (
 					<button className="saved-button">
 						<NavLink to="/map/locations">Open saved</NavLink>
 					</button>
@@ -157,7 +155,6 @@ export const MapPage = () => {
 				open={isConfirmationOpen}
 				onClose={() => {
 					setIsConfirmationOpen(false);
-					setLocationsButton(true);
 				}}
 			/>
 

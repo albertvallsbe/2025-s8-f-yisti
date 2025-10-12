@@ -1,17 +1,16 @@
-import { useEffect, type ReactNode } from "react";
-import { Layout } from "../../components/Layout/Layout";
-import { SavedLocationBox } from "../../components/SavedLocationBox/SavedLocationBox";
-import { useAppSelector, useAppDispatch } from "../../app/hooks";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { fetchLocations } from "../../features/locations/locationsSlice";
 import {
 	selectLocations,
 	selectLocationsStatus,
 	selectLocationsError,
 } from "../../features/locations/locationsSelectors";
-import { fetchLocations } from "../../features/locations/locationsSlice";
+import { SavedLocationBox } from "../../components/SavedLocationBox/SavedLocationBox";
 
-export const LocationsPage = () => {
+export const LocationsPage: React.FC = () => {
 	const dispatch = useAppDispatch();
-	const locations = useAppSelector(selectLocations);
+	const items = useAppSelector(selectLocations);
 	const status = useAppSelector(selectLocationsStatus);
 	const error = useAppSelector(selectLocationsError);
 
@@ -19,35 +18,38 @@ export const LocationsPage = () => {
 		if (status === "idle") {
 			dispatch(fetchLocations());
 		}
-	}, [status, dispatch]);
-
-	let content: ReactNode;
+	}, [dispatch, status]);
 
 	if (status === "loading") {
-		content = <p>Loading locations...</p>;
-	} else if (status === "succeeded") {
-		if (locations.length > 0) {
-			content = locations.map((location) => (
-				<SavedLocationBox
-					key={location.id}
-					id={location.id}
-					name={location.name}
-					center={location.center}
-				/>
-			));
-		} else {
-			content = <p>There isn't any location saved.</p>;
-		}
-	} else if (status === "failed") {
-		content = <p>{error}</p>;
+		return <div className="locations-loading">Carregant localitzacions…</div>;
+	}
+
+	if (status === "failed") {
+		return (
+			<div className="locations-error" role="alert">
+				{error ?? "No s'han pogut carregar les localitzacions."}
+			</div>
+		);
+	}
+
+	if (!items.length) {
+		return (
+			<div className="locations-empty">
+				Encara no hi ha localitzacions guardades.
+			</div>
+		);
 	}
 
 	return (
-		<Layout>
-			<div>
-				<h1>My Saved Locations</h1>
-				{content}
-			</div>
-		</Layout>
+		<section className="locations-list">
+			{items.map((loc) => (
+				<SavedLocationBox
+					key={loc.id}
+					id={loc.id}
+					name={loc.name}
+					center={loc.center}
+				/>
+			))}
+		</section>
 	);
 };
