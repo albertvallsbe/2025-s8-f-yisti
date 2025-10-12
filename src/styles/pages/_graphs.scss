@@ -1,0 +1,61 @@
+@use "../base/variables";
+@use "../base/colors";
+
+.graphs-page-wrapper {
+  width: 100%;
+  padding: variables.$size-large variables.$size-medium;
+}
+
+.graphs-header {
+  text-align: center;
+  margin-bottom: variables.$size-extra-large;
+
+  h1 {
+    font-size: variables.$font-3xl;
+    color: colors.$primary-darker;
+    margin-bottom: variables.$size-small;
+
+    @media (max-width: variables.$breakpoint-medium) {
+      font-size: variables.$font-xl;
+    }
+  }
+
+  p {
+    font-size: variables.$font-md;
+    color: colors.$neutral-dark;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}
+
+.graphs-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: variables.$size-large;
+}
+
+.graph-card {
+  background-color: colors.$neutral-lightest;
+  padding: variables.$size-large;
+  border-radius: variables.$border-radius;
+  box-shadow: variables.$shadow-light;
+  border: variables.$border solid colors.$neutral-light;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: variables.$shadow-medium;
+  }
+
+  h2 {
+    font-size: variables.$font-lg;
+    color: colors.$primary-dark;
+    margin-bottom: variables.$size-large;
+    border-bottom: variables.$border solid colors.$neutral-light;
+    padding-bottom: variables.$size-medium;
+  }
+
+  @media (max-width: variables.$breakpoint-medium) {
+    padding: variables.$size-medium;
+  }
+}
