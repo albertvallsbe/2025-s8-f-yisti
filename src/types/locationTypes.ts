@@ -1,3 +1,5 @@
+import { RequestStatus } from "./types";
+
 export interface LocationType {
 	id: number;
 	name: string;
@@ -12,6 +14,19 @@ export type UpdateLocationDto = Partial<CreateLocationDto>;
 
 export interface LocationsState {
 	items: LocationType[];
-	status: "idle" | "loading" | "succeeded" | "failed";
+	status: RequestStatus;
 	error: string | null;
+}
+
+export interface MapboxSuggestion {
+	mapbox_id: string;
+	name: string;
+	full_address?: string;
+}
+
+export interface MapboxFeature {
+	geometry?: {
+		coordinates?: [number, number];
+	};
+	properties?: Record<string, unknown>;
 }

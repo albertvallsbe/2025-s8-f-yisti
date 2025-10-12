@@ -8,14 +8,8 @@ import { attachBackendInterceptors } from "./services/backend";
 import { store } from "./app/store";
 import { App } from "./App";
 
-// import { makeCalendarMockServer } from "./mocks/mirageCalendar";
-// if (import.meta.env.DEV) {
-// 	makeCalendarMockServer();
-// }
-
 store.dispatch(hydrateFromLocalStorage());
 
-// Connectem interceptors amb un selector del token i l'acció en 401
 attachBackendInterceptors({
 	getAccessToken: () => {
 		const state = store.getState() as { auth?: { accessToken: string | null } };
