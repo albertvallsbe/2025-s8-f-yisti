@@ -37,9 +37,7 @@ export const MapPage = () => {
 	const INITIAL_ZOOM: number = INITIAL_COORDS ? 13 : 1;
 
 	const [center, setCenter] = useState<[number, number]>(INITIAL_CENTER);
-	const [markerCoords, setMarkerCoords] = useState<[number, number] | null>(
-		INITIAL_COORDS
-	);
+	const [markerCoords, setMarkerCoords] = useState<[number, number] | null>(INITIAL_COORDS);
 	const [isMapLoaded, setIsMapLoaded] = useState<boolean>(false);
 
 	const [isSaveModalOpen, setIsSaveModalOpen] = useState<boolean>(false);
