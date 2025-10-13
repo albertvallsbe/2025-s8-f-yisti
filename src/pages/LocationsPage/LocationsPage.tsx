@@ -34,6 +34,7 @@ export const LocationsPage: React.FC = () => {
 	}
 
 	if (!items.length) {
+		console.log("No locations found, rendering message.");
 		return (
 			<div className="locations-empty">
 				There are no saved locations.
@@ -56,17 +57,17 @@ export const LocationsPage: React.FC = () => {
 
 	return (
 		<Layout>
-		<section className="locations-list">
-			{items.map((loc) => (
-				<SavedLocationBox
-					key={loc.id}
-					id={loc.id}
-					name={loc.name}
-					center={loc.center}
-					date={formatDate(loc.date)}
-				/>
-			))}
-		</section>
+			<section className="locations-list">
+				{items.map((loc) => (
+					<SavedLocationBox
+						key={loc.id}
+						id={loc.id}
+						name={loc.name}
+						center={loc.center}
+						date={formatDate(loc.date)}
+					/>
+				))}
+			</section>
 		</Layout>
 	);
 };

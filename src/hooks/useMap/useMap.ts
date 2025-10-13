@@ -1,21 +1,24 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 type InitialCoords = [number, number] | null;
 
+const DEFAULT_CENTER: [number, number] = [2.1734, 41.3851];
+
 export const useMap = (
 	mapContainerRef: React.RefObject<HTMLDivElement>,
 	initialCoords: InitialCoords
 ) => {
-
-	const INITIAL_CENTER: [number, number] = initialCoords || [2.1734, 41.3851];
-	const INITIAL_ZOOM: number = initialCoords ? 13 : 1;
-
+	const initialCenter = useMemo(
+		() => initialCoords || DEFAULT_CENTER,
+		[initialCoords]
+	);
+	const initialZoom = 1;
 	const mapRef = useRef<mapboxgl.Map | null>(null);
 	const markerRef = useRef<mapboxgl.Marker | null>(null);
 
-	const [center, setCenter] = useState<[number, number]>(INITIAL_CENTER);
+	const [center, setCenter] = useState<[number, number]>(initialCenter);
 	const [markerCoords, setMarkerCoords] = useState<[number, number] | null>(
 		initialCoords
 	);
@@ -29,16 +32,12 @@ export const useMap = (
 		const map = new mapboxgl.Map({
 			container: mapContainerRef.current,
 			style: "mapbox://styles/mapbox/streets-v12",
-			center: INITIAL_CENTER,
-			zoom: INITIAL_ZOOM,
+			center: initialCenter,
+			zoom: initialZoom,
 		});
 
 		mapRef.current = map;
-
-		map.on("load", () => {
-			setIsMapLoaded(true);
-			map.resize();
-		});
+		map.on("load", () => setIsMapLoaded(true));
 
 		map.on("click", (e) => {
 			const { lng, lat } = e.lngLat;
@@ -51,17 +50,17 @@ export const useMap = (
 			map.remove();
 			mapRef.current = null;
 		};
-	}, [mapContainerRef, INITIAL_CENTER, INITIAL_ZOOM]);
+	}, []);
 
 	useEffect(() => {
 		const map = mapRef.current;
 		if (!map || !isMapLoaded) return;
 
-		const currentCenter = map.getCenter();
-		if (currentCenter.lng !== center[0] || currentCenter.lat !== center[1]) {
-			map.flyTo({ center, zoom: 13 });
+		const currentMapCenter = map.getCenter();
+		if (currentMapCenter.lng !== center[0] || currentMapCenter.lat !== center[1]) {
+			map.flyTo({ center });
 		}
-	}, [center, isMapLoaded]);
+	}, [center, isMapLoaded, initialZoom]);
 
 	useEffect(() => {
 		const map = mapRef.current;

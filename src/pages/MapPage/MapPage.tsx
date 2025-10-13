@@ -9,7 +9,7 @@ import { selectLocations } from "../../features/locations/locationsSelectors";
 import { selectAuthState } from "../../features/auth/authSelectors";
 import { Location } from "../../classes/Location";
 import type { CreateLocationDto } from "../../types/locationTypes";
-import { useMap } from "../../hooks/useMap/useMap"; 
+import { useMap } from "../../hooks/useMap/useMap";
 
 export const MapPage = () => {
 	const mapContainerRef = useRef<HTMLDivElement | null>(null);
@@ -66,23 +66,23 @@ export const MapPage = () => {
 						Save location
 					</button>
 				)}
-				{items.length > 0 && (
-					<button className="saved-button">
-						<NavLink to="/map/locations">Open saved</NavLink>
-					</button>
-				)}
+				<button className="saved-button">
+					<NavLink to="/map/locations">Open saved</NavLink>
+				</button>
 			</nav>
 
-			<SaveLocationModal
-				open={isSaveModalOpen}
-				onClose={() => setIsSaveModalOpen(false)}
-				onSave={handleSaveLocation}
-			/>
+			{isSaveModalOpen && <SaveLocationModal
+					open={isSaveModalOpen}
+					onClose={() => setIsSaveModalOpen(false)}
+					onSave={handleSaveLocation}
+				/>
+			}
 
-			<SaveConfirmationModal
-				open={isConfirmationOpen}
-				onClose={() => setIsConfirmationOpen(false)}
-			/>
+			{isConfirmationOpen && <SaveConfirmationModal
+					open={isConfirmationOpen}
+					onClose={() => setIsConfirmationOpen(false)}
+				/>
+			}
 
 			<div className="map-container" ref={mapContainerRef} />
 		</>
