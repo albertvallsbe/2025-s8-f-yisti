@@ -13,7 +13,6 @@ import {
 	selectFullCalendarInputs,
 } from "../../features/calendar/calendarSelectors";
 
-/** Converteix una Date local a ISO UTC amb “Z” (sense usar cap any) */
 const toIsoUtc = (d: Date | null | undefined): string | null => {
 	if (!d) return null;
 	// Compensa l'offset local per obtenir l’instant UTC i serialitza

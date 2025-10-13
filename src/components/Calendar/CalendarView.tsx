@@ -12,17 +12,15 @@ import type {
 import type { EventResizeDoneArg } from "@fullcalendar/interaction";
 
 type CalendarViewProps = {
-	/** Esdeveniments en format FullCalendar (ve del selector selectFullCalendarInputs) */
 	events: EventInput[];
-	/** Crear nou esdeveniment a partir d'una selecció de rang */
 	onCreate: (payload: {
 		start: Date;
 		end?: Date | null;
 		allDay: boolean;
 	}) => void;
-	/** Actualitzar dates d'un esdeveniment existent (drag & drop / resize) */
 	onUpdate: (payload: { id: string; start: Date; end?: Date | null }) => void;
 	onDelete?: (id: string) => void;
+	onEventClick?: (id: string) => void;
 };
 
 export const CalendarView = ({
@@ -30,6 +28,7 @@ export const CalendarView = ({
 	onCreate,
 	onUpdate,
 	onDelete,
+	onEventClick,
 }: CalendarViewProps) => {
 	return (
 		<FullCalendar
@@ -41,7 +40,7 @@ export const CalendarView = ({
 				rrulePlugin,
 			]}
 			initialView="dayGridMonth"
-			timeZone="local" // Mostra a la TZ local de l'usuari (Luxon activa)
+			timeZone="local"
 			selectable
 			editable
 			events={events}
@@ -51,7 +50,6 @@ export const CalendarView = ({
 				right: "dayGridMonth,timeGridWeek,timeGridDay",
 			}}
 			selectAllow={(selectInfo) => {
-				// Permetem seleccionar qualsevol rang (incloent allDay). Es pot acotar aquí si cal.
 				return selectInfo.end >= selectInfo.start;
 			}}
 			select={(info: DateSelectArg) => {
@@ -62,15 +60,13 @@ export const CalendarView = ({
 				});
 			}}
 			eventDrop={(info: EventDropArg) => {
-				// Drag & drop d’un esdeveniment existent
 				onUpdate({
 					id: info.event.id,
-					start: info.event.start!, // FullCalendar garanteix start
-					end: info.event.end ?? null, // pot ser null
+					start: info.event.start!,
+					end: info.event.end ?? null,
 				});
 			}}
 			eventResize={(info: EventResizeDoneArg) => {
-				// Canvi de durada d’un esdeveniment existent
 				onUpdate({
 					id: info.event.id,
 					start: info.event.start!,
@@ -78,6 +74,10 @@ export const CalendarView = ({
 				});
 			}}
 			eventClick={(info) => {
+				if (onEventClick) {
+					onEventClick(info.event.id);
+					return;
+				}
 				if (onDelete) {
 					const confirmed = window.confirm(
 						`Vols eliminar l'esdeveniment "${info.event.title}"?`

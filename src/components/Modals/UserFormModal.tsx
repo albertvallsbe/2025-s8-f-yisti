@@ -93,7 +93,6 @@ export const UserFormModal: React.FC<UserFormModalProps> = ({
 				);
 				return;
 			}
-			// exemple: mínima robustesa sense opinions fortes
 			if (pwdTrim.length < 6) {
 				dispatch(
 					pushToast({
