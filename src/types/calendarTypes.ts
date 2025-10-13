@@ -5,16 +5,14 @@ export type EventId = number;
 export interface CalendarEvent {
 	id: EventId;
 	title: string;
-	start: string; // ISO en UTC, ex. "2025-10-12T14:00:00Z"
-	end?: string | null; // ISO en UTC
+	start: string;
+	end?: string | null;
 	allDay?: boolean;
 	location?: string | null;
 	notes?: string | null;
-
-	// Recurrència (iCalendar RRULE)
-	rrule?: string | null; // ex. "FREQ=WEEKLY;BYDAY=MO,WE"
-	exdates?: string[] | null; // ISO (UTC) per excepcions
-	seriesId?: number | null; // id de sèrie si fas override d’una ocurrència
+	rrule?: string | null;
+	exdates?: string[] | null;
+	seriesId?: number | null;
 }
 
 export interface CreateEventDto {

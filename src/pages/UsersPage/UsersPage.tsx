@@ -44,7 +44,6 @@ export const UsersPage = (): JSX.Element => {
 
 	const handleDelete = useCallback(
 		(id: number) => {
-			// Dispararem deleteUser(id) en el pas de CRUD
 			const confirmed = window.confirm(
 				"Segur que vols esborrar aquest usuari?"
 			);
@@ -72,14 +71,12 @@ export const UsersPage = (): JSX.Element => {
 						changes: {
 							email: data.email,
 							role: data.role,
-							// password i name no s'envien en update de moment
 						},
 					})
 				);
 				console.log("UPDATE user ->", editingUser.id, data);
 			} else {
 				if (!data.password) {
-					// mínima seguretat; el formulari ja el marca required en creació
 					alert("La contrasenya és obligatòria per crear un usuari.");
 					return;
 				}
@@ -88,7 +85,6 @@ export const UsersPage = (): JSX.Element => {
 						email: data.email,
 						password: data.password,
 						role: data.role,
-						// name no forma part del contracte del back encara
 					})
 				);
 				console.log("CREATE user ->", data);
