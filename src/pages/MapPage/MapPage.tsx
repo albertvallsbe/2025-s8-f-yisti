@@ -9,6 +9,7 @@ import { selectLocations } from "../../features/locations/locationsSelectors";
 import { Location } from "../../classes/Location";
 import type { CreateLocationDto } from "../../types/locationTypes";
 import mapboxgl from "mapbox-gl";
+import { selectAuthState } from "../../features/auth/authSelectors";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 export const MapPage = () => {
@@ -101,10 +102,16 @@ export const MapPage = () => {
 		}
 	}, [markerCoords]);
 
+	const { authenticatedUser } = useAppSelector(selectAuthState);
+
 	const handleSaveLocation = (locationName: string) => {
 		if (!markerCoords) return;
 
-		const userId: number = 1;
+		const userId: number = authenticatedUser?.id ?? 0;
+
+		console.log(userId);
+
+		if(userId === 0) return;
 
 		const newLocationInstance = new Location(
 			locationName,
