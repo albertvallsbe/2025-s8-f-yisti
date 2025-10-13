@@ -1,17 +1,17 @@
 import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import type { AppDispatch } from "../app/store";
+import type { AppDispatch } from "../../app/store";
 import {
 	fetchCalendarEvents,
 	createCalendarEvent,
 	updateCalendarEvent,
 	deleteCalendarEvent,
-} from "../features/calendar/calendarSlice";
+} from "../../features/calendar/calendarSlice";
 import {
 	selectCalendarStatus,
 	selectCalendarError,
 	selectFullCalendarInputs,
-} from "../features/calendar/calendarSelectors";
+} from "../../features/calendar/calendarSelectors";
 
 /** Converteix una Date local a ISO UTC amb “Z” (sense usar cap any) */
 const toIsoUtc = (d: Date | null | undefined): string | null => {

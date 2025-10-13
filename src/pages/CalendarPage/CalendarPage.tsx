@@ -1,6 +1,6 @@
 import { Layout } from "../../components/Layout/Layout";
 import { CalendarView } from "../../components/Calendar/CalendarView";
-import { useCalendar } from "../../hooks/useCalendar";
+import { useCalendar } from "../../hooks/useCalendar/useCalendar";
 
 export const CalendarPage = (): JSX.Element => {
 	const { status, error, fcEvents, handleCreate, handleUpdate, handleDelete } =
