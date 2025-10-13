@@ -5,7 +5,6 @@ import { SaveLocationModal } from "../../components/Modals/SaveLocationModal";
 import { SaveConfirmationModal } from "../../components/Modals/SaveConfirmationModal";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { createLocation } from "../../features/locations/locationsSlice";
-import { selectLocations } from "../../features/locations/locationsSelectors";
 import { selectAuthState } from "../../features/auth/authSelectors";
 import { Location } from "../../classes/Location";
 import type { CreateLocationDto } from "../../types/locationTypes";
@@ -16,7 +15,6 @@ export const MapPage = () => {
 	const [searchParams] = useSearchParams();
 	const dispatch = useAppDispatch();
 
-	const items = useAppSelector(selectLocations);
 	const { authenticatedUser } = useAppSelector(selectAuthState);
 
 	const getInitialCoords = (): [number, number] | null => {
