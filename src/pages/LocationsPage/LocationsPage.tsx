@@ -7,6 +7,7 @@ import {
 	selectLocationsError,
 } from "../../features/locations/locationsSelectors";
 import { SavedLocationBox } from "../../components/SavedLocationBox/SavedLocationBox";
+import { Layout } from "../../components/Layout/Layout";
 
 export const LocationsPage: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -21,13 +22,13 @@ export const LocationsPage: React.FC = () => {
 	}, [dispatch, status]);
 
 	if (status === "loading") {
-		return <div className="locations-loading">Carregant localitzacions…</div>;
+		return <div className="locations-loading">Loading…</div>;
 	}
 
 	if (status === "failed") {
 		return (
 			<div className="locations-error" role="alert">
-				{error ?? "No s'han pogut carregar les localitzacions."}
+				{error ?? "Failed loading locations."}
 			</div>
 		);
 	}
@@ -35,12 +36,26 @@ export const LocationsPage: React.FC = () => {
 	if (!items.length) {
 		return (
 			<div className="locations-empty">
-				Encara no hi ha localitzacions guardades.
+				There are no saved locations.
 			</div>
 		);
 	}
 
+	const formatDate = (dateISO: string | Date): string => {
+		const data = new Date(dateISO);
+
+		const year = data.getFullYear();
+		const month = String(data.getMonth() + 1).padStart(2, '0');
+		const day = String(data.getDate()).padStart(2, '0');
+
+		const hours = String(data.getHours()).padStart(2, '0');
+		const minutes = String(data.getMinutes()).padStart(2, '0');
+
+		return `${day}-${month}-${year} (${hours}:${minutes}h)`;
+	};
+
 	return (
+		<Layout>
 		<section className="locations-list">
 			{items.map((loc) => (
 				<SavedLocationBox
@@ -48,8 +63,10 @@ export const LocationsPage: React.FC = () => {
 					id={loc.id}
 					name={loc.name}
 					center={loc.center}
+					date={formatDate(loc.date)}
 				/>
 			))}
 		</section>
+		</Layout>
 	);
 };

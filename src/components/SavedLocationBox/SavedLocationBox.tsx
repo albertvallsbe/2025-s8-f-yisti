@@ -7,6 +7,7 @@ export const SavedLocationBox: React.FC<SavedLocationBoxProps> = ({
 	id,
 	name,
 	center,
+	date,
 }: SavedLocationBoxProps) => {
 	const dispatch = useAppDispatch();
 
@@ -23,7 +24,10 @@ export const SavedLocationBox: React.FC<SavedLocationBoxProps> = ({
 	return (
 		<div className="location-box">
 			<h2>{name}</h2>
-			{hasCoords && <h3>{`Lng: ${center[0]}, Lat: ${center[1]}`}</h3>}
+			<div className="location-info">
+				{hasCoords && <p>{`Lng: ${center[0]}, Lat: ${center[1]}`}</p>}
+				{date && <p>Created at: {date}</p>}
+			</div>
 			<div className="location-buttons">
 				{hasCoords && (
 					<NavLink

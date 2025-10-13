@@ -37,13 +37,4 @@ export class Location {
 		return this.#id;
 	}
 
-	toJSON() {
-		return {
-			name: this.name,
-			center: this.center,
-			userId: this.userId,
-			date: this.date.toISOString(),
-			id: this.id,
-		};
-	}
 }
