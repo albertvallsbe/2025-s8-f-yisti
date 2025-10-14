@@ -32,6 +32,7 @@ export const ModalShell: React.FC<ModalShellProps> = ({
 	size = "md",
 	containerId = "modal-root",
 }) => {
+
 	const dialogRef = useRef<HTMLDialogElement>(null);
 
 	// Obrir/tancar modal nadiu

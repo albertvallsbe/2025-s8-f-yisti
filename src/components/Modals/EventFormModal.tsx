@@ -1,7 +1,6 @@
 // src/components/Modals/EventFormModal.tsx
 import React, { useEffect, useState, FormEvent } from "react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
-
 import { ModalShell } from "./ModalShell";
 import { InputForm } from "../../elements/Form/InputForm";
 import { useAppDispatch } from "../../app/hooks";
