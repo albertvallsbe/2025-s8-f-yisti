@@ -13,6 +13,7 @@ export default {
 			},
 		],
 	},
+
 	setupFilesAfterEnv: ["<rootDir>/src/setupTests.ts"],
 	moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json"],
 
