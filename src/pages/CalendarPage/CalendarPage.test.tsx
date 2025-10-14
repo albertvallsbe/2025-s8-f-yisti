@@ -3,6 +3,8 @@ import userEvent from '@testing-library/user-event';
 import { CalendarPage } from './CalendarPage';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { useCalendar } from '../../hooks/useCalendar/useCalendar';
+import type { EventFormModalProps } from '../../components/Modals/EventFormModal';
+import type { EventActionModalProps } from '../../components/Modals/EventActionModal';
 
 jest.mock('../../features/calendar/calendarSlice');
 import { createCalendarEvent, deleteCalendarEvent } from '../../features/calendar/calendarSlice';
@@ -28,23 +30,28 @@ jest.mock('../../components/Calendar/CalendarView', () => ({
 	),
 }));
 jest.mock('../../components/Modals/EventFormModal', () => ({
-	EventFormModal: ({ isOpen, onSubmit, event }: any) =>
-		isOpen ? (
+	EventFormModal: ({ isOpen, onSubmit, event }: EventFormModalProps) => {
+		const date = new Date().toDateString();
+		return isOpen ? (
 			<div data-testid="event-form-modal-mock">
-				<button onClick={() => onSubmit({ title: event ? 'Updated Title' : 'New Title', start: new Date() })}>Submit</button>
+				<button onClick={() => onSubmit({ title: event ? 'Updated Title' : 'New Title', start: date })}>Submit</button>
 			</div>
-		) : null,
+		) : null;
+	}
 }));
 jest.mock('../../components/Modals/EventActionModal', () => ({
-	EventActionModal: ({ isOpen, event, onEdit, onDelete }: any) =>
-		isOpen ? (
+	EventActionModal: ({ isOpen, event, onEdit, onDelete }: EventActionModalProps) => {
+		if (!isOpen || !event) {
+			return null;
+		}
+		return (
 			<div data-testid="event-action-modal-mock">
 				<button onClick={() => onEdit(event)}>Edit</button>
 				<button onClick={() => onDelete(event.id)}>Delete</button>
 			</div>
-		) : null,
+		);
+	},
 }));
-
 
 describe('CalendarPage', () => {
 	const mockDispatch = jest.fn();
@@ -72,7 +79,7 @@ describe('CalendarPage', () => {
 
 		const expectedPayload = {
 			title: 'New Title',
-			start: expect.any(Date),
+			start: new Date().toDateString(),
 			end: null,
 			allDay: undefined,
 			location: undefined,

@@ -1,6 +1,5 @@
 import React, { useEffect, useState, FormEvent } from "react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
-
 import { ModalShell } from "./ModalShell";
 import { InputForm } from "../../elements/Form/InputForm";
 import { useAppDispatch } from "../../app/hooks";
@@ -12,7 +11,7 @@ import type {
 	UpdateEventDto,
 } from "../../types/calendarTypes";
 
-interface EventFormModalProps {
+export interface EventFormModalProps {
 	isOpen: boolean;
 	onClose: () => void;
 	event?: CalendarEvent | null;

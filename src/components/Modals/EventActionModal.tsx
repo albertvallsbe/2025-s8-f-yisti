@@ -4,7 +4,7 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 import { ModalShell } from "./ModalShell";
 import type { CalendarEvent } from "../../types/calendarTypes";
 
-interface EventActionModalProps {
+export interface EventActionModalProps {
 	isOpen: boolean;
 	onClose: () => void;
 	event: CalendarEvent | null;
