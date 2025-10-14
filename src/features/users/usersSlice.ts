@@ -23,14 +23,14 @@ const getAxiosMessage = (err: unknown): string => {
 	return "Error desconegut";
 };
 
-// Endpoints REST del back (ajusta si el teu backend usa un prefix diferent)
+/** Endpoints REST del back (ajusta si el teu backend usa un prefix diferent) */
 const USERS_ENDPOINT = "/users";
 
 /* ───────────────────────
  * Thunks
  * ──────────────────── */
 
-// GET /users
+/** GET /users */
 export const fetchUsers = createAsyncThunk<
 	User[],
 	void,
@@ -44,7 +44,7 @@ export const fetchUsers = createAsyncThunk<
 	}
 });
 
-// POST /users
+/** POST /users */
 export const createUser = createAsyncThunk<
 	User,
 	CreateUserDto,
@@ -58,7 +58,7 @@ export const createUser = createAsyncThunk<
 	}
 });
 
-// PATCH /users/:id
+/** PATCH /users/:id */
 export const updateUser = createAsyncThunk<
 	User,
 	{ id: number; changes: UpdateUserDto },
@@ -72,7 +72,7 @@ export const updateUser = createAsyncThunk<
 	}
 });
 
-// DELETE /users/:id
+/** DELETE /users/:id */
 export const deleteUser = createAsyncThunk<
 	number,
 	number,
@@ -101,7 +101,7 @@ const usersSlice = createSlice({
 	initialState,
 	reducers: {},
 	extraReducers: (builder) => {
-		// Fetch
+		/** Fetch */
 		builder.addCase(fetchUsers.pending, (state) => {
 			state.status = "loading";
 			state.error = null;
@@ -119,7 +119,7 @@ const usersSlice = createSlice({
 				action.payload ?? action.error.message ?? "Error en obtenir usuaris";
 		});
 
-		// Create
+		/** Create */
 		builder.addCase(createUser.pending, (state) => {
 			state.status = "loading";
 			state.error = null;
@@ -137,7 +137,7 @@ const usersSlice = createSlice({
 				action.payload ?? action.error.message ?? "Error en crear usuari";
 		});
 
-		// Update
+		/** Update */
 		builder.addCase(updateUser.pending, (state) => {
 			state.status = "loading";
 			state.error = null;
@@ -156,7 +156,7 @@ const usersSlice = createSlice({
 				action.payload ?? action.error.message ?? "Error en actualitzar usuari";
 		});
 
-		// Delete
+		/** Delete */
 		builder.addCase(deleteUser.pending, (state) => {
 			state.status = "loading";
 			state.error = null;

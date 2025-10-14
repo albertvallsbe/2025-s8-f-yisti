@@ -1,4 +1,3 @@
-// src/features/auth/authSelectors.ts
 import type { RootState } from "../../app/store";
 import type { AuthState } from "../../types/userTypes";
 

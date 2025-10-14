@@ -35,7 +35,7 @@ export const ModalShell: React.FC<ModalShellProps> = ({
 
 	const dialogRef = useRef<HTMLDialogElement>(null);
 
-	// Obrir/tancar modal nadiu
+	/** Obrir/tancar modal nadiu */
 	useEffect(() => {
 		const dialog = dialogRef.current;
 		if (!dialog) return;
@@ -47,20 +47,20 @@ export const ModalShell: React.FC<ModalShellProps> = ({
 		}
 	}, [isOpen]);
 
-	// Gestiona Escape (esdeveniment native "cancel")
+	/** Gestiona Escape (esdeveniment native "cancel") */
 	useEffect(() => {
 		const dialog = dialogRef.current;
 		if (!dialog) return;
 
 		const handleCancel = (ev: Event) => {
-			ev.preventDefault(); // evita el tancament automàtic
+			ev.preventDefault();
 			onClose();
 		};
 		dialog.addEventListener("cancel", handleCancel);
 		return () => dialog.removeEventListener("cancel", handleCancel);
 	}, [onClose]);
 
-	// Focus inicial quan s’obre
+	/**  Focus inicial quan s’obre */
 	useEffect(() => {
 		const dialog = dialogRef.current;
 		if (!dialog || !isOpen) return;
@@ -73,40 +73,32 @@ export const ModalShell: React.FC<ModalShellProps> = ({
 					return;
 				}
 			}
-			// fallback: primer focusable
 			const first = dialog.querySelector<HTMLElement>(
 				"button,[href],input,select,textarea,[tabindex]:not([tabindex='-1'])"
 			);
 			(first ?? dialog).focus();
 		};
 
-		// deixa que el browser mostri el dialog abans de focusejar
 		const t = setTimeout(focusInitial, 0);
 		return () => clearTimeout(t);
 	}, [isOpen, initialFocusSelector]);
 
-	// Guard opcional per drags des de dins
+	/** Guard opcional per drags des de dins */
 	const pointerStartedInside = useRef(false);
 
 	const handlePointerDown = (e: React.PointerEvent<HTMLDialogElement>) => {
 		const dialog = dialogRef.current;
 		if (!dialog) return;
-		// si el down comença en un fill → considerem “dins”
 		pointerStartedInside.current = e.target !== dialog;
 	};
 
-	// Click de backdrop robust amb <dialog>
-	// només tanquem si el target ÉS el <dialog> i el pointer no ha començat dins
+	/** Click de backdrop robust amb <dialog> només tanquem si el target ÉS el <dialog> i el pointer no ha començat dins */
 	const handleDialogClick = (e: React.MouseEvent<HTMLDialogElement>) => {
 		if (!closeOnOverlayClick) return;
 		if (e.target === dialogRef.current && !pointerStartedInside.current) {
 			onClose();
 		}
 	};
-
-	if (!isOpen && !dialogRef.current) {
-		// encara no hi ha DOM; però crearem el portal igualment
-	}
 
 	const container = document.getElementById(containerId);
 	if (!container) return null;

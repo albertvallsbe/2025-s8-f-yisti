@@ -9,14 +9,14 @@ import {
 export const Navbar = () => {
 	const linkClass = ({ isActive }: { isActive: boolean }) =>
 		`navbar__link${isActive ? " is-active" : ""}`;
-	
+
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 
 	const isAuthenticated = useAppSelector(selectIsAuthenticated);
 	const { authenticatedUser } = useAppSelector(selectAuthState);
 
-	// Etiqueta d’usuari a mostrar (ara mateix fem servir l’email; més endavant pot ser username)
+	/** Etiqueta d’usuari a mostrar (ara mateix fem servir l’email; més endavant pot ser username) */
 	const userLabel: string = authenticatedUser?.email ?? "";
 
 	const handleLogout = (): void => {

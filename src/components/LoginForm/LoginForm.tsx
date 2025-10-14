@@ -36,7 +36,6 @@ export const LoginForm = (): JSX.Element => {
 
 	const [formData, setFormData] = useState<LoginFormState>(initialFormState);
 
-	// Si venim d'una ruta privada, guardem on tornar
 	const fromPath =
 		(location.state as RedirectState | null)?.from?.pathname ?? "/home";
 

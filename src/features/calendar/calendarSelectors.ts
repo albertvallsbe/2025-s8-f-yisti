@@ -36,14 +36,14 @@ export const selectFullCalendarInputs = (state: RootState): EventInput[] => {
 			};
 
 			if (Array.isArray(e.exdates) && e.exdates.length > 0) {
-				// FullCalendar accepta `exdate` com a string o array; fem servir array.
+				/** FullCalendar accepta `exdate` com a string o array; fem servir array. */
 				rruleEvent.exdate = e.exdates;
 			}
 
 			return rruleEvent;
 		}
 
-		// Esdeveniment no recurrent
+		/** Esdeveniment no recurrent */
 		const singleEvent: EventInput = {
 			id: String(e.id),
 			title: e.title,

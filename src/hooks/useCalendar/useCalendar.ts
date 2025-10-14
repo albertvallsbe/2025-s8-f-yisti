@@ -50,7 +50,7 @@ export const useCalendar = () => {
 		[dispatch]
 	);
 
-	// Actualitzar dates (drag & drop / resize)
+	/** Actualitzar dates (drag & drop / resize) */
 	const handleUpdate = useCallback(
 		(payload: { id: string; start: Date; end?: Date | null }) => {
 			const startIso = toIsoUtc(payload.start);

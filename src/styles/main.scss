@@ -1,36 +1,33 @@
-// Reset
+/** Reset */
 @use "./reset/reset";
 
-// Base
+/** Base */
 @use "./base/colors";
 @use "./base/typography";
 @use "./base/variables";
 
-// Mixins
-@use "./mixins/mixins";
-
-// Globals
+/** Globals */
 @use "./globals/typography-global";
 
-// Elements
+/** Elements */
 @use "./elements/buttons";
 @use "./elements/icons";
 @use "./elements/forms";
 @use "./elements/table";
 @use "./elements/toast";
 
-//  Components
+/**  Components */
 @use "./components/layout";
 @use "./components/navigation";
 
 @use "./components/search-box";
 @use "./components/saved-location-box";
 
-// Modals
+/** Modals */
 @use "./modals/modals";
 @use "./modals/map-save-modals";
 
-// Pages
+/** Pages */
 @use "./pages/home";
 @use "./pages/map";
 @use "./pages/graphs";

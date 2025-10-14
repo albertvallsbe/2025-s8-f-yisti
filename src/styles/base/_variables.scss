@@ -19,13 +19,21 @@ $size-medium: 1rem;
 $size-large: 1.5rem;
 $size-extra-large: 2rem;
 
-$font-xs: 0.875rem; // 14px
-$font-sm: 1rem; // 16px
-$font-md: 1.125rem; // 18px
-$font-lg: 1.25rem; // 20px
-$font-xl: 1.5rem; // 24px
-$font-2xl: 1.75rem; // 28px
-$font-3xl: 2rem; // 32px
+/** 14px */
+$font-xs: 0.875rem;
+/** 16px */
+$font-sm: 1rem;
+/** 18px */
+$font-md: 1.125rem;
+/** 20px */
+$font-lg: 1.25rem;
+/** 24px */
+$font-xl: 1.5rem;
+/** 28px */
+$font-2xl: 1.75rem;
+/** 32px */
+$font-3xl: 2rem;
+
 
 $main-item-width: 14rem;
 $main-item-height: 19rem;
@@ -34,8 +42,3 @@ $main-item-meta-lines: 2;
 $main-item-meta-line-h: 1.25rem;
 $main-item-meta-pad-y: .75rem;
 $main-item-meta-h: $main-item-meta-pad-y * 2 + $main-item-meta-line-h * $main-item-meta-lines;
-
-// Size: 1128lines
-// Size: 957lines
-// Size: 938lines
-// Size: 815lines
