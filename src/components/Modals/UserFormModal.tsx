@@ -35,7 +35,7 @@ export const UserFormModal: React.FC<UserFormModalProps> = ({
 	const [role, setRole] = useState<UserRole>("customer");
 	const [password, setPassword] = useState<string>("");
 
-	// Quan rebem user, inicialitzem els valors
+	/** Quan rebem user, inicialitzem els valors */
 	useEffect(() => {
 		if (isEdit && user) {
 			setName(user.name ?? "");
@@ -74,7 +74,7 @@ export const UserFormModal: React.FC<UserFormModalProps> = ({
 			return;
 		}
 
-		// format bàsic d'email (sense dependències)
+		/** Format bàsic d'email (sense dependències) */
 		const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailTrim);
 		if (!emailOk) {
 			dispatch(
@@ -178,7 +178,6 @@ export const UserFormModal: React.FC<UserFormModalProps> = ({
 						<select
 							id="role"
 							name="role"
-							// label="Rol:"
 							value={role}
 							onChange={(event) => setRole(event.target.value as UserRole)}
 							className="form__control"

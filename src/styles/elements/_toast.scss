@@ -18,7 +18,7 @@
 
 	@extend %text-small;
 
-	// Toast
+	/** Toast */
 	animation: toast-enter .15s ease-out;
 
 	&--info {

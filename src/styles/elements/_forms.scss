@@ -132,17 +132,17 @@
 		}
 	}
 
-	// /* Afins natius amb la classe aplicada */
-	// input[type="text"].form__control,
-	// input[type="email"].form__control,
-	// input[type="password"].form__control,
-	// input[type="number"].form__control,
-	// input[type="date"].form__control,
-	// input[type="search"].form__control,
-	// select.form__control,
-	// textarea.form__control {
-	// 	/* hereten de &__control */
-	// }
+	/* Afins natius amb la classe aplicada */
+	input[type="text"].form__control,
+	input[type="email"].form__control,
+	input[type="password"].form__control,
+	input[type="number"].form__control,
+	input[type="date"].form__control,
+	input[type="search"].form__control,
+	select.form__control,
+	textarea.form__control {
+		margin: 0;
+	}
 
 	/* Select */
 	input.form__control {

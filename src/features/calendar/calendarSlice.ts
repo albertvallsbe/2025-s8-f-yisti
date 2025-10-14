@@ -90,7 +90,7 @@ const calendarSlice = createSlice({
 	initialState,
 	reducers: {},
 	extraReducers: (builder) => {
-		// Fetch
+		/** Fetch */
 		builder.addCase(fetchCalendarEvents.pending, (state) => {
 			state.status = "loading";
 			state.error = null;
@@ -110,7 +110,7 @@ const calendarSlice = createSlice({
 				"Error en obtenir esdeveniments";
 		});
 
-		// Create
+		/** Create */
 		builder.addCase(createCalendarEvent.pending, (state) => {
 			state.status = "loading";
 			state.error = null;
@@ -128,7 +128,7 @@ const calendarSlice = createSlice({
 				action.payload ?? action.error.message ?? "Error en crear esdeveniment";
 		});
 
-		// Update
+		/** Update */
 		builder.addCase(updateCalendarEvent.pending, (state) => {
 			state.status = "loading";
 			state.error = null;
@@ -149,7 +149,7 @@ const calendarSlice = createSlice({
 				"Error en actualitzar esdeveniment";
 		});
 
-		// Delete
+		/** Delete */
 		builder.addCase(deleteCalendarEvent.pending, (state) => {
 			state.status = "loading";
 			state.error = null;

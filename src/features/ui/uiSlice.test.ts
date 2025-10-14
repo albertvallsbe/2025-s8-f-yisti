@@ -37,7 +37,7 @@ describe("uiSlice", () => {
 
 			expect(newState.isDetailOpen).toBe(true);
 			expect(newState.selectedId).toBe(123);
-			// Ensure immutability: previous state must not be mutated
+			/** Ensure immutability: previous state must not be mutated */
 			expect(previousState).toStrictEqual(createUiState());
 		});
 
@@ -52,7 +52,7 @@ describe("uiSlice", () => {
 
 			expect(newState.isDetailOpen).toBe(false);
 			expect(newState.selectedId).toBeNull();
-			// Ensure previous state remains unchanged
+			/** Ensure previous state remains unchanged */
 			expect(previousState).toStrictEqual(
 				createUiState({ isDetailOpen: true, selectedId: 42 })
 			);

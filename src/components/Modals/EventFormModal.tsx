@@ -1,4 +1,3 @@
-// src/components/Modals/EventFormModal.tsx
 import React, { useEffect, useState, FormEvent } from "react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 
@@ -40,7 +39,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
 		isoLike: string | null | undefined
 	): string => {
 		if (!isoLike) return "";
-		const d = new Date(isoLike); // interpreta ISO/Z o local
+		const d = new Date(isoLike);
 		if (Number.isNaN(d.getTime())) return "";
 		const pad = (n: number) => String(n).padStart(2, "0");
 		const yyyy = d.getFullYear();
@@ -127,7 +126,6 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({
 			allDay: allDay || undefined,
 			location: location.trim() || undefined,
 			notes: notes.trim() || undefined,
-			// rrule / exdates / seriesId s’afegiran quan pertoqui
 		};
 
 		if (isEdit) {
