@@ -12,7 +12,7 @@ import type {
 	UpdateEventDto,
 } from "../../types/calendarTypes";
 
-interface EventFormModalProps {
+export interface EventFormModalProps {
 	isOpen: boolean;
 	onClose: () => void;
 	event?: CalendarEvent | null;
