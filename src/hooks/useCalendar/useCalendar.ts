@@ -15,7 +15,6 @@ import {
 
 const toIsoUtc = (d: Date | null | undefined): string | null => {
 	if (!d) return null;
-	// Compensa l'offset local per obtenir l’instant UTC i serialitza
 	const utcMs = d.getTime() - d.getTimezoneOffset() * 60000;
 	return new Date(utcMs).toISOString();
 };
@@ -26,20 +25,18 @@ export const useCalendar = () => {
 	const error = useSelector(selectCalendarError);
 	const fcEvents = useSelector(selectFullCalendarInputs);
 
-	// Carrega inicial
 	useEffect(() => {
 		if (status === "idle") {
 			void dispatch(fetchCalendarEvents());
 		}
 	}, [status, dispatch]);
 
-	// Crear des de selecció al calendari
 	const handleCreate = useCallback(
 		(payload: { start: Date; end?: Date | null; allDay: boolean }) => {
 			const startIso = toIsoUtc(payload.start);
 			const endIso = payload.end ? toIsoUtc(payload.end) : null;
 
-			if (!startIso) return; // defensa, encara que FullCalendar sempre dona start
+			if (!startIso) return;
 
 			void dispatch(
 				createCalendarEvent({
