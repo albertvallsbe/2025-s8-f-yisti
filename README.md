@@ -1,11 +1,6 @@
-# 🎓 2025-S6 Pràctica Acadèmica / 2025-S6 Academic Practice
+# 🎓 2025-S8 Pràctica Acadèmica / 2025-S8 Academic Practice
 
-Albert Valls
-
-![Imatge de la card](./src/assets/images/budget-welcome.png)
-![Imatge de la card](./src/assets/images/budget-summary.png)
-![Imatge de la card](./src/assets/images/budget-form.png)
-![Imatge de la card](./src/assets/images/budget-cards.png)
+📍 Yisti 📍
 
 ## 📚 Índex / Table of Contents
 
@@ -13,131 +8,296 @@ Albert Valls
 2. [Funcionalitats / Features](#2-funcionalitats--features)
 3. [Tecnologia / Tech Stack](#3-tecnologia--tech-stack)
 4. [Demo en línia / Live Demo](#4-demo-en-línia--live-demo)
-5. [Repositori / Repository](#5-repositori--repository)
-6. [Estructura / Structure](#6-estructura--structure)
+5. [Repositori front / Front repository](#5-repositori-front--front-repository)
+6. [Repositori backend / Backend repository](#6-repositori-backend--backend-repository)
 7. [Instal·lació / Installation](#7-instal·lació--installation)
+8. [Testing](#8-testing)
+9. [Estructura / Structure](#9-estructura--structure)
 
 ## 1. Sobre el projecte / About
 
 **CAT:**
 
-Aquest projecte consisteix en una aplicació web interactiva, desenvolupada amb React i TypeScript sobre Vite, que facilita el càlcul i la gestió de pressupostos per a serveis de màrqueting i desenvolupament web. A la pantalla principal, l’usuari /ària tria entre tres opcions: campanya SEO (300 €), campanya de publicitat Ads (400 €) o pàgina web (500 €). Si selecciona la pàgina web, apareix un component addicional per ajustar el nombre de pàgines i d’idiomes, amb un cost extra de 30 € per unitat, calculat automàticament com (pàgines + idiomes) × 30 €.
+Aquest projecte, `Yisti`, és una aplicació web completa dissenyada com un panell d'administració interactiu. El frontend està desenvolupat amb `React` i `TypeScript` sobre `Vite`, i ofereix una interfície robusta per gestionar usuaris, esdeveniments de calendari i localitzacions geogràfiques. L'estat global de l'aplicació es gestiona de manera centralitzada amb `Redux Toolkit`.
 
-Un cop configurades les opcions, l’usuari /ària pot omplir un formulari amb les dades del client/a (nom, telèfon i email) i afegir tants pressupostos com vulgui, cadascun amb el seu cost total i detall de serveis. La llista de pressupostos es mostra en cartes reutilitzables on es pot ordenar per data, import o alfabèticament, i filtrar mitjançant un cercador de noms. A més, cada pressupost disposa d’un botó per compartir-ne l’enllaç: la URL es construeix en temps real per reflectir exactament les opcions triades, i es presenta en un modal accessible que permet copiar-la fàcilment.
+Els usuaris poden autenticar-se per accedir a les funcionalitats principals: un **CRUD d'usuaris** complet amb formularis modals, un **calendari interactiu** per crear i gestionar esdeveniments (integrat amb `FullCalendar`), un **mapa dinàmic** (`Mapbox GL`) que permet cercar, marcar i desar ubicacions personalitzades, i una **pàgina de gràfics** per visualitzar dades amb `Chart.js`.
 
-S’ha treballat amb una estructura modular de components, hooks personalitzats per al comptador d’opcions i lògica de construcció de query-strings, estils SCSS amb variables globals i BEM, i routing amb React Router per navegar entre la pantalla de benvinguda i la calculadora. Aquesta organització garanteix mantenibilitat, reutilització i escalabilitat del codi, així com una experiència d’usuari clara i accessible.
+S'ha posat èmfasi en la qualitat del codi, amb una estructura modular, estils `SASS` seguint la metodologia BEM, i una cobertura de tests completa utilitzant `Jest`.
 
 **EN:**
 
-This project is an interactive web application built with React and TypeScript on top of Vite, designed to streamline the calculation and management of budgets for marketing and web‐development services. On the main screen, users can choose between three options: an SEO campaign (€300), an Ads campaign (€400), or a website (€500). If the website option is selected, an additional component appears allowing the user to specify the number of pages and languages, with an extra cost of €30 per unit, automatically calculated as (pages + languages) × €30.
+This project, `Yisti`, is a comprehensive web application designed as an interactive admin dashboard. The frontend is built with `React` and `TypeScript` on `Vite`, providing a robust interface for managing users, calendar events, and geographical locations. The global application state is centrally managed with `Redux Toolkit`.
 
-After configuring their choices, users can fill out a form with client information (name, phone, email) and add as many budgets as they wish, each displaying its total cost and service breakdown. The budget list is presented in reusable cards that can be sorted by date, amount, or alphabetically, and filtered via a name search. Furthermore, each budget card includes a button to share its link: the URL is generated in real time to match the selected options and is displayed in an accessible modal for easy copying.
+Users can authenticate to access the main features: a full **user CRUD** with modal forms, an **interactive calendar** for creating and managing events (integrated with `FullCalendar`), a **dynamic map** (`Mapbox GL`) that allows searching, marking, and saving custom locations, and a **graphs page** for data visualization using `Chart.js`.
 
-We implemented a modular component architecture, custom hooks for option counters and query-string generation, SCSS styling with global variables and BEM conventions, and React Router for navigation between the welcome screen and the calculator. This structure ensures code maintainability, reusability, and scalability, as well as a clear and accessible user experience.
+Emphasis has been placed on code quality, featuring a modular structure, `SASS` styling following the BEM methodology, and comprehensive test coverage using `Jest`.
 
 ## 2. Funcionalitats / Features
 
-- ✅ **React**
-- ✅ **TypeScript → JavaScript**
-- ✅ **Vite**
-- ✅ **SASS**
-- ✅ **Testing**
+* ✅ **Gestió d'usuaris (CRUD):** Creació, lectura, actualització i eliminació d'usuaris amb diferents rols.
+* ✅ **Calendari Interactiu:** Visualització i gestió d'esdeveniments amb `FullCalendar`.
+* ✅ **Mapa Dinàmic:** Integració amb `Mapbox GL` per cercar adreces, marcar punts i desar localitzacions.
+* ✅ **Visualització de Dades:** Gràfics dinàmics amb `Chart.js` per representar dades de l'aplicació.
+* ✅ **Autenticació:** Sistema de login per a l'accés segur a les rutes privades.
+* ✅ **Testing:** Cobertura de tests per a components, hooks i lògica de Redux.
 
 ## 3. Tecnologia / Tech Stack
 
-- **React (18.2)**
-- **Vite**
-- **JavaScript (ES6+)**
-- **TypeScript**
-- **Jest**
-- **SASS**
-- **CSS**
-- **Jest**
-- **Git & GitHub**
+* **React**
+* **Axios**
+* **Mapbox GL**
+* **Chart.js**
+* **Vite**
+* **TypeScript**
+* **Redux Toolkit**
+* **Jest**
+* **SASS**
+* **Git & GitHub**
 
 ## 4. Demo en línia / Live Demo
 
-**Live:** 👉 https://budgets-albertvalls.netlify.app/
+**Live:** 👉 https://yisti.netlify.app
+**Usuari / User:** `guest@gmail.com` 
+**Contrasenya / Password:** `guest2025` 
 
-**CAT:**  
+**CAT:**
 Visita la demo en línia per veure l’aplicació en funcionament.
 
-**EN:**  
+**EN:**
 Check out the live demo to see the application in action.
 
-## 5. Repositori / Repository
+## 5. Repositori front / Front repository
 
-**Github:** 👉 https://github.com/albertvallsbe/2025-s6-albertvalls
+**Github:** 👉 https://github.com/albertvallsbe/2025-s8-f-yisti ---
 
-## 6. Estructura / Structure
+## 6. Repositori backend / Backend repository
 
-**CAT:**  
-La següent imatge mostra l’estructura de carpetes principal del projecte:
+**Github:** 👉 https://github.com/albertvallsbe/2025-s8-b-yisti ---
 
-**EN:**  
-The following image illustrates the main folder structure of the project:
+## 7. Instal·lació / Installation
 
-![Project Structure](./src/assets/images/treeImage-1.png)
-![Project Structure](./src/assets/images/treeImage-2.png)
-![Project Structure](./src/assets/images/treeImage-3.png)
-![Project Structure](./src/assets/images/treeImage-4.png)
+**CAT:**
 
+_Segueix aquests passos per clonar el projecte i fer servir el compilador Vite per obrir el projecte en mode de desenvolupament local._
+
+**EN:**
+
+_Follow these steps to clone the project and use the Vite compiler to open the project in local developer mode._
+
+**Requeriments / Prerequisites**
+
+-   Node.js (versió 20.19.x o superior)
+-   npm (versió 10.5.x o superior)
+
+### 1. Clonar el repositori / Clone the repository
+
+```bash
+git clone [https://github.com/albertvallsbe/2025-s8-f-yisti.git](https://github.com/albertvallsbe/2025-s8-f-yisti.git)
 ```
-2025-s6-albertvalls/
-├── node_modules/
+
+### 2. Entrar al directori del projecte / Navigate into the project directory
+
+```bash
+cd 2025-s8-f-yisti
+```
+
+### 3. Instal·lar dependències / Install dependencies
+
+```bash
+npm install
+```
+### 4. Crear arxiu d'entorn / Create environment file
+
+Crea un arxiu `.env` a l'arrel del projecte i afegeix les variables necessàries, basant-te en l'arxiu .env.example.
+```
+VVITE_API_URL=http://localhost:3006
+VITE_API_TIMEOUT=10000
+VITE_MAPBOXGL_ACCESS_TOKEN=el_teu_token_de_mapbox
+```
+
+### 5. Executar el projecte en mode desenvolupament / Run the project in development mode
+```bash
+npm run dev
+```
+
+### 6. Obre el servidor local de Vite / Open the local Vite server
+
+http://localhost:5173
+
+### IMPORTANT:
+
+És imprescindible clonar, instal·lar i executar abans el projecte de backend. Les instruccions per a fer-ho estàn incloses al README del repositori on es troba el backend. 
+
+```Enllaç al repositori:
+https://github.com/albertvallsbe/2025-s8-b-yisti.git
+```
+
+```bash
+git clone https://github.com/albertvallsbe/2025-s8-b-yisti.git
+```
+
+## 8. Testing
+
+**CAT:**
+
+El projecte inclou una suite de tests unitaris i d'integració desenvolupada amb Jest i React Testing Library. Per executar tots els tests, fes servir la següent comanda:
+
+**EN:**
+
+The project includes a suite of unit and integration tests developed with Jest and React Testing Library. To run all tests, use the following command:
+
+```bash
+npm run test
+```
+
+També pots executar els tests en mode watch per a un desenvolupament interactiu:
+_You can also run the tests in watch mode for interactive development:_
+
+```bash
+npm run test-w
+```
+
+
+## 9. Estructura / Structure
+.
 ├── public/
+│   ├── logo.jpg
 │   ├── style.css
-│   ├── style.css.map
 │   └── vite.svg
 ├── src/
+│   ├── app/
+│   │   ├── hooks.ts
+│   │   └── store.ts
 │   ├── assets/
 │   │   ├── images/
 │   │   └── react.svg
+│   ├── classes/
+│   │   └── Location.ts
 │   ├── components/
-│   │   ├── budget/
-│   │   │   ├── BudgetForm.tsx
-│   │   │   └── BudgetSummary.tsx
-│   │   ├── list/
-│   │   │   ├── ListContainer.tsx
-│   │   │   ├── ListControls.tsx
-│   │   │   ├── ListItems.tsx
-│   │   │   └── listItems.test.tsx
+│   │   ├── Calendar/
+│   │   │   └── CalendarView.tsx
+│   │   ├── Layout/
+│   │   │   └── Layout.tsx
+│   │   ├── LoginForm/
+│   │   │   ├── LoginForm.test.tsx
+│   │   │   └── LoginForm.tsx
+│   │   ├── Modals/
+│   │   │   ├── __tests__/
+│   │   │   │   ├── EventActionModal.test.tsx
+│   │   │   │   ├── EventFormModal.test.tsx
+│   │   │   │   ├── ModalShell.test.tsx
+│   │   │   │   ├── SaveConfirmationModal.test.tsx
+│   │   │   │   └── SaveLocationModal.test.tsx
+│   │   │   ├── EventActionModal.tsx
+│   │   │   ├── EventFormModal.tsx
+│   │   │   ├── ModalShell.tsx
+│   │   │   ├── SaveConfirmationModal.tsx
+│   │   │   ├── SaveLocationModal.tsx
+│   │   │   └── UserFormModal.tsx
+│   │   ├── Navbar/
+│   │   │   └── Navbar.tsx
+│   │   ├── ReqireAuth/
+│   │   │   └── RequireAuth.tsx
+│   │   ├── RowItem/
+│   │   │   └── RowItem.tsx
+│   │   ├── RowsList/
+│   │   │   └── RowsList.tsx
+│   │   ├── SavedLocationBox/
+│   │   │   └── SavedLocationBox.tsx
+│   │   └── SearchBox/
+│   │       ├── SearchBox.test.tsx
+│   │       └── SearchBox.tsx
+│   ├── elements/
+│   │   ├── Form/
+│   │   │   └── InputForm.tsx
+│   │   └── Toast/
+│   │       ├── Toast.tsx
+│   │       ├── Toasts.tsx
+│   │       └── toastListeners.ts
+│   ├── features/
+│   │   ├── auth/
+│   │   │   ├── authSelectors.ts
+│   │   │   ├── authSlice.test.ts
+│   │   │   └── authSlice.ts
+│   │   ├── calendar/
+│   │   │   ├── __mocks__/
+│   │   │   │   └── calendarSlice.ts
+│   │   │   ├── calendarSelectors.ts
+│   │   │   └── calendarSlice.ts
+│   │   ├── locations/
+│   │   │   ├── __mocks__/
+│   │   │   │   └── locationsSlice.ts
+│   │   │   ├── locationsSelectors.ts
+│   │   │   └── locationsSlice.ts
+│   │   ├── ui/
+│   │   │   ├── uiSelectors.test.ts
+│   │   │   ├── uiSelectors.ts
+│   │   │   ├── uiSlice.test.ts
+│   │   │   └── uiSlice.ts
+│   │   └── users/
+│   │       ├── __mocks__/
+│   │       │   └── usersSlice.ts
+│   │       ├── usersSelectors.ts
+│   │       └── usersSlice.ts
+│   ├── hooks/
+│   │   ├── useCalendar/
+│   │   │   ├── __mocks__/
+│   │   │   │   └── useCalendar.ts
+│   │   │   ├── useCalendar.test.ts
+│   │   │   └── useCalendar.ts
+│   │   └── useMap/
+│   │       ├── __mocks__/
+│   │       │   └── useMap.ts
+│   │       ├── useMap.test.ts
+│   │       └── useMap.ts
+│   ├── pages/
+│   │   ├── CalendarPage/
+│   │   │   ├── CalendarPage.test.tsx
+│   │   │   └── CalendarPage.tsx
+│   │   ├── GraphsPage/
+│   │   │   └── GraphsPage.tsx
+│   │   ├── HomePage/
+│   │   │   └── HomePage.tsx
+│   │   ├── LocationsPage/
+│   │   │   ├── LocationsPage.test.tsx
+│   │   │   └── LocationsPage.tsx
+│   │   ├── LoginPage/
+│   │   │   └── LoginPage.tsx
+│   │   ├── MapPage/
+│   │   │   ├── MapPage.test.tsx
+│   │   │   └── MapPage.tsx
+│   │   └── UsersPage/
+│   │       ├── UsersPage.test.tsx
+│   │       └── UsersPage.tsx
+│   ├── services/
+│   │   ├── __mocks__/
+│   │   │   ├── backend.ts
+│   │   │   └── mapboxApiService.ts
+│   │   ├── backend.ts
+│   │   ├── calendarService.ts
+│   │   └── mapboxApiService.ts
+│   ├── styles/
+│   │   ├── base/
+│   │   ├── components/
+│   │   ├── elements/
+│   │   ├── globals/
 │   │   ├── modals/
-│   │   │   ├── InLineHelpModal.tsx
-│   │   │   ├── OptionsHelpModal.tsx
-│   │   │   └── ShareUrlModal.tsx
-│   │   └── services/
-│   │       ├── Card.tsx
-│   │       ├── WebCardOptions.tsx
-│   │       └── Card.test.tsx
-│   │── data/
-│   │   ├── dataBudgets.json
-│   │   └── dataCards.json
-│   │── hooks/
-│   │   ├── useListItems.ts
-│   │   ├── useOptionsCounter.ts
-│   │   └── useOptionsCounter.test.ts
-│   │── pages/
-│   │   ├── BudgetPage.tsx
-│   │   └── WelcomePage.tsx
-│   │── styles/
-│   │   ├── _buttons.scss
-│   │   ├── _colors.scss
-│   │   ├── _home.scss
-│   │   ├── _modals.scss
-│   │   ├── _reset.scss
-│   │   ├── _typography.scss
-│   │   ├── _variables.scss
+│   │   ├── pages/
+│   │   ├── reset/
 │   │   └── main.scss
-│   │── types/
-│   │   └── types.tsx
-│   │── utils/
-│   │   └── urlUtils.ts
-│   │── AppRoutes.tsx
-│   │── main.tsx
-│   │── setupTests.ts
+│   ├── types/
+│   │   ├── calendarTypes.ts
+│   │   ├── forms.ts
+│   │   ├── locationTypes.ts
+│   │   ├── types.ts
+│   │   ├── uiTypes.ts
+│   │   └── userTypes.ts
+│   ├── App.tsx
+│   ├── main.tsx
+│   ├── setupTests.ts
 │   └── vite-env.d.ts
 ├── .editorconfig
+├── .env.example
 ├── .gitignore
 ├── eslint.config.js
 ├── index.html
@@ -145,54 +305,6 @@ The following image illustrates the main folder structure of the project:
 ├── package-lock.json
 ├── package.json
 ├── README.md
-├── tsconfig.app.json
 ├── tsconfig.json
-├── tsconfig.netlify.json
-├── tsconfig.node.json
 ├── tsconfig.test.json
 └── vite.config.ts
-```
-
-## 7. Instal·lació / Installation
-
-**CAT:**
-
-_Segueix aquests passos per clonar el projecte i fer servir el compilador TypeScript en mode “watch” i executa els estils amb SASS també en mode "watch"._
-
-**EN:**
-
-_Follow these steps to clone the project, use the TypeScript compiler in “watch” mode, and run the styles with SASS also in “watch” mode._
-
-**Requeriments / Prerequisites**
-
-- Node.js
-
-### 1) Clonar el repositori / Clone the repository
-
-```bash
-git clone https://github.com/albertvallsbe/2025-s6-albertvalls.git
-```
-
-### 2) Entrar al directori del projecte / Navigate into the project directory
-
-```
-cd 2025-s6-albertvalls
-```
-
-### 3) Instal·lar dependències / Install dependencies
-
-```
-npm i
-```
-
-### 4) Executar el compilador de Vite per a desenvolupament / Run Vite compiler in developer mode
-
-```
-npm run dev
-```
-
-### 6) Obre el live Server de Vite / Open the Live Server of Vite
-
-```
-http://localhost:5173
-```
