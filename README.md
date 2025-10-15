@@ -160,6 +160,8 @@ npm run test-w
 
 
 ## 9. Estructura / Structure
+
+```
 .
 ├── public/
 │   ├── logo.jpg
@@ -309,7 +311,29 @@ npm run test-w
 ├── tsconfig.json
 ├── tsconfig.test.json
 └── vite.config.ts
+```
 
 ## 10. Captures / Screenshots
 
+* **Login:**
 ![Login](public/screenshots/login.jpg)
+
+* **Users:**
+![Users](public/screenshots/users.jpg)
+
+* **Calendar:**
+![Calendar](public/screenshots/calendar.jpg)
+
+* **Event:**
+![Event](public/screenshots/event.jpg)
+
+* **Map:**
+![Map](public/screenshots/map.jpg)
+
+* **Locations:**
+![Locations](public/screenshots/locations.jpg)
+
+* **Graphs:**
+![Bar graph](public/screenshots/bargraph.jpg)
+![Line graph](public/screenshots/linegraph.jpg)
+![Pie graph](public/screenshots/pie.jpg)
