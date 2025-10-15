@@ -13,6 +13,7 @@
 7. [Instal·lació / Installation](#7-instal·lació--installation)
 8. [Testing](#8-testing)
 9. [Estructura / Structure](#9-estructura--structure)
+10. [Captures / Screenshots](#10-captures--screenshots)
 
 ## 1. Sobre el projecte / About
 
@@ -308,3 +309,7 @@ npm run test-w
 ├── tsconfig.json
 ├── tsconfig.test.json
 └── vite.config.ts
+
+## 10. Captures / Screenshots
+
+![Login](public/screenshots/login.jpg)
