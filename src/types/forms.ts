@@ -22,3 +22,15 @@ export interface FormInputProps {
 	error?: string;
 	inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
 }
+
+export interface SaveModalProps {
+	open: boolean;
+	onClose: () => void;
+}
+
+export interface SavedLocationBoxProps {
+	id: number;
+	name: string;
+	center: [number, number];
+	date: string;
+}

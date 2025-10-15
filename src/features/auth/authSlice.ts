@@ -1,4 +1,3 @@
-// src/features/auth/authSlice.ts
 import {
 	createSlice,
 	createAsyncThunk,

@@ -3,7 +3,7 @@ import { useAppSelector } from "../../app/hooks";
 import { selectAuthState } from "../../features/auth/authSelectors";
 
 type RequireAuthProps = {
-	// Preparat per a una segona fase amb rols (no s'aplica encara)
+	/** Preparat per a una segona fase amb rols (no s'aplica encara) */
 	requiredRole?: "admin" | "customer" | string;
 };
 
@@ -15,12 +15,12 @@ export const RequireAuth = ({
 
 	const isAuthenticated = Boolean(accessToken);
 
-	// FASE 1: només exigim estar autenticat
+	/** FASE 1: només exigim estar autenticat */
 	if (!isAuthenticated) {
 		return <Navigate to="/login" replace state={{ from: location }} />;
 	}
 
-	// FASE 2 (properament): si vols rols, comprovaríem aquí
+	/** FASE 2 (properament): si vols rols, comprovaríem aquí */
 	if (requiredRole && authenticatedUser?.role !== requiredRole) {
 		return <Navigate to="/login" replace state={{ from: location }} />;
 	}

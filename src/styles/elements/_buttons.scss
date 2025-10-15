@@ -8,7 +8,7 @@
 	display: grid;
 	place-items: center;
 
-	min-height: 2.5rem;
+	min-height: 2.25rem;
 	padding: 0.5rem 1.25rem;
 
 	border: variables.$border solid transparent;
@@ -49,6 +49,19 @@
 			background-color: colors.$neutral-main;
 			border-color: colors.$neutral-darkest;
 			color: colors.$neutral-darkest;
+		}
+	}
+
+	&--danger {
+		background-color: colors.$danger-main;
+		border-color: colors.$danger-main;
+		color: colors.$neutral-lightest;
+
+		&:hover,
+		&:focus {
+			background-color: colors.$danger-dark;
+			border-color: colors.$danger-dark;
+			color: colors.$neutral-lightest;
 		}
 	}
 

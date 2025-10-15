@@ -1,0 +1,99 @@
+@use "../base/colors";
+@use "../base/variables";
+@use "../base/button";
+
+%modal-button-base {
+  @extend %button-base;
+  padding: variables.$size-small variables.$size-large;
+  border: none;
+}
+
+.modal-container {
+  padding: variables.$size-large;
+  border: variables.$border solid colors.$neutral-light;
+  border-radius: variables.$border-radius;
+  box-shadow: variables.$shadow-medium;
+  width: min(400px, 90vw);
+	inset: 0;
+  margin: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+  &::backdrop {
+    background-color: rgba(colors.$neutral-darker, 0.7);
+  }
+
+  h2 {
+    margin-top: 0;
+    font-size: variables.$font-lg;
+    color: colors.$neutral-darker;
+  }
+
+  p {
+    color: colors.$neutral-dark;
+    margin-bottom: variables.$size-large;
+  }
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+	justify-content: center;
+	align-items: center;
+  gap: variables.$size-medium;
+}
+
+.modal-form-info {
+  display: flex;
+  flex-direction: column;
+	justify-content: center;
+	align-items: center;
+  gap: variables.$size-extra-small;
+
+	label {
+    font-weight: bold;
+    color: colors.$neutral-darker;
+  }
+
+  input {
+    padding: variables.$size-small;
+    font-size: variables.$font-sm;
+    border: variables.$border solid colors.$neutral-main;
+    border-radius: variables.$border-radius;
+  }
+}
+
+.modal-buttons-div {
+  display: flex;
+  justify-content: center;
+  gap: variables.$size-small;
+  margin-top: variables.$size-small;
+}
+
+.modal-button {
+  @extend %modal-button-base;
+
+  &:first-of-type {
+    color: colors.$neutral-lightest;
+    background-color: colors.$primary-main;
+  }
+
+  &:last-of-type {
+    color: colors.$neutral-darker;
+    background-color: colors.$neutral-light;
+  }
+}
+
+.confirmation-content {
+    display: flex;
+    flex-direction: column;
+		justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: variables.$size-small;
+}
+
+.error-message {
+	color: colors.$danger-dark;
+}

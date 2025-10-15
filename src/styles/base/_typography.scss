@@ -2,58 +2,58 @@
 @use "./colors";
 @use "./variables";
 
-// 14px
+/** 14px */
 %text-extra-small {
-	font-size: variables.$font-xs;
-	font-weight: 400;
+  font-size: variables.$font-xs;
+  font-weight: 400;
 
-	line-height: 1.4;
+  line-height: 1.4;
 }
 
-// 16px
+/** 16px */
 %text-small {
-	font-size: variables.$font-sm;
-	font-weight: 400;
+  font-size: variables.$font-sm;
+  font-weight: 400;
 
-	line-height: 1.5;
+  line-height: 1.5;
 }
 
-// 18px
+/** 18px */
 %text-medium {
-	font-size: variables.$font-md;
-	font-weight: 500;
+  font-size: variables.$font-md;
+  font-weight: 500;
 
-	line-height: 1.5;
+  line-height: 1.5;
 }
 
-// 20px
+/** 20px */
 %text-large {
-	font-size: variables.$font-lg;
-	font-weight: 600;
+  font-size: variables.$font-lg;
+  font-weight: 600;
 
-	line-height: 1.5;
+  line-height: 1.5;
 }
 
-// 24px
+/** 24px */
 %heading-extra-large {
-	font-size: variables.$font-xl;
-	font-weight: 600;
+  font-size: variables.$font-xl;
+  font-weight: 600;
 
-	line-height: 1.25;
+  line-height: 1.25;
 }
 
-// 28px
+/** 28px */
 %heading-doble-extra-large {
-	font-size: variables.$font-2xl;
-	font-weight: 700;
+  font-size: variables.$font-2xl;
+  font-weight: 700;
 
-	line-height: 1.2;
+  line-height: 1.2;
 }
 
-// 32px
+/** 32px */
 %heading-triple-extra-large {
-	font-size: variables.$font-3xl;
-	font-weight: 700;
+  font-size: variables.$font-3xl;
+  font-weight: 700;
 
-	line-height: 1.15;
+  line-height: 1.15;
 }

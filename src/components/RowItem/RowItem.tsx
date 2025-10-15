@@ -11,56 +11,47 @@ export interface UserRowProps {
  * UserRow: una línia de llistat d’usuaris.
  * - Presentacional: no fa crides, ni accedeix a Redux.
  * - Sense estils inline. Només classes CSS/SCSS.
- * - Sense `any`. Tipatge estricte.
  */
 export const RowItem: React.FC<UserRowProps> = React.memo(
 	({ user, onEdit, onDelete }) => {
 		return (
-			<li
-				className="users-row"
+			<div
+				className="row-item"
 				role="row"
 				aria-label={`Usuari ${user.email}`}
 				data-user-id={user.id}
 			>
-				<div className="users-row__cell users-row__cell--id" role="cell">
-					{user.id}
+				<div className="row-item__cell row-item__cell--id" role="cell">
+					{user.id ?? "—"}
 				</div>
-				<div className="users-row__cell users-row__cell--name" role="cell">
+				<div className="row-item__cell row-item__cell--name" role="cell">
 					{user.name ?? "—"}
 				</div>
-				<div className="users-row__cell users-row__cell--email" role="cell">
-					{user.email}
+				<div className="row-item__cell row-item__cell--email" role="cell">
+					{user.email ?? "—"}
 				</div>
-				<div className="users-row__cell users-row__cell--role" role="cell">
-					<span
-						className={
-							user.role === "admin" ? "badge badge--admin" : "badge badge--user"
-						}
+				<div className="row-item__cell row-item__cell--role" role="cell">
+					{user.role}
+				</div>
+				<div className="row-item__cell row-item__cell--actions" role="cell">
+					<button
+						type="button"
+						className="button button--back"
+						onClick={() => onEdit(user)}
+						aria-label={`Editar ${user.email}`}
 					>
-						{user.role}
-					</span>
+						Edita
+					</button>
+					<button
+						type="button"
+						className="button button--danger"
+						onClick={() => onDelete(user.id)}
+						aria-label={`Esborrar ${user.email}`}
+					>
+						Esborra
+					</button>
 				</div>
-				<div className="users-row__cell users-row__cell--actions" role="cell">
-					<div className="row-actions">
-						<button
-							type="button"
-							className="btn btn--secondary"
-							onClick={() => onEdit(user)}
-							aria-label={`Editar ${user.email}`}
-						>
-							Edita
-						</button>
-						<button
-							type="button"
-							className="btn btn--danger"
-							onClick={() => onDelete(user.id)}
-							aria-label={`Esborrar ${user.email}`}
-						>
-							Esborra
-						</button>
-					</div>
-				</div>
-			</li>
+			</div>
 		);
 	}
 );

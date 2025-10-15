@@ -1,6 +1,5 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "./styles/main.scss";
 import { BrowserRouter } from "react-router-dom";
 import "./styles/main.scss";
 import { Provider } from "react-redux";
@@ -11,7 +10,6 @@ import { App } from "./App";
 
 store.dispatch(hydrateFromLocalStorage());
 
-// Connectem interceptors amb un selector del token i l'acció en 401
 attachBackendInterceptors({
 	getAccessToken: () => {
 		const state = store.getState() as { auth?: { accessToken: string | null } };

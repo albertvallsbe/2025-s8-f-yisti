@@ -1,0 +1,106 @@
+@use "sass:color";
+@use "../base/variables";
+@use "../base/colors";
+@use "../base/typography";
+@use "../elements/icons";
+
+.rows-list {
+	display: grid;
+
+	border-radius: variables.$border-radius;
+	box-shadow: variables.$shadow-dark;
+	border: variables.$border solid colors.$primary-main;
+	overflow: hidden;
+	margin-bottom: 1rem;
+
+	h2 {
+		@extend %heading-doble-extra-large;
+
+		justify-self: center;
+		text-align: center;
+		color: colors.$primary-main;
+	}
+
+	&__header {
+		display: grid;
+		padding: 0.5rem;
+		background-color: colors.$neutral-dark;
+	}
+
+	&__body {
+		display: grid;
+		grid-template-columns: 80px 1.2fr 2fr 1.1fr 200px;
+		padding: 1rem;
+
+		@extend %text-large;
+
+		background-color: colors.$neutral-dark;
+		border-bottom: variables.$border solid colors.$primary-lighter;
+		color: colors.$neutral-darker;
+	}
+
+	&__list {
+		color: colors.$neutral-darker;
+		background-color: colors.$neutral-light;
+	}
+
+	&__empty,
+	&__error {
+		padding: 1.5rem;
+		text-align: center;
+		color: colors.$neutral-main;
+		font-size: 0.9rem;
+	}
+}
+
+/* RowItem.module.scss */
+.row-item {
+	display: grid;
+	grid-template-columns: 80px 1.2fr 2fr 1.1fr 200px;
+	align-items: center;
+	padding: variables.$size-medium;
+
+	border-bottom: 1px solid colors.$neutral-main;
+	transition: background 0.2s ease;
+
+	&:nth-child(even) {
+		background-color: colors.$neutral-lightest;
+
+	}
+
+	&:hover {
+		border: variables.$border solid colors.$primary-main;
+	}
+
+	&__cell {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+
+		&--actions {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 0.5rem;
+			justify-content: flex-end;
+		}
+	}
+}
+
+@media (max-width: 768px) {
+
+	/* amaguem capçalera i cel·les de la columna "name" */
+	.rows-list__body .rows-item__cell--name,
+	.row-item__cell--name {
+		display: none;
+	}
+
+	/* re-definim el grid sense la columna "name" */
+	.rows-list__body {
+		grid-template-columns: 80px 2fr 1.1fr 200px;
+		/* ID | Email | Rol | Accions */
+	}
+
+	.row-item {
+		grid-template-columns: 80px 2fr 1.1fr 200px;
+	}
+}

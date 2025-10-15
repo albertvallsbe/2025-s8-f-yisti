@@ -1,0 +1,87 @@
+@use "../base/colors";
+@use "../base/variables";
+@use "../base/button";
+
+%location-button {
+	font-size: variables.$font-sm;
+	padding: 8px 16px;
+	border: none;
+	color: colors.$neutral-lightest;
+	text-decoration: none;
+	display: inline-block;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+
+	&:hover {
+		transform: translateY(-2px);
+	}
+}
+
+.location-box {
+	background-color: colors.$neutral-lightest;
+	border: 1px solid colors.$neutral-light;
+	border-radius: variables.$border-radius;
+	padding: variables.$size-medium;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: variables.$font-lg;
+	margin-bottom: variables.$size-medium;
+	box-shadow: variables.$shadow-light;
+	gap: variables.$size-medium;
+
+	@media (max-width: variables.$breakpoint-medium) {
+		flex-direction: column;
+		align-items: flex-start;
+		font-size: variables.$font-md;
+	}
+
+	h2 {
+		color: colors.$neutral-darker;
+		margin: 0 0 variables.$size-small 0;
+	}
+
+	p {
+		margin: 0;
+		color: colors.$neutral-dark;
+		font-size: variables.$font-sm;
+
+		@media (max-width: variables.$breakpoint-medium) {
+			font-size: variables.$font-xs;
+		}
+	}
+}
+
+.location-buttons {
+	display: flex;
+	flex-shrink: 0;
+	column-gap: variables.$size-small;
+
+	@media (max-width: variables.$breakpoint-medium) {
+		width: 100%;
+		margin-top: variables.$size-medium;
+		a, button {
+			flex-grow: 1;
+			text-align: center;
+		}
+	}
+}
+
+.show-location-button {
+	@extend %button-base;
+	@extend %location-button;
+	background-color: colors.$primary-main;
+
+	&:hover {
+		background-color: colors.$primary-dark;
+	}
+}
+
+.delete-location-button {
+	@extend %button-base;
+	@extend %location-button;
+	background-color: colors.$danger-main;
+
+	&:hover {
+		background-color: colors.$danger-dark;
+	}
+}

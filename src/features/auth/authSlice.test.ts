@@ -1,9 +1,8 @@
-// src/features/auth/authSlice.test.ts
 import { configureStore } from "@reduxjs/toolkit";
 import {
 	AxiosError,
 	type AxiosResponse,
-	// type InternalAxiosRequestConfig,
+	/** type InternalAxiosRequestConfig, */
 } from "axios";
 import reducer, {
 	authenticateUser,
@@ -20,14 +19,14 @@ import {
 } from "../../types/userTypes";
 import backend from "../../services/backend";
 
-// Mock del client HTTP
+/** Mock del client HTTP */
 jest.mock("../../services/backend", () => ({
 	__esModule: true,
 	default: { post: jest.fn() },
 }));
 const mockedBackend = backend as unknown as { post: jest.Mock };
 
-// Store per a proves
+/** Store per a proves */
 const makeStore = (preloadedAuth?: Partial<AuthState>) =>
 	configureStore({
 		reducer: { auth: reducer },
@@ -44,10 +43,10 @@ const makeStore = (preloadedAuth?: Partial<AuthState>) =>
 	});
 
 describe("authSlice", () => {
-	// Proves del domini d'autenticació: reducers, transicions d'estat i thunks
+	/** Proves del domini d'autenticació: reducers, transicions d'estat i thunks */
 
 	describe("reducers", () => {
-		// Comportament dels reducers i efectes sobre localStorage
+		/** Comportament dels reducers i efectes sobre localStorage */
 
 		beforeEach(() => {
 			jest.clearAllMocks();
@@ -139,7 +138,7 @@ describe("authSlice", () => {
 	});
 
 	describe("extraReducers (authenticateUser)", () => {
-		// Transicions d'estat del cicle del thunk
+		/** Transicions d'estat del cicle del thunk */
 
 		beforeEach(() => {
 			jest.clearAllMocks();
@@ -207,7 +206,7 @@ describe("authSlice", () => {
 	});
 
 	describe("thunks integration", () => {
-		// Crides reals al thunk amb backend simulat
+		/** Crides reals al thunk amb backend simulat */
 
 		beforeEach(() => {
 			jest.clearAllMocks();
@@ -235,14 +234,14 @@ describe("authSlice", () => {
 		});
 
 		test("authenticateUser fails and stores error", async () => {
-			// Cos d'error idèntic al backend (Postman)
+			/** Cos d'error idèntic al backend (Postman) */
 			const errorBody = {
 				statusCode: 401,
 				error: "Unauthorized",
 				message: "Unauthorized",
 			};
 
-			// AxiosResponse tipat (sense any)
+			/** AxiosResponse tipat (sense any) */
 			const axiosResponse: AxiosResponse<typeof errorBody> = {
 				data: errorBody,
 				status: 401,
@@ -251,7 +250,7 @@ describe("authSlice", () => {
 				config: {},
 			} as unknown as AxiosResponse<typeof errorBody>;
 
-			// Instància real d'AxiosError amb la response enganxada
+			/** Instància real d'AxiosError amb la response enganxada */
 			const axiosErr = new AxiosError<typeof errorBody>(
 				"Request failed",
 				"ERR_BAD_REQUEST"

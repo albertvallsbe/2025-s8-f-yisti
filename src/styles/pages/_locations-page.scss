@@ -1,0 +1,49 @@
+@use "../base/colors";
+@use "../base/variables";
+
+%locations-message-base {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: variables.$size-extra-large;
+	margin-top: variables.$size-large;
+	border-radius: variables.$border-radius;
+	font-size: variables.$font-lg;
+	text-align: center;
+	font-weight: bold;
+
+	@media (max-width: variables.$breakpoint-medium) {
+		font-size: variables.$font-md;
+		padding: variables.$size-large;
+	}
+}
+
+.locations-loading {
+	@extend %locations-message-base;
+	color: colors.$neutral-dark;
+}
+
+.locations-error {
+	@extend %locations-message-base;
+	border: 1px solid colors.$danger-light;
+	color: colors.$danger-darker;
+}
+
+.locations-empty {
+	@extend %locations-message-base;
+	color: colors.$neutral-darker;
+}
+
+.locations-list {
+	display: flex;
+	flex-direction: column;
+	gap: variables.$size-medium;
+	padding: variables.$size-large;
+	max-width: variables.$viewport-max-width;
+	margin: 0 auto;
+
+	@media (max-width: variables.$breakpoint-medium) {
+		padding: variables.$size-medium;
+		gap: variables.$size-small;
+	}
+}

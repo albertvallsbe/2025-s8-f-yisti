@@ -11,7 +11,7 @@ import {
 	deleteUser,
 } from "../../features/users/usersSlice";
 
-// Tipus de les accions "rejected" (totes porten rejectValue: string)
+/** Tipus de les accions "rejected" (totes porten rejectValue: string) */
 type FetchRejected = ReturnType<typeof fetchUsers.rejected>;
 type CreateRejected = ReturnType<typeof createUser.rejected>;
 type UpdateRejected = ReturnType<typeof updateUser.rejected>;
@@ -35,7 +35,7 @@ const getErrMsg = (action: CrudRejectedAction): string =>
 
 export const toastListeners = createListenerMiddleware();
 
-// ÈXIT
+/** ÈXIT */
 toastListeners.startListening({
 	actionCreator: createUser.fulfilled,
 	effect: (_action, api) => {
@@ -57,11 +57,11 @@ toastListeners.startListening({
 	},
 });
 
-// ERROR (qualsevol operació del CRUD)
+/** ERROR (qualsevol operació del CRUD) */
 toastListeners.startListening({
 	matcher: isCrudRejected,
 	effect: (action: UnknownAction, api) => {
-		// Narrow tipat de l'acció gràcies al predicate
+		/** Narrow tipat de l'acció gràcies al predicate */
 		if (isCrudRejected(action)) {
 			api.dispatch(pushToast({ kind: "error", text: getErrMsg(action) }));
 		}

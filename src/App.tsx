@@ -6,8 +6,8 @@ import { GraphsPage } from "./pages/GraphsPage/GraphsPage";
 import { MapPage } from "./pages/MapPage/MapPage";
 import { Navbar } from "./components/Navbar/Navbar";
 import { LoginPage } from "./pages/LoginPage/LoginPage";
-import { AsideLeftMenu } from "./components/AsideLeftMenu/AsideLeftMenu";
 import { RequireAuth } from "./components/ReqireAuth/RequireAuth";
+import { LocationsPage } from "./pages/LocationsPage/LocationsPage";
 
 export const App = (): JSX.Element => (
 	<>
@@ -20,13 +20,13 @@ export const App = (): JSX.Element => (
 				<Route path="/calendar" element={<CalendarPage />} />
 				<Route path="/graphs" element={<GraphsPage />} />
 				<Route path="/map" element={<MapPage />} />
+				<Route path="/map/locations" element={< LocationsPage />}/>
 
 				<Route path="/admin/users" element={<UsersPage />} />
 			</Route>
 
 			<Route path="*" element={<Navigate to="/" replace />} />
 		</Routes>
-		<AsideLeftMenu />
 		<Navbar />
 	</>
 );

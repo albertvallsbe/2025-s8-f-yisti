@@ -1,0 +1,47 @@
+@use "../base/colors";
+@use "../base/variables";
+@use "../base/button";
+
+.map-container {
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+	position: relative;
+	z-index: 0;
+}
+
+.sidebar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  position: absolute;
+  top: 70px;
+  left: 0;
+  right: 0;
+
+	@media (max-width: variables.$breakpoint-medium) {
+		flex-direction: column;
+    align-items: baseline;
+    padding: 0 1rem;
+    gap: 1rem;
+	}
+
+}
+
+.save-button {
+  @extend %button-base;
+  padding: 6px 12px;
+  border: none;
+  color: colors.$neutral-lightest;
+  background-color: colors.$success-main;
+}
+
+.saved-button {
+  @extend %button-base;
+  padding: 4px 9px;
+  border: 3px solid colors.$success-main;
+  color: colors.$neutral-darker;
+  background-color: white;
+}
